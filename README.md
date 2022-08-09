@@ -12,7 +12,7 @@ Then run this program.
 
 然后运行这个程序。
 
-## Language
+## Language(语言)
 This program only supports Chinese.
 
 这个程序只支持中文。
