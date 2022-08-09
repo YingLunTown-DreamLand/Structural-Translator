@@ -25,7 +25,8 @@ This program only supports Chinese.
 - 大部分方块的方块状态(数据值)
 - 替换方块ID(根据方块池，将一种方块ID变更为另外一种，支持数据值检测)
 - 跳过空气(要求最终生成的 `.bdx` 不绘制空气，是一个 `可选` 选项)
-- 蛇形翻译(以最大 `16 * 16` 的大小来翻译，且方向是蛇形的，便于后续的导入)
+- 蛇形翻译(以最大 `16 * 16` 的区域为基础来进行翻译，且方向是蛇形的，便于后续的导入)
+- 支持超大文件(如大小达到 `500MB` 的结构)
 ## 什么是 `.mcstructure` 和 `.bdx` ?(This is not translated into English)
 1. `.mcstructure` 是 `Minecraft Bedrock Edition` 的原版文件，因此可以在电脑端通过 `结构方块` 导出.
 2. `.bdx` 是 `FastBuilder` 支持的文件格式，用于将 `.bdx` 内记录的建筑物数据导入到 网易我的世界中国版 · 租赁服
