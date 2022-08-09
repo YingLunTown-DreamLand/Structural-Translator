@@ -1,5 +1,5 @@
 # Structural-Translator
-A software that translates .mcstructure into .bdx
+A software that translates `.mcstructure` into `.bdx`
 
 ## How to use(如何使用)?
 Download the file named `Translator.exe` and put it with `input.mcstructure`.
