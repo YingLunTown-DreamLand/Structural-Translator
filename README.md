@@ -1,4 +1,4 @@
-# Structural-Translator
+# Structural-Translator(结构翻译器)
 A software that translates `.mcstructure` into `.bdx`
 
 这是一个翻译软件，用于将 `.mcstructure` 文件转换为 `.bdx` 格式。
