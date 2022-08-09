@@ -8,10 +8,13 @@ Download the file named `Translator.exe` and put it with `input.mcstructure` .
 
 Then run this program.
 
+Download link: https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe
+
 下载`Translator.exe`并把它和`input.mcstructure`放在一起。
 
 然后运行这个程序。
 
+下载链接: https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe
 ## Language(语言)
 This program only supports Chinese.
 
