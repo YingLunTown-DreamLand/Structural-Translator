@@ -30,7 +30,7 @@ This program only supports Chinese.
 - 显示翻译进度
 ## 什么是 `.mcstructure` 和 `.bdx` ?(This is not translated into English)
 1. `.mcstructure` 是 `Minecraft Bedrock Edition` 的原版文件，因此可以在电脑端通过 `结构方块` 导出.
-2. `.bdx` 是 `FastBuilder` 支持的文件格式，用于将 `.bdx` 内记录的建筑物数据导入到 网易我的世界中国版 · 租赁服
+2. `.bdx` 是 `FastBuilder` 支持的文件格式，用于将 `.bdx` 内记录的建筑物数据导入到 网易我的世界中国版 · 基岩版租赁服
 3. 你可以在这里访问 `FastBuilder` 的库: https://github.com/LNSSPsd/PhoenixBuilder/
 4. 如果你想要购买 `FastBuilder` ，您可以前往: 
    - 用户中心: https://uc.fastbuilder.pro/
