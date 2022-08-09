@@ -19,3 +19,10 @@ Download link: https://github.com/Happy2018new/Structural-Translator/raw/main/Tr
 This program only supports Chinese.
 
 这个程序只支持中文。
+## 已加入的功能(This is not translated into English)
+- 基本的翻译功能
+- 读取命令方块的数据并写入到生成的 `.bdx` 文件中
+- 大部分方块的方块状态(数据值)
+- 替换方块ID(根据方块池，将一种方块ID变更为另外一种，支持数据值检测)
+- 跳过空气(要求最终生成的 `.bdx` 不绘制空气，是一个 `可选` 选项)
+- 蛇形翻译(以最大 `16 * 16` 的大小来翻译，且方向是蛇形的，便于后续的导入)
