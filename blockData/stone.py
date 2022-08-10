@@ -28,5 +28,5 @@ def main():
     if Type == 'andesite':
         return 5
     if Type == 'andesite_smooth':
-        return 5
+        return 6
     #

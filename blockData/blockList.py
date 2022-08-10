@@ -5,6 +5,9 @@ blockList = []
 
 
 
+blockList.append([1,'minecraft:planks','import blockData.planks','blockData.planks.main()'])
+# 木板
+
 blockList.append([1,'minecraft:stone','import blockData.stone','blockData.stone.main()'])
 # 石头
 
