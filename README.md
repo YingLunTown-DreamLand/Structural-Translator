@@ -36,5 +36,5 @@ This program only supports Chinese.
    - 用户中心: https://uc.fastbuilder.pro/
    - 官网: https://fastbuilder.pro/
 ## 更改
-- 修复了无法正常解析 `minecraft:planks` 的数据值的问题 & 于 359a7bacc32c9c479fc88600f03f740e6c3d0e27 修复
+- 修复了无法正常解析 `minecraft:planks` 的数据值的问题[https://github.com/Happy2018new/Structural-Translator/commit/359a7bacc32c9c479fc88600f03f740e6c3d0e27]
 - 修复了无法正常解析 `minecraft:stone` 的数据值的问题
