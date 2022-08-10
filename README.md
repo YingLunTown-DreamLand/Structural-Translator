@@ -2,32 +2,55 @@
 A software that translates `.mcstructure` into `.bdx` .<br>
 这是一个翻译软件，用于将 `.mcstructure` 文件转换为 `.bdx` 格式。
 
-## How to use(如何使用)?
+## How to use(English)?
 1. Download the file named `Translator.exe` and put it with `input.mcstructure` .
    - [Download link](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
 2. Then run this program.
 ***
+Used on source code(For Debian or Termux)<br>
+For the first time to use<br>
+1. `apt install git`
+2. `apt install python`
+3. `pip install brotli`
+4. `cd ~/`
+5. `git clone https://github.com/Happy2018new/Structural-Translator`
+6. `cd Structural-Translator`
+7. put `input.mcstructure` here.
+8. `python Translator.py`
+***
+Later<br>
+1. `cd ~/Structural-Translator`
+2. put `input.mcstructure` here.
+3. `python Translator.py`
+***
+Update<br>
+1. `cd ~/`
+2. `rm -r Structural-Translator`
+3. `git clone https://github.com/Happy2018new/Structural-Translator`
+## 如何使用(中文 · 简体)
 1. 下载`Translator.exe`并把它和`input.mcstructure`放在一起。
    - [下载链接](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
 2. 然后运行这个程序。
 ***
-Used on source code(For Debian or Termux): <br>
+在源代码上使用(对于 Debian 或 Termux)：<br>
 1. `apt install git`
 2. `apt install python`
 3. `pip install brotli`
-4. `git clone https://github.com/Happy2018new/Structural-Translator`
-5. `cd Structural-Translator`
-6. put `input.mcstructure` here.
-7. `python Translator.py`
+4. `cd ~/`
+5. `git clone https://github.com/Happy2018new/Structural-Translator`
+6. `cd Structural-Translator`
+7. 将 `input.mcstructure` 放在当前位置。
+8. `python Translator.py`<
 ***
-在源代码上使用(支持 Debian 或 Termux)：<br>
-1. `apt install git`
-2. `apt install python`
-3. `pip install brotli`
-4. `git clone https://github.com/Happy2018new/Structural-Translator`
-5. `cd Structural-Translator`
-6. 将 `input.mcstructure` 放在当前位置。
-7. `python Translator.py`
+之后使用：<br>
+1. `cd ~/Structural-Translator`
+2. 将 `input.mcstructure` 放在当前位置。
+3. `python Translator.py`
+***
+更新：<br>
+1. `cd ~/`
+2. `rm -r Structural-Translator`
+3. `git clone https://github.com/Happy2018new/Structural-Translator`
 ## Language(语言)
 This program only supports Chinese.<br>
 这个程序只支持中文。
