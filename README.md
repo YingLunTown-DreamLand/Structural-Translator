@@ -1,6 +1,5 @@
 # Structural-Translator(结构翻译器)
-A software that translates `.mcstructure` into `.bdx` .
-
+A software that translates `.mcstructure` into `.bdx` .<br>
 这是一个翻译软件，用于将 `.mcstructure` 文件转换为 `.bdx` 格式。
 
 ## How to use(如何使用)?
@@ -12,8 +11,7 @@ A software that translates `.mcstructure` into `.bdx` .
    - [下载链接](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
 2. 然后运行这个程序。
 ## Language(语言)
-This program only supports Chinese.
-
+This program only supports Chinese.<br>
 这个程序只支持中文。
 ## 已加入的功能(This is not translated into English)
 - 基本的翻译功能
@@ -33,8 +31,7 @@ This program only supports Chinese.
    - [用户中心](https://uc.fastbuilder.pro/)
    - [官网](https://fastbuilder.pro/)
 ## About Me(联系我)
-You can contact me through `QQ` , my `QQ` is `3527679800` .
-
+You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
 - `v20.2 - 2022/08/10 Morning`
