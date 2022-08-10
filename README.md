@@ -40,7 +40,7 @@ Update<br>
 5. `git clone https://github.com/Happy2018new/Structural-Translator`
 6. `cd Structural-Translator`
 7. 将 `input.mcstructure` 放在当前位置。
-8. `python Translator.py`<
+8. `python Translator.py`
 ***
 之后使用：<br>
 1. `cd ~/Structural-Translator`
