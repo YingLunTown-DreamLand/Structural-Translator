@@ -7,7 +7,7 @@ A software that translates `.mcstructure` into `.bdx` .<br>
    - [Download link](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
 2. Then run this program.
 ***
-Used on source code(For Debian or Termux)<br>
+Used on source code(For `Termux` )<br>
 For the first time to use<br>
 1. `apt install git`
 2. `apt install python`
@@ -33,7 +33,7 @@ Update<br>
    - [下载链接](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
 2. 然后运行这个程序。
 ***
-在源代码上使用(对于 Debian 或 Termux)：<br>
+在源代码上使用(对于 `Termux` )：<br>
 1. `apt install git`
 2. `apt install python`
 3. `apt install pip`
