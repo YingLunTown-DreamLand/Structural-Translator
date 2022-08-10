@@ -11,12 +11,13 @@ Used on source code(For `Termux` )<br>
 For the first time to use<br>
 1. `apt install git`
 2. `apt install python`
-3. `pip install brotli`
-4. `cd ~/`
-5. `git clone https://github.com/Happy2018new/Structural-Translator`
-6. `cd Structural-Translator`
-7. put `input.mcstructure` here.
-8. `python Translator.py`
+3. `apt install openssh`
+4. `pip install brotli`
+5. `cd ~/`
+6. `git clone https://github.com/Happy2018new/Structural-Translator`
+7. `cd Structural-Translator`
+8. put `input.mcstructure` here.
+9. `python Translator.py`
 ***
 Later<br>
 1. `cd ~/Structural-Translator`
@@ -35,12 +36,13 @@ Update<br>
 在源代码上使用(对于 `Termux` )：<br>
 1. `apt install git`
 2. `apt install python`
-3. `pip install brotli`
-4. `cd ~/`
-5. `git clone https://github.com/Happy2018new/Structural-Translator`
-6. `cd Structural-Translator`
-7. 将 `input.mcstructure` 放在当前位置。
-8. `python Translator.py`
+3. `apt install openssh`
+4. `pip install brotli`
+5. `cd ~/`
+6. `git clone https://github.com/Happy2018new/Structural-Translator`
+7. `cd Structural-Translator`
+8. 将 `input.mcstructure` 放在当前位置。
+9. `python Translator.py`
 ***
 之后使用：<br>
 1. `cd ~/Structural-Translator`
