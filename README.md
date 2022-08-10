@@ -2,61 +2,14 @@
 A software that translates `.mcstructure` into `.bdx` .<br>
 这是一个翻译软件，用于将 `.mcstructure` 文件转换为 `.bdx` 格式。
 
-## How to use(English)?
+## How to use(如何使用)?
 1. Download the file named `Translator.exe` and put it with `input.mcstructure` .
    - [Download link](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
 2. Then run this program.
 ***
-Used on source code(For `Termux` )<br>
-For the first time to use<br>
-1. `apt install git`
-2. `apt install python`
-3. `apt install openssh`
-4. `apt install libssh2`
-5. `apt install curl`
-6. `pip install brotli`
-7. `cd ~/`
-8. `git clone https://github.com/Happy2018new/Structural-Translator`
-9. `cd Structural-Translator`
-10. put `input.mcstructure` here.
-11. `python Translator.py`
-***
-Later<br>
-1. `cd ~/Structural-Translator`
-2. put `input.mcstructure` here.
-3. `python Translator.py`
-***
-Update<br>
-1. `cd ~/`
-2. `rm -r Structural-Translator`
-3. `git clone https://github.com/Happy2018new/Structural-Translator`
-## 如何使用(中文 · 简体)
 1. 下载`Translator.exe`并把它和`input.mcstructure`放在一起。
    - [下载链接](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
 2. 然后运行这个程序。
-***
-在源代码上使用(对于 `Termux` )：<br>
-1. `apt install git`
-2. `apt install python`
-3. `apt install openssh`
-4. `apt install libssh2`
-5. `apt install curl`
-6. `pip install brotli`
-7. `cd ~/`
-8. `git clone https://github.com/Happy2018new/Structural-Translator`
-9. `cd Structural-Translator`
-10. 将 `input.mcstructure` 放在当前位置。
-11. `python Translator.py`
-***
-之后使用：<br>
-1. `cd ~/Structural-Translator`
-2. 将 `input.mcstructure` 放在当前位置。
-3. `python Translator.py`
-***
-更新：<br>
-1. `cd ~/`
-2. `rm -r Structural-Translator`
-3. `git clone https://github.com/Happy2018new/Structural-Translator`
 ## Language(语言)
 This program only supports Chinese.<br>
 这个程序只支持中文。
