@@ -10,6 +10,24 @@ A software that translates `.mcstructure` into `.bdx` .<br>
 1. 下载`Translator.exe`并把它和`input.mcstructure`放在一起。
    - [下载链接](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
 2. 然后运行这个程序。
+***
+Used on source code(For Debian or Termux): <br>
+1. `apt install git`
+2. `apt install python`
+3. `pip install brotli`
+4. `git clone https://github.com/Happy2018new/Structural-Translator`
+5. `cd Structural-Translator`
+6. put `input.mcstructure` here.
+7. `python Translator.py`
+***
+在源代码上使用(支持 Debian 或 Termux)：<br>
+1. `apt install git`
+2. `apt install python`
+3. `pip install brotli`
+4. `git clone https://github.com/Happy2018new/Structural-Translator`
+5. `cd Structural-Translator`
+6. 将 `input.mcstructure` 放在当前位置。
+7. `python Translator.py`
 ## Language(语言)
 This program only supports Chinese.<br>
 这个程序只支持中文。
