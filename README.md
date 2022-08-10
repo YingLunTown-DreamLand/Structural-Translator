@@ -35,6 +35,8 @@ This program only supports Chinese.
 4. 如果你想要购买 `FastBuilder` ，您可以前往: 
    - 用户中心: https://uc.fastbuilder.pro/
    - 官网: https://fastbuilder.pro/
+## 联系我
+您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` .
 ## 更改
-- 修复了无法正常解析 `minecraft:planks` 的数据值的问题[https://github.com/Happy2018new/Structural-Translator/commit/359a7bacc32c9c479fc88600f03f740e6c3d0e27]
-- 修复了无法正常解析 `minecraft:stone` 的数据值的问题
+- 修复了无法正常解析 `minecraft:planks` 的数据值的问题 & 于 [359a7ba](https://github.com/Happy2018new/Structural-Translator/commit/359a7bacc32c9c479fc88600f03f740e6c3d0e27) 修复
+- 修复了无法正常解析 `minecraft:stone` 的数据值的问题 & 于 [359a7ba](https://github.com/Happy2018new/Structural-Translator/commit/359a7bacc32c9c479fc88600f03f740e6c3d0e27) 和 [895ac42](https://github.com/Happy2018new/Structural-Translator/commit/895ac4285c2ee1415236905a2017d9ddc06e82f2) 修复
