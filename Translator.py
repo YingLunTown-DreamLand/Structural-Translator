@@ -30,11 +30,14 @@ print('进度：检查文件完整性……')
 # 初始化值
 if (check == 0) and (list(share.mcs) == ["Root:10"]):
     check = 1
-if (check == 1) and (set(list(share.mcs["Root:10"])) == set(["format_version:3","size:9","structure:10","structure_world_origin:9"])):
+if (check == 1) and (set(list(share.mcs["Root:10"])) == 
+set(["format_version:3","size:9","structure:10","structure_world_origin:9"])):
     check = 2
-if (check == 2) and ((share.mcs["Root:10"]["size:9"][0] > 0) and (share.mcs["Root:10"]["size:9"][0] > 0) and (share.mcs["Root:10"]["size:9"][2] > 0)):
+if (check == 2) and ((share.mcs["Root:10"]["size:9"][0] > 0) and (share.mcs["Root:10"]["size:9"][0] > 0) and (
+    share.mcs["Root:10"]["size:9"][2] > 0)):
     check = 3
-if (check == 3) and ((set(list(share.mcs["Root:10"]["structure:10"])) == set(["block_indices:9","palette:10","entities:9"])) or (set(list(share.mcs["Root:10"]["structure:10"])) == set(["block_indices:9","palette:10"]))):
+if (check == 3) and ((set(list(share.mcs["Root:10"]["structure:10"])) == set(["block_indices:9","palette:10","entities:9"])) or (
+    set(list(share.mcs["Root:10"]["structure:10"])) == set(["block_indices:9","palette:10"]))):
     check = 4
 if (check == 4):
     try:
@@ -42,13 +45,22 @@ if (check == 4):
         check = 5
     except:
         None
-if (check == 5) and ((set(list(share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]))) == set(list(["block_palette:9","block_position_data:10"]))):
+if (check == 5) and ((set(list(share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]))) == set(
+    list(["block_palette:9","block_position_data:10"]))):
     check = 6
-if (check == 6) and (len(share.mcs["Root:10"]["structure:10"]["block_indices:9"][0]) == len(share.mcs["Root:10"]["structure:10"]["block_indices:9"][1])):
+if (check == 6) and (len(share.mcs["Root:10"]["structure:10"]["block_indices:9"][0]) == len(
+    share.mcs["Root:10"]["structure:10"]["block_indices:9"][1])):
     check = 7
-if (check == 7) and ((share.mcs["Root:10"]["size:9"][0] * share.mcs["Root:10"]["size:9"][1] * share.mcs["Root:10"]["size:9"][2]) == len(share.mcs["Root:10"]["structure:10"]["block_indices:9"][0])):
+if (check == 7) and ((
+    share.mcs["Root:10"]["size:9"][0] * share.mcs["Root:10"]["size:9"][1] * share.mcs["Root:10"]["size:9"][2]) == len(
+    share.mcs["Root:10"]["structure:10"]["block_indices:9"][0])):
     check = 8
-if (check == 8) and (((min(share.mcs["Root:10"]["structure:10"]["block_indices:9"][0]) >= -1) and (min(share.mcs["Root:10"]["structure:10"]["block_indices:9"][1]) >= -1)) and ((max(share.mcs["Root:10"]["structure:10"]["block_indices:9"][0]) <= (len(share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"]) - 1)) and (max(share.mcs["Root:10"]["structure:10"]["block_indices:9"][1]) <= (len(share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"]) - 1)))):
+if (check == 8) and (((min(share.mcs["Root:10"]["structure:10"]["block_indices:9"][0]) >= -1) and (min(
+    share.mcs["Root:10"]["structure:10"]["block_indices:9"][1]) >= -1)) and ((max(
+    share.mcs["Root:10"]["structure:10"]["block_indices:9"][0]) <= (
+    len(share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"]) - 1)) and (
+    max(share.mcs["Root:10"]["structure:10"]["block_indices:9"][1]) <= (
+    len(share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"]) - 1)))):
     check = 9
 if (check == 9):
     try:
@@ -246,13 +258,13 @@ while True:
 
                 if upPointer == False:
                     if pointerPos[0] != 0:
-                        outputCommand.append(bytearray(b'\x15') + pointerPos[0].to_bytes(length=4,byteorder='big',signed=True))
+                        outputCommand.append(function.moveCommand(pointerPos[0],'x'))
                         pointerPos[0] = 0
                     if pointerPos[1] != 0:
-                        outputCommand.append(bytearray(b'\x17') + pointerPos[1].to_bytes(length=4,byteorder='big',signed=True))
+                        outputCommand.append(function.moveCommand(pointerPos[1],'y'))
                         pointerPos[1] = 0
                     if pointerPos[2] != 0:
-                        outputCommand.append(bytearray(b'\x19') + pointerPos[2].to_bytes(length=4,byteorder='big',signed=True))
+                        outputCommand.append(function.moveCommand(pointerPos[2],'z'))
                         pointerPos[2] = 0
                 # 变更指针位置(若需要变更的话)
 
