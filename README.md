@@ -42,3 +42,8 @@ You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
   - 修复了无法正常解析 `minecraft:planks` 的数据值的问题 & 于 [359a7ba](https://github.com/Happy2018new/Structural-Translator/commit/359a7bacc32c9c479fc88600f03f740e6c3d0e27) 修复
 - `v20.1 - 2022/08/09 Night`
   - 修复了无法正常解析 `minecraft:stone` 的数据值的问题 & 于 [359a7ba](https://github.com/Happy2018new/Structural-Translator/commit/359a7bacc32c9c479fc88600f03f740e6c3d0e27) 和 [895ac42](https://github.com/Happy2018new/Structural-Translator/commit/895ac4285c2ee1415236905a2017d9ddc06e82f2) 修复
+## 免责声明(This is not translated into English)
+若因为使用本软件而造成了任何可能的问题，我不会对此负责。（例如侵权等恶性事件）
+本工具的初衷是更高效的创作以及保留租赁服内的建筑物，而非实施其他可能的违法事件。
+同时，作者(我)保留有关此工具的所有解释权。
+特别应当注意的是，您不得将本工具用于盈利用途，除非得到作者的授权。
