@@ -10,131 +10,54 @@ import brotli
 
 
 
-try:
-    import mcstructureTojson
-except:
-    print('错误：您可能未提供文件或提供了无效文件.\n请将正确的文件置于当前目录并命名为"input.mcstructure".')
-    print('具体错误如下：\n')
-    print(traceback.format_exc())
-    os.system("pause")
-    sys.exit()
-    # 善后
-# 取得结构信息
+###
+while True:
+    print('您希望翻译 MC Structure 吗？(回答 Yes 或 No)\n注：选择 No 将翻译 白墙JSON 文件！')
+    translateMode = input()
+    if (translateMode == 'Yes') or (translateMode == 'yes') or (translateMode == 'y') or (translateMode == 'Y'):
+        translateMode = True
+        break
+    if (translateMode == 'No') or (translateMode == 'no') or (translateMode == 'n') or (translateMode == 'N'):
+        translateMode = False
+        break
+    print('错误：请不要答非所问.\n\n\n')
+###
+# 确定翻译模式
 
-
-
-
-
-check = 0
-print('进度：检查文件完整性……')
-# 初始化值
-if (check == 0) and (list(share.mcs) == ["Root:10"]):
-    check = 1
-if (check == 1) and (set(list(share.mcs["Root:10"])) == 
-set(["format_version:3","size:9","structure:10","structure_world_origin:9"])):
-    check = 2
-if (check == 2) and ((share.mcs["Root:10"]["size:9"][0] > 0) and (share.mcs["Root:10"]["size:9"][0] > 0) and (
-    share.mcs["Root:10"]["size:9"][2] > 0)):
-    check = 3
-if (check == 3) and ((set(list(share.mcs["Root:10"]["structure:10"])) == set(["block_indices:9","palette:10","entities:9"])) or (
-    set(list(share.mcs["Root:10"]["structure:10"])) == set(["block_indices:9","palette:10"]))):
-    check = 4
-if (check == 4):
+if translateMode == True:
     try:
-        list(share.mcs["Root:10"]["structure:10"]["palette:10"]).index("default:10")
-        check = 5
+        import mcstructureTojson
     except:
-        None
-if (check == 5) and ((set(list(share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]))) == set(
-    list(["block_palette:9","block_position_data:10"]))):
-    check = 6
-if (check == 6) and (len(share.mcs["Root:10"]["structure:10"]["block_indices:9"][0]) == len(
-    share.mcs["Root:10"]["structure:10"]["block_indices:9"][1])):
-    check = 7
-if (check == 7) and ((
-    share.mcs["Root:10"]["size:9"][0] * share.mcs["Root:10"]["size:9"][1] * share.mcs["Root:10"]["size:9"][2]) == len(
-    share.mcs["Root:10"]["structure:10"]["block_indices:9"][0])):
-    check = 8
-if (check == 8) and (((min(share.mcs["Root:10"]["structure:10"]["block_indices:9"][0]) >= -1) and (min(
-    share.mcs["Root:10"]["structure:10"]["block_indices:9"][1]) >= -1)) and ((max(
-    share.mcs["Root:10"]["structure:10"]["block_indices:9"][0]) <= (
-    len(share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"]) - 1)) and (
-    max(share.mcs["Root:10"]["structure:10"]["block_indices:9"][1]) <= (
-    len(share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"]) - 1)))):
-    check = 9
-if (check == 9):
+        print('错误：您可能未提供文件或提供了无效文件.\n请将正确的文件置于当前目录并命名为"input.mcstructure".')
+        print('具体错误如下：\n')
+        print(traceback.format_exc())
+        os.system("pause")
+        sys.exit()
+        # 善后
+    # 取得结构信息
+else:
     try:
-        for i in share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"]:
-            i["name:8"].split('minecraft:')[1]
-        check = 10
+        import Others.TranslateJSON
     except:
-        None
-# 判定错误类型
-if check != 10:
-    print('错误：您提供的文件的确满足 MCStructure 之编码格式，但文件内含信息不完整或无效，因此本翻译器拒绝继续翻译.')
-    if check == 0:
-        print('具体错误发生在：你正尝试修改源代码，但你似乎改错了……')
-    if check == 1:
-        print('具体错误发生在：文件可能已损坏')
-    if check == 2:
-        print('具体错误发生在：文件中声明的结构大小为负数')
-    if check == 3:
-        print('具体错误发生在：缺少方块索引表或调色板中至少其一')
-    if check == 4:
-        print('具体错误发生在：未找到原版调色板')
-    if check == 5:
-        print('具体错误发生在：原版调色板缺少方块状态数据或方块实体数据中至少其一')
-    if check == 6:
-        print('具体错误发生在：方块索引表中前景层和背景层的方块数目不等价')
-    if check == 7:
-        print('具体错误发生在：声明的方块数跟结构中实际记录的方块数不等价')
-    if check == 8:
-        print('具体错误发生在：方块索引表中指定的方块超出原版调色板范围')
-    if check == 9:
-        print('具体错误发生在：原版调色板中存在某一个方块未指定方块名或未指定命名空间')
-# 打印错误详情
-    os.system("pause")
-    sys.exit()
-print('进度：文件基本完整.')
-# 善后
-# 检查文件内容是否完整
+        print('错误：您可能未提供文件或提供了无效文件.\n请将正确的文件置于当前目录并命名为"input.json".')
+        print('具体错误如下：\n')
+        print(traceback.format_exc())
+        os.system("pause")
+        sys.exit()
+        # 善后
+    # 取得 JSON 信息
+# 取得信息
 
 
 
 
 
-errorList = []
-share.pool = []
-share.pointer = -1
-print('进度：开始提取方块池……')
-# 初始化
-for i in share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"]:
-    share.pointer = share.pointer + 1
-    # 移动指针
-    if len(i["states:10"]) == 0:
-        share.pool.append([i["name:8"],0])
-    else:
-        i1 = function.searchingFor(i["name:8"])
-        try:
-            exec(i1[1])
-            exec(f'share.pool.append([i["name:8"],{i1[2]}])')
-            if share.pool[-1][-1] == None:
-                0/0
-            if type(share.pool[-1][-1]) == list:
-                if share.pool[-1][-1][-1] == '摆烂':
-                    share.pool[-1] = [share.pool[-1][0],share.pool[-1][1][0],'摆烂']
-        except ZeroDivisionError:
-            share.pool[-1][-1] = 0
-            errorList.append(['function.return.none',share.pointer,i])
-        except TypeError:
-            share.pool.append([i["name:8"],0])
-            errorList.append(['block.not.found',share.pointer,i])
-        except:
-            share.pool.append([i["name:8"],0])
-            errorList.append(['translate.error',share.pointer,i])
-    # 取得方块名称及数据值
-print('进度：已成功提取方块池！')
-# 取得方块池
+if translateMode == True:
+    import check
+    # 检查结构完整性
+    import pool
+    errorList = pool.errorList
+    # 提取方块池
 
 
 
@@ -275,9 +198,9 @@ while True:
                         background[1].to_bytes(length=2,byteorder='big'))
                 # 处理含水方块(若需要处理的话)
 
-                if (foreground[0] == 'minecraft:command_block') or (
+                if ((foreground[0] == 'minecraft:command_block') or (
                     foreground[0] == 'minecraft:repeating_command_block') or (
-                    foreground[0] == 'minecraft:chain_command_block'):
+                    foreground[0] == 'minecraft:chain_command_block')) and (translateMode == True):
                     facing = foreground[1].to_bytes(length=2,byteorder='big')
                     # 朝向
                     if foreground[0] == 'minecraft:command_block':
@@ -452,21 +375,22 @@ print('完成：翻译完成，保存在当前目录下的 ans.bdx 中.')
 
 
 
-if len(mcstructureTojson.jumpList) > 0:
-    print('警告：翻译时舍弃了部分 NBT 数据，现在正在输出 警告 日志……')
-    with open("warning.log","w+") as file:
-        for i in mcstructureTojson.jumpList:
-            file.write(str(i) + '\n')
-    print('完成：已输出警告日志，保存在当前目前下的 warning.log 中.')
-# 输出警告
-if len(errorList) > 0:
-    print('错误：翻译时发生了错误，现在正在输出 错误 日志……')
-    with open("error.log","w+") as file:
-        for i in errorList:
-            file.write(str(i) + '\n')
-    print('完成：已输出错误日志，保存在当前目前下的 error.log 中.\n请通知开发者并附上此文件以修复Bug.')
-# 输出错误
-# 输出日志
+if translateMode == True:
+    if len(mcstructureTojson.jumpList) > 0:
+        print('警告：翻译时舍弃了部分 NBT 数据，现在正在输出 警告 日志……')
+        with open("warning.log","w+") as file:
+            for i in mcstructureTojson.jumpList:
+                file.write(str(i) + '\n')
+        print('完成：已输出警告日志，保存在当前目前下的 warning.log 中.')
+    # 输出警告
+    if len(errorList) > 0:
+        print('错误：翻译时发生了错误，现在正在输出 错误 日志……')
+        with open("error.log","w+") as file:
+            for i in errorList:
+                file.write(str(i) + '\n')
+        print('完成：已输出错误日志，保存在当前目前下的 error.log 中.\n请通知开发者并附上此文件以修复Bug.')
+    # 输出错误
+    # 输出日志
 
 
 
