@@ -34,6 +34,8 @@ This program only supports Chinese.<br>
 You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
+- `v22.0 - 2022/08/11 Afternoon`
+   - 在一定程度上支持了 白墙(`作弊类软件`) 导出的建筑文件(`JSON`) & 于 [3642335](https://github.com/Happy2018new/Structural-Translator/commit/36423355547af1d0141ebb8bc867e364408e272c) 更新
 - `v20.5 - 2022/08/11 Morning`
    - 现在在移动画笔时使用了其他类型的命令，一定程度上优化了解压后的文件大小 & 于 [f6cf5ee](https://github.com/Happy2018new/Structural-Translator/commit/f6cf5ee559551f63e6dda714193dbd01c39f32ef) 更新
 - `v20.2 - 2022/08/10 Morning`
