@@ -35,7 +35,7 @@ You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
 - `v25.0 - 2022/08/12 Afternoon`
-   - 修复了无法正常解析下述方块的方块状态的问题：<br>
+   - 修复了无法正常解析下述方块的方块状态的问题 & 于 [9dc98f3](https://github.com/Happy2018new/Structural-Translator/commit/9dc98f3f2930a9257fc6bdb87bed8b4dbc1d8f9c) 修复<br>
       ```
       minecraft:dirt
       minecraft:stained_glass_pane
