@@ -132,6 +132,7 @@ else:
 # # 初始化(2)
 partPosz = zMove - 1
 partPosx = xMove - 1
+fgIsWater = False
 # # 初始化(3)
 # 初始化
 print('进度：翻译开始.')
@@ -193,6 +194,7 @@ while True:
 
                 if background[0] != None:
                     if (len(background[0].split('water')) > 1) and (foreground[0] != None):
+                        fgIsWater = True
                         outputCommand.append(bytearray(b'\x07') + 
                         bgId.to_bytes(length=2,byteorder='big') + 
                         background[1].to_bytes(length=2,byteorder='big'))
@@ -274,7 +276,7 @@ while True:
                     outputCommand.append(bytearray(b'\x24')+facing+Type+command+bytearray(b'\x00')+name+
                     bytearray(b'\x00')+bytearray(b'\x00')+delay+executeOnFirstTick+trackOutput+conditional+nrs)
                     # 写入放置命令
-                else:
+                elif foreground[-1] != '摆烂':
                     if upPointer == False:
                         outputCommand.append(bytearray(b'\x07') + 
                         fgId.to_bytes(length=2,byteorder='big') + 
@@ -368,6 +370,8 @@ with open("ans.bdx","r+b") as file:
 # 读取原缓存内容
 with open("ans.bdx","w+b") as file:
     file.write(bytearray(b'BD@') + brotli.compress( ans + bytearray(b'').join(outputCommand) + bytearray(b'XE')))
+if fgIsWater == True:
+    print('警告：检测到此被翻译的结构存在含水方块，因此请在导入时不要使用 Omega 的 load 命令，否则会丢失这一特性！')
 print('完成：翻译完成，保存在当前目录下的 ans.bdx 中.')
 # 写入翻译结果
 

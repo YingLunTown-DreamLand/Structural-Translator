@@ -35,9 +35,6 @@ blockList.append([1,'minecraft:bamboo','import blockData.bamboo','blockData.bamb
 blockList.append([1,'minecraft:bed','import blockData.bed','blockData.bed.main()'])
 # 床
 
-blockList.append([1,'minecraft:ladder','import blockData.ladder','blockData.ladder.main()'])
-# 梯子
-
 blockList.append([1,'minecraft:prismarine','import blockData.prismarine','blockData.prismarine.main()'])
 # 海晶石
 
@@ -156,6 +153,7 @@ blockList.append([1,'minecraft:carved_pumpkin','import blockData.bed','blockData
 blockList.append([1,'minecraft:lit_pumpkin','import blockData.bed','blockData.bed.main()'])
 # 讲台、砂轮、钟、织布机、雕刻南瓜、南瓜灯
 
+blockList.append([1,'minecraft:ladder','import blockData.furnace','blockData.furnace.main()'])
 blockList.append([1,'minecraft:frame','import blockData.furnace','blockData.furnace.main()'])
 blockList.append([1,'minecraft:barrel','import blockData.furnace','blockData.furnace.main()'])
 blockList.append([1,'minecraft:skull','import blockData.furnace','blockData.furnace.main()'])
@@ -167,7 +165,7 @@ blockList.append([1,'minecraft:hopper','import blockData.furnace','blockData.fur
 blockList.append([1,'minecraft:dropper','import blockData.furnace','blockData.furnace.main()'])
 blockList.append([1,'minecraft:dispenser','import blockData.furnace','blockData.furnace.main()'])
 blockList.append([1,'minecraft:wall_banner','import blockData.furnace','blockData.furnace.main()'])
-# 物品展示框、木桶、头颅、切石机、末地烛、避雷针、侦测器、漏斗、投掷器、发射器、墙上的旗帜
+# 梯子、物品展示框、木桶、头颅、切石机、末地烛、避雷针、侦测器、漏斗、投掷器、发射器、墙上的旗帜
 
 blockList.append([1,'minecraft:wheat','import blockData.wheat','blockData.wheat.main()'])
 blockList.append([1,'minecraft:pumpkin_stem','import blockData.wheat','blockData.wheat.main()'])
@@ -185,6 +183,9 @@ blockList.append([1,'minecraft:stained_hardened_clay','import blockData.stained_
 blockList.append([0,'stained_glass','import blockData.stained_glass','blockData.stained_glass.main()'])
 blockList.append([0,'concrete','import blockData.stained_glass','blockData.stained_glass.main()'])
 # 染色贝壳箱子、羊毛、地毯、染色陶瓦、染色玻璃（染色玻璃板）、混凝土（混凝土粉末）
+
+blockList.append([0,'glazed_terracotta','import blockData.furnace','blockData.furnace.main()'])
+# 带釉陶瓦
 
 blockList.append([0,'command_block','import blockData.furnace','blockData.furnace.main()'])
 blockList.append([0,'furnace','import blockData.furnace','blockData.furnace.main()'])
