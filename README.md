@@ -34,6 +34,10 @@ This program only supports Chinese.<br>
 You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
+- `v26.0 - 2022/08/12 Night`<br>
+   - 修复了 `minecraft:double_plant` 在放置后会被破坏为掉落物的问题(恢复了原有的 `摆烂` 机制) & 于 [a2fb041](https://github.com/Happy2018new/Structural-Translator/commit/a2fb041a07ce5aa1b1bbd84b434df6ed8766945a) 修复
+   - 当被翻译的结构存在 `含水方块` 时，会在翻译即将结束时打印警告 & 于 [a2fb041](https://github.com/Happy2018new/Structural-Translator/commit/a2fb041a07ce5aa1b1bbd84b434df6ed8766945a) 更新
+   - 修复了无法正常解析 `带釉陶瓦` 这一类方块的数据值的问题 & 于 [a2fb041](https://github.com/Happy2018new/Structural-Translator/commit/a2fb041a07ce5aa1b1bbd84b434df6ed8766945a) 修复
 - `v25.1 - 2022/08/12 Night`
    - 修复了无法正常解析 `minecraft:portal` 的数据值的问题 & 于 [82d043f](https://github.com/Happy2018new/Structural-Translator/commit/82d043ff42741f49bb910a126ecf15a75be78bb7) 和 [fe7eb74](https://github.com/Happy2018new/Structural-Translator/commit/fe7eb749909081234c518739af90b38ed3487db8) 修复
 - `v25.0 - 2022/08/12 Afternoon`
