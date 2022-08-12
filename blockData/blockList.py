@@ -5,6 +5,12 @@ blockList = []
 
 
 
+blockList.append([1,'minecraft:bedrock','import blockData.bedrock','blockData.bedrock.main()'])
+# 基岩
+
+blockList.append([1,'minecraft:dirt','import blockData.dirt','blockData.dirt.main()'])
+# 泥土
+
 blockList.append([1,'minecraft:planks','import blockData.planks','blockData.planks.main()'])
 # 木板
 
@@ -13,6 +19,12 @@ blockList.append([1,'minecraft:stone','import blockData.stone','blockData.stone.
 
 blockList.append([1,'minecraft:wood','import blockData.wood','blockData.wood.main()'])
 # 木头
+
+blockList.append([1,'minecraft:fence','import blockData.fence','blockData.fence.main()'])
+# 各类木栅栏
+
+blockList.append([1,'minecraft:cobblestone_wall','import blockData.cobblestone_wall','blockData.cobblestone_wall.main()'])
+# 各类石墙
 
 blockList.append([1,'minecraft:vine','import blockData.vine','blockData.vine.main()'])
 # 藤蔓
@@ -32,9 +44,16 @@ blockList.append([1,'minecraft:prismarine','import blockData.prismarine','blockD
 blockList.append([1,'minecraft:stonebrick','import blockData.stonebrick','blockData.stonebrick.main()'])
 # 石砖
 
+blockList.append([1,'minecraft:sand','import blockData.sand','blockData.sand.main()'])
+# 沙子
+
 blockList.append([1,'minecraft:sandstone','import blockData.sandstone','blockData.sandstone.main()'])
 blockList.append([1,'minecraft:red_sandstone','import blockData.sandstone','blockData.sandstone.main()'])
 # 沙石（红沙石）
+
+blockList.append([1,'minecraft:lantern','import blockData.lantern','blockData.lantern.main()'])
+blockList.append([1,'minecraft:soul_lantern','import blockData.lantern','blockData.lantern.main()'])
+# 灯笼、灵魂灯笼
 
 blockList.append([1,'minecraft:quartz_block','import blockData.quartz_block','blockData.quartz_block.main()'])
 # 石英
@@ -97,6 +116,12 @@ blockList.append([1,'minecraft:turtle_egg','import blockData.turtle_egg','blockD
 blockList.append([1,'minecraft:sponge','import blockData.sponge','blockData.sponge.main()'])
 # 海绵
 
+blockList.append([1,'minecraft:chain','import blockData.chain','blockData.chain.main()'])
+# 锁链
+
+blockList.append([1,'minecraft:monster_egg','import blockData.monster_egg','blockData.monster_egg.main()'])
+# 被虫蛀的方块
+
 blockList.append([1,'minecraft:brown_mushroom_block','import blockData.brown_mushroom_block','blockData.brown_mushroom_block.main()'])
 blockList.append([1,'minecraft:red_mushroom_block','import blockData.brown_mushroom_block','blockData.brown_mushroom_block.main()'])
 # 棕色蘑菇方块、红色蘑菇方块
@@ -133,12 +158,13 @@ blockList.append([1,'minecraft:barrel','import blockData.furnace','blockData.fur
 blockList.append([1,'minecraft:skull','import blockData.furnace','blockData.furnace.main()'])
 blockList.append([1,'minecraft:stonecutter_block','import blockData.furnace','blockData.furnace.main()'])
 blockList.append([1,'minecraft:end_rod','import blockData.furnace','blockData.furnace.main()'])
+blockList.append([1,'minecraft:lightning_rod','import blockData.furnace','blockData.furnace.main()'])
 blockList.append([1,'minecraft:observer','import blockData.furnace','blockData.furnace.main()'])
 blockList.append([1,'minecraft:hopper','import blockData.furnace','blockData.furnace.main()'])
 blockList.append([1,'minecraft:dropper','import blockData.furnace','blockData.furnace.main()'])
 blockList.append([1,'minecraft:dispenser','import blockData.furnace','blockData.furnace.main()'])
 blockList.append([1,'minecraft:wall_banner','import blockData.furnace','blockData.furnace.main()'])
-# 物品展示框、木桶、头颅、切石机、末地烛、侦测器、漏斗、投掷器、发射器、墙上的旗帜
+# 物品展示框、木桶、头颅、切石机、末地烛、避雷针、侦测器、漏斗、投掷器、发射器、墙上的旗帜
 
 blockList.append([1,'minecraft:wheat','import blockData.wheat','blockData.wheat.main()'])
 blockList.append([1,'minecraft:pumpkin_stem','import blockData.wheat','blockData.wheat.main()'])
@@ -207,7 +233,9 @@ blockList.append([0,'rail','import blockData.rail','blockData.rail.main()'])
 # 铁轨
 
 blockList.append([0,'log','import blockData.log','blockData.log.main()'])
-# 各类原木（及去皮原木）
+blockList.append([0,'mangrove_wood','import blockData.log','blockData.log.main()'])
+blockList.append([0,'hyphae','import blockData.log','blockData.log.main()'])
+# 各类原木（及去皮原木）、红树木（及去皮红树木）、各类菌核
 
 blockList.append([0,'leaves','import blockData.leaves','blockData.leaves.main()'])
 # 各类树叶

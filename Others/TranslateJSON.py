@@ -1,7 +1,5 @@
-from email.quoprimime import body_check
 import json
 import sys
-from tkinter import Y
 sys.path.append(".")
 import share
 # 载入依赖项

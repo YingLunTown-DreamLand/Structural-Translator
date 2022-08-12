@@ -14,6 +14,8 @@ def main():
         return 1
     if type == 'magenta':
         return 2
+    if type == 'light_blue':
+        return 3
     if type == 'yellow':
         return 4
     if type == 'lime':

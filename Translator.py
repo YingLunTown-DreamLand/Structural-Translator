@@ -12,7 +12,7 @@ import brotli
 
 ###
 while True:
-    print('您希望翻译 MC Structure 吗？(回答 Yes 或 No)\n注：选择 No 将翻译 白墙JSON 文件！')
+    print('您希望翻译 MCStructure 吗？(回答 Yes 或 No)\n注：选择 No 将翻译 白墙JSON 文件！')
     translateMode = input()
     if (translateMode == 'Yes') or (translateMode == 'yes') or (translateMode == 'y') or (translateMode == 'Y'):
         translateMode = True
