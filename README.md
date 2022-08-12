@@ -34,6 +34,28 @@ This program only supports Chinese.<br>
 You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
+- `v25.0 - 2022/08/12 Afternoon`
+   - 修复了无法正常解析下述方块的方块状态的问题：<br>
+      ```
+      minecraft:dirt
+      minecraft:stained_glass_pane
+      minecraft:stained_hardened_clay
+      minecraft:carpet
+      minecraft:bedrock
+      minecraft:cobblestone_wall
+      minecraft:lantern
+      minecraft:fence
+      minecraft:chain
+      minecraft:monster_egg
+      minecraft:lightning_rod
+      minecraft:stripped_warped_hyphae
+      minecraft:crimson_hyphae
+      minecraft:warped_hyphae
+      minecraft:stripped_crimson_hyphae
+      minecraft:mangrove_wood
+      minecraft:stripped_mangrove_wood
+      minecraft:sand
+      ```
 - `v23.0 - 2022/08/11 Night`
    - 修复了 白墙( `作弊类软件` ) 导出的建筑文件( `JSON` )不能被正常翻译的问题 & 于 [d8f640f](https://github.com/Happy2018new/Structural-Translator/commit/d8f640fb7eada15946f2cb79ac7a2c2393d3b1ca) 修复
 - `v22.0 - 2022/08/11 Afternoon`
