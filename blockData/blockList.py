@@ -122,6 +122,9 @@ blockList.append([1,'minecraft:chain','import blockData.chain','blockData.chain.
 blockList.append([1,'minecraft:monster_egg','import blockData.monster_egg','blockData.monster_egg.main()'])
 # 被虫蛀的方块
 
+blockList.append([1,'minecraft:portal','import blockData.portal','blockData.portal.main()'])
+# 下界折跃门
+
 blockList.append([1,'minecraft:brown_mushroom_block','import blockData.brown_mushroom_block','blockData.brown_mushroom_block.main()'])
 blockList.append([1,'minecraft:red_mushroom_block','import blockData.brown_mushroom_block','blockData.brown_mushroom_block.main()'])
 # 棕色蘑菇方块、红色蘑菇方块
