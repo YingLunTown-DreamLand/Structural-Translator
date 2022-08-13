@@ -102,7 +102,10 @@ successCount = 0
 if rbiSit == True:
     poolNew = []
     for i in share.pool:
-        poolNew.append([i[0],i[1]])
+        if i[-1] != '摆烂':
+            poolNew.append([i[0],i[1]])
+        else:
+            poolNew.append([i[0],i[1],i[2]])
         #
         for i1 in rbiList:
             if ((i[0] == i1[0]) and (i[1] == i1[1])) or ((i[0] == i1[0]) and (i1[1] == -1)):
@@ -110,7 +113,10 @@ if rbiSit == True:
                 successCount = successCount + 1
                 if i1[3] != -1:
                     poolNew[-1][1] = i1[3]
+                if i[-1] == '摆烂':
+                    del poolNew[-1][2]
                 break
     share.pool = copy.deepcopy(poolNew)
     print(f'替换方块ID：完成，总计替换 {successCount} 次.')
 # 组件 - 替换方块ID
+print(share.pool)
