@@ -35,7 +35,7 @@ You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
 - `v26.4 - 2022/08/13 Afternoon`
-   - 修复了在使用 `组件 - 替换方块ID` 是会打印 `方块池` 列表的问题 & 于 [31e43eb](https://github.com/Happy2018new/Structural-Translator/commit/31e43eb705d9b9eb5cc63fd33e7c75c9419ee569) 修复
+   - 修复了在使用 `组件 - 替换方块ID` 时会打印 `方块池` 列表的问题 & 于 [31e43eb](https://github.com/Happy2018new/Structural-Translator/commit/31e43eb705d9b9eb5cc63fd33e7c75c9419ee569) 修复
 - `v26.3 - 2022/08/13 Afternoon`
    - 修复了在使用 `组件 - 替换方块ID` 时 `摆烂` 数据会丢失的问题，同时机制变更为如下 & 于 [4b4347b](https://github.com/Happy2018new/Structural-Translator/commit/4b4347b9b368657427b872f03bac33ecb3a51636) 修复
      - 当替换了 `minecraft:double_plant` 时，此方块若原本存在 `摆烂` 标记，则标记会丢失。
