@@ -119,4 +119,3 @@ if rbiSit == True:
     share.pool = copy.deepcopy(poolNew)
     print(f'替换方块ID：完成，总计替换 {successCount} 次.')
 # 组件 - 替换方块ID
-print(share.pool)
