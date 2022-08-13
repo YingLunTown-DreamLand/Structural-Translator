@@ -34,6 +34,9 @@ This program only supports Chinese.<br>
 You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
+- `v26.3 - 2022/08/13 Afternoon`
+   - 修复了在使用 `组件 - 替换方块ID` 时 `摆烂` 数据会丢失的问题，同时机制变更为如下 & 于 [4b4347b](https://github.com/Happy2018new/Structural-Translator/commit/4b4347b9b368657427b872f03bac33ecb3a51636) 修复
+     - 当替换了 `minecraft:double_plant` 时，此方块若原本存在 `摆烂` 标记，则标记会丢失，否则不会丢失。
 - `v26.0 - 2022/08/12 Night`<br>
    - 修复了 `minecraft:double_plant` 在放置后会被破坏为掉落物的问题(恢复了原有的 `摆烂` 机制) & 于 [a2fb041](https://github.com/Happy2018new/Structural-Translator/commit/a2fb041a07ce5aa1b1bbd84b434df6ed8766945a) 修复
    - 当被翻译的结构存在 `含水方块` 时，会在翻译即将结束时打印警告 & 于 [a2fb041](https://github.com/Happy2018new/Structural-Translator/commit/a2fb041a07ce5aa1b1bbd84b434df6ed8766945a) 更新
