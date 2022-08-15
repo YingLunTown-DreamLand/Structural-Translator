@@ -11,7 +11,7 @@ A software that translates `.mcstructure` into `.bdx` .<br>
    - [下载链接](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
 2. 然后运行这个程序。
 ## Run the program on source code(For `Termux` )
-Install and First Use
+Download and First Use
 1. Execute the following command
 ```
 apt update && apt upgrade && apt install python && apt install git && pip install brotli && cd /sdcard && git clone https://github.com/Happy2018new/Structural-Translator/ && cd Structural-Translator
@@ -23,7 +23,7 @@ Subsequent Use
 2. Then put `input.mcstructure` in the path `/storage/emulated/0/Structural-Translator` .
 3. Run command `python Translator.py` .
 ***
-Uninstall
+Remove
 ```
 cd /sdcard && rm -r Structural-Translator
 ```
@@ -33,7 +33,7 @@ Update
 cd /sdcard && rm -r Structural-Translator && git clone https://github.com/Happy2018new/Structural-Translator/
 ```
 ## 从源代码运行程序(对于 `Termux` )
-安装和首次使用
+下载和首次使用
 1. 在 `Termux` 执行此命令：
 ```
 apt update && apt upgrade && apt install python && apt install git && pip install brotli && cd /sdcard && git clone https://github.com/Happy2018new/Structural-Translator/ && cd Structural-Translator
@@ -45,7 +45,7 @@ apt update && apt upgrade && apt install python && apt install git && pip instal
 2. 将 `input.mcstructure` 或 `input.json` 放置在路径 `/storage/emulated/0/Structural-Translator` 。
 3. 在 `Termux` 执行命令 `python Translator.py` 。
 ***
-卸载
+移除
 ```
 cd /sdcard && rm -r Structural-Translator
 ```
