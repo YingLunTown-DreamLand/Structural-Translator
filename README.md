@@ -2,6 +2,9 @@
 A software that translates `.mcstructure` into `.bdx` .<br>
 这是一个翻译软件，用于将 `.mcstructure` 文件转换为 `.bdx` 格式。
 
+## 置顶内容(This is not translated into English)
+请勿将本工具用于有版权建筑，一切都应该取得建筑原作者的授权！！！
+
 ## How to use(如何使用)?
 1. Download the file named `Translator.exe` and put it with `input.mcstructure` .
    - [Download link](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
