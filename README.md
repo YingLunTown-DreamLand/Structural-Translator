@@ -84,7 +84,7 @@ You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
 - `v30.0 - 2022/08/18 Morning`
-   - 支持了容器中的物品(仅限 `物品数据值` )，具体如下 & 于 [e7d8f4a](https://github.com/Happy2018new/Structural-Translator/commit/e7d8f4ab88f4584de79ab773b41dbe339956049a) 更新
+   - `实验性功能` - 支持了容器中的物品(仅限 `物品数据值` )，具体如下 & 于 [e7d8f4a](https://github.com/Happy2018new/Structural-Translator/commit/e7d8f4ab88f4584de79ab773b41dbe339956049a) 更新
    ```
    高炉(燃烧的高炉)
    烟熏炉(燃烧的烟熏炉)
