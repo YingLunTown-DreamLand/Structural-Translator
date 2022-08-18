@@ -7,8 +7,8 @@ import share
 
 def main():
     #
-    Type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["wood_type:8"]
-    stripped_bit = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["stripped_bit:1"]
+    Type = share.ans["wood_type:8"]
+    stripped_bit = share.ans["stripped_bit:1"]
     #
     if Type == 'oak':
         data = 0

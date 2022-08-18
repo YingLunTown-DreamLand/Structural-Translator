@@ -51,10 +51,10 @@ def GetInf(input:bytearray,pointer:int=0,Type:int=None):
     `Type:int` 指要解析的类型(专门为列表设计，因为列表内的元素是没有`type`的)
     \n返回值
     返回`list`，格式为`[类型:str|int, 名称:str|None, 内容:str|int|list, 指针位置:int]`
-    如果解析结果应被丢弃(只要不是这些: `bytes`、`int`、`string`、`list`和`component`)，则返回的`类型`是`str(int)`，否则返回`int`
+    如果解析结果应被丢弃(只要不是这些: `bytes`、`short`、`int`、`string`、`list`和`component`)，则返回的`类型`是`str(int)`，否则返回`int`
     对于返回的`类型`，即:可用`int()`函数变为数字的数字或字符串，它们(数字)分别指代以下事物
         `1(int):Bytes`
-        `2:舍弃`
+        `2(short):int`
         `3(int):int`
         `4:舍弃`
         `5:舍弃`
@@ -85,6 +85,8 @@ def GetInf(input:bytearray,pointer:int=0,Type:int=None):
     # 获取类型及名称
     if Type == 1:
         return [Type,name,ord(input[pointer:pointer+1]),pointer+1]
+    if Type == 2:
+        return [Type,name,struct.unpack('<h',input[pointer:pointer+2])[0],pointer+2]
     if Type == 3:
         return [Type,name,struct.unpack('<i',input[pointer:pointer+4])[0],pointer+4]
     if Type == 8:
@@ -101,8 +103,6 @@ def GetInf(input:bytearray,pointer:int=0,Type:int=None):
         pointer+5]
     if Type == 10:
         return [Type,name,pointer]
-    if Type == 2:
-        return [str(Type),name,pointer+2]
     if Type == 4 or Type == 6:
         return [str(Type),name,pointer+8]
     if Type == 5:
@@ -122,8 +122,8 @@ def Component(input:bytearray,pointer:int=0):
     处理`component`类型及其子成员(可调用函数本身或被`List`函数调用，未限制递归深度)
     \n参数
     `input:bytearray` 指要处理的`bytearray`
-        # 默认为`0`
     `pointer:int` 指处理位置(将指针移动到`input`的哪里)
+        # 默认为`0`
     \n运行机制
     在运行过程中向列表`jsonList`(是全局变量)插入`JSON`内容(插入的是`str`)，而非返回完整的`JSON`内容
     \n返回值
@@ -177,7 +177,7 @@ def Component(input:bytearray,pointer:int=0):
             jsonList.append(f'"{ans[2]}"')
             jsonList.append(',')
             pointer = ans[-1]
-        # 处理 bytes, int, string 情况
+        # 处理 shrot, bytes, int, string 情况
     return pointer
 # 处理组
 
@@ -239,7 +239,7 @@ def List(input:bytearray,Type:int,repeat:int,pointer:int):
             jsonList.append(f'"{ans[2]}"')
             jsonList.append(',')
             pointer = ans[-1]
-        # 处理 bytes, int, string 情况
+        # 处理 shrot, bytes, int, string 情况
     return pointer
 # 处理列表
 

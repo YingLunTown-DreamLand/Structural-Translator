@@ -6,7 +6,7 @@ import share
 
 
 def main():
-    type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["flower_type:8"]
+    type = share.ans["flower_type:8"]
     #
     if type == 'poppy':
         return 0

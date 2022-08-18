@@ -6,21 +6,21 @@ import share
 
 
 def main():
-    name = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["name:8"]
+    name = share.name
     #
     if name == 'minecraft:coral' or name == 'minecraft:coral_fan' or name == 'minecraft:coral_fan_dead' or name == 'minecraft:coral_block':
-        type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["coral_color:8"]
+        type = share.ans["coral_color:8"]
     else:
         type = None
     #
     if name == 'minecraft:coral' or name == 'minecraft:coral_fan_hang' or name == 'minecraft:coral_fan_hang2' or name == 'minecraft:coral_fan_hang3' or name == 'minecraft:coral_block':
-        dead_bit = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["dead_bit:1"]
+        dead_bit = share.ans["dead_bit:1"]
     else:
         dead_bit = None
     #
     if name == 'minecraft:coral_fan_hang' or name == 'minecraft:coral_fan_hang2' or name == 'minecraft:coral_fan_hang3':
-        coral_direction = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["coral_direction:3"]
-        coral_hang_type_bit = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["coral_hang_type_bit:1"]
+        coral_direction = share.ans["coral_direction:3"]
+        coral_hang_type_bit = share.ans["coral_hang_type_bit:1"]
     else:
         coral_hang_type_bit = None
         coral_direction = None

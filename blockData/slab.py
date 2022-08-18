@@ -6,11 +6,11 @@ import share
 
 
 def main():
-    name = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["name:8"]
+    name = share.name
     #
     if name == 'minecraft:stone_block_slab':
-        type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["stone_slab_type:8"]
-        top_slot_bit = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["top_slot_bit:1"]
+        type = share.ans["stone_slab_type:8"]
+        top_slot_bit = share.ans["top_slot_bit:1"]
         #
         if type == 'smooth_stone':
             if top_slot_bit == 0:
@@ -55,8 +55,8 @@ def main():
         #
     #
     if name == 'minecraft:stone_block_slab4':
-        type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["stone_slab_type_4:8"]
-        top_slot_bit = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["top_slot_bit:1"]
+        type = share.ans["stone_slab_type_4:8"]
+        top_slot_bit = share.ans["top_slot_bit:1"]
         #
         if type == 'stone':
             if top_slot_bit == 0:
@@ -86,8 +86,8 @@ def main():
         #
     #
     if name == 'minecraft:stone_block_slab2':
-        type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["stone_slab_type_2:8"]
-        top_slot_bit = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["top_slot_bit:1"]
+        type = share.ans["stone_slab_type_2:8"]
+        top_slot_bit = share.ans["top_slot_bit:1"]
         #
         if type == 'red_sandstone':
             if top_slot_bit == 0:
@@ -132,8 +132,8 @@ def main():
         #
     #
     if name == 'minecraft:wooden_slab':
-        type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["wood_type:8"]
-        top_slot_bit = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["top_slot_bit:1"]
+        type = share.ans["wood_type:8"]
+        top_slot_bit = share.ans["top_slot_bit:1"]
         #
         if type == 'oak':
             if top_slot_bit == 0:
@@ -168,7 +168,7 @@ def main():
         #
     #
     if (name == 'minecraft:mangrove_slab') or (name == 'minecraft:crimson_slab') or (name == 'minecraft:warped_slab') or (name == 'minecraft:blackstone_slab') or (name == 'minecraft:polished_blackstone_slab') or (name == 'minecraft:cut_copper_slab') or (name == 'minecraft:exposed_cut_copper_slab') or (name == 'minecraft:weathered_cut_copper_slab') or (name == 'minecraft:cobbled_deepslate_slab') or (name == 'minecraft:polished_deepslate_slab') or (name == 'minecraft:deepslate_tile_slab') or (name == 'minecraft:deepslate_brick_slab') or (name == 'minecraft:mud_brick_slab'):
-        top_slot_bit = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["top_slot_bit:1"]
+        top_slot_bit = share.ans["top_slot_bit:1"]
         #
         if top_slot_bit == 0:
             return 0
@@ -177,8 +177,8 @@ def main():
         #
     #
     if name == 'minecraft:stone_block_slab3':
-        type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["stone_slab_type_3:8"]
-        top_slot_bit = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["top_slot_bit:1"]
+        type = share.ans["stone_slab_type_3:8"]
+        top_slot_bit = share.ans["top_slot_bit:1"]
         #
         if type == 'granite':
             if top_slot_bit == 0:
@@ -223,7 +223,7 @@ def main():
         #
     #
     if name == 'minecraft:double_stone_block_slab':
-        type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["stone_slab_type:8"]
+        type = share.ans["stone_slab_type:8"]
         #
         if type == 'smooth_stone':
             return 0
@@ -244,7 +244,7 @@ def main():
         #
     #
     if name == 'minecraft:double_stone_block_slab4':
-        type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["stone_slab_type_4:8"]
+        type = share.ans["stone_slab_type_4:8"]
         #
         if type == 'stone':
             return 2
@@ -259,7 +259,7 @@ def main():
         #
     #
     if name == 'minecraft:double_stone_block_slab2':
-        type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["stone_slab_type_2:8"]
+        type = share.ans["stone_slab_type_2:8"]
         #
         if type == 'red_sandstone':
             return 0
@@ -280,7 +280,7 @@ def main():
         #
     #
     if name == 'minecraft:double_wooden_slab':
-        type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["wood_type:8"]
+        type = share.ans["wood_type:8"]
         #
         if type == 'oak':
             return 0
@@ -297,7 +297,7 @@ def main():
         #
     #
     if name == 'minecraft:double_stone_block_slab3':
-        type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["stone_slab_type_3:8"]
+        type = share.ans["stone_slab_type_3:8"]
         #
         if type == 'granite':
             return 0

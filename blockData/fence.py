@@ -6,7 +6,7 @@ import share
 
 
 def main():
-    wood_type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["wood_type:8"]
+    wood_type = share.ans["wood_type:8"]
     #
     if wood_type == 'oak':
         return 0

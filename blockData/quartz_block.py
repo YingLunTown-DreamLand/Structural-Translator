@@ -6,8 +6,8 @@ import share
 
 
 def main():
-    type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["chisel_type:8"]
-    pillar_axis = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["pillar_axis:8"]
+    type = share.ans["chisel_type:8"]
+    pillar_axis = share.ans["pillar_axis:8"]
     #
     if type == 'default' and pillar_axis == 'y':
         return 0

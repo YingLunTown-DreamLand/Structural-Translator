@@ -6,7 +6,7 @@ import share
 
 
 def main():
-    type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["prismarine_block_type:8"]
+    type = share.ans["prismarine_block_type:8"]
     #
     if type == 'default':
         return 0

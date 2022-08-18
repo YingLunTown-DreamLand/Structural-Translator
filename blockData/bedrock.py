@@ -6,5 +6,5 @@ import share
 
 
 def main():
-    return share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["infiniburn_bit:1"]
+    return share.ans["infiniburn_bit:1"]
     #

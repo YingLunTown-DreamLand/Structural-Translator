@@ -7,11 +7,11 @@ import share
 
 def main():
     try:
-        Type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["stone_type:8"]
+        Type = share.ans["stone_type:8"]
     except:
         None
     try:
-        Type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["type:8"]
+        Type = share.ans["type:8"]
     except:
         None
     #

@@ -6,8 +6,8 @@ import share
 
 
 def main():
-    cracked_state = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["cracked_state:8"]
-    turtle_egg_count = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["turtle_egg_count:8"]
+    cracked_state = share.ans["cracked_state:8"]
+    turtle_egg_count = share.ans["turtle_egg_count:8"]
     #
     if turtle_egg_count == 'one_egg':
         data = 0

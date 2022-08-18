@@ -6,17 +6,17 @@ import share
 
 
 def main():
-    name = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["name:8"]
-    persistent_bit = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["persistent_bit:1"]
-    update_bit = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["update_bit:1"]
+    name = share.name
+    persistent_bit = share.ans["persistent_bit:1"]
+    update_bit = share.ans["update_bit:1"]
     #
     if name == 'minecraft:leaves' or name == 'minecraft:leaves2':
         try:
-            type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["old_leaf_type:8"]
+            type = share.ans["old_leaf_type:8"]
         except:
             None
         try:
-            type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["new_leaf_type:8"]
+            type = share.ans["new_leaf_type:8"]
         except:
             None
     else:

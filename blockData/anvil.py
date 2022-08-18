@@ -6,8 +6,8 @@ import share
 
 
 def main():
-    direction = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["direction:3"]
-    damage = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["damage:8"]
+    direction = share.ans["direction:3"]
+    damage = share.ans["damage:8"]
     #
     if damage == 'undamaged':
         return direction

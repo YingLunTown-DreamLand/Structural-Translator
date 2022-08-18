@@ -6,10 +6,10 @@ import share
 
 
 def main():
-    lit = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["lit:1"]
+    lit = share.ans["lit:1"]
     #
     try:
-        candles = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["candles:3"]
+        candles = share.ans["candles:3"]
     except:
         if lit == 1:
             return 1

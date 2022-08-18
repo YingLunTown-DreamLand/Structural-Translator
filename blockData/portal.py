@@ -6,7 +6,7 @@ import share
 
 
 def main():
-    portal_axis = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["portal_axis:8"]
+    portal_axis = share.ans["portal_axis:8"]
     #
     if portal_axis == 'unknown' or portal_axis == 'z':
         return 2

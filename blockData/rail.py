@@ -6,9 +6,9 @@ import share
 
 
 def main():
-    rail_direction = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["rail_direction:3"]
+    rail_direction = share.ans["rail_direction:3"]
     try:
-        rail_data_bit = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["rail_data_bit:1"]
+        rail_data_bit = share.ans["rail_data_bit:1"]
     except:
         rail_data_bit = 0
     #

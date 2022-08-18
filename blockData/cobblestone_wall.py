@@ -6,7 +6,7 @@ import share
 
 
 def main():
-    dirt_type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["wall_block_type:8"]
+    dirt_type = share.ans["wall_block_type:8"]
     #
     if dirt_type == 'cobblestone':
         return 0

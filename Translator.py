@@ -3,6 +3,9 @@ import sys
 import traceback
 import share
 import function
+import blockNBT.main
+import blockNBT.CommandBlock
+import blockNBT.Container
 import brotli
 # 载入依赖项
 
@@ -56,7 +59,6 @@ if translateMode == True:
     import check
     # 检查结构完整性
     import pool
-    errorList = pool.errorList
     # 提取方块池
 
 
@@ -105,7 +107,9 @@ else:
 
 
 outputCommand = []
-outputCommand.append(bytearray(b'BDX\x00\xe9\x98\xbf\xe5\xa4\x9a\xe7\xb1\xb3\xe5\xb0\xbc\xe6\x96\xaf\xe5\xa4\x9a\xe9\x9b\xb7\xe7\x89\xb9\x00'))
+outputCommand.append(bytearray(
+    b'BDX\x00\xe9\x98\xbf\xe5\xa4\x9a\xe7\xb1\xb3\xe5\xb0\xbc\xe6\x96\xaf\xe5\xa4\x9a\xe9\x9b\xb7\xe7\x89\xb9\x00\x1f\x75'
+    ))
 for i in share.pool:
     outputCommand.append(bytearray(b'\x01' + (i[0].split('minecraft:',maxsplit=1)[1]).encode() + bytearray(b'\x00')))
 # 将方块池写入到指令列表
@@ -200,87 +204,28 @@ while True:
                         background[1].to_bytes(length=2,byteorder='big'))
                 # 处理含水方块(若需要处理的话)
 
+                success_to_translate = False
+
                 if ((foreground[0] == 'minecraft:command_block') or (
-                    foreground[0] == 'minecraft:repeating_command_block') or (
-                    foreground[0] == 'minecraft:chain_command_block')) and (translateMode == True):
-                    facing = foreground[1].to_bytes(length=2,byteorder='big')
-                    # 朝向
-                    if foreground[0] == 'minecraft:command_block':
-                        Type = bytearray(b'\x00\x00\x00\x00')
-                    if foreground[0] == 'minecraft:repeating_command_block':
-                        Type = bytearray(b'\x00\x00\x00\x01')
-                    if foreground[0] == 'minecraft:chain_command_block':
-                        Type = bytearray(b'\x00\x00\x00\x02')
-                    # 类型(脉冲, 循环, 链)
+                    foreground[0] == 'minecraft:repeating_command_block') or 
+                    (foreground[0] == 'minecraft:chain_command_block')) and (translateMode == True) and (
+                    upPointer == False):
+                    outputCommand.append(blockNBT.CommandBlock.cbGet(foreground,pointer))
+                    success_to_translate = True
+                # 翻译命令方块
+                if success_to_translate == False and translateMode == True and upPointer == False:
                     try:
-                        command = share.mcs["Root:10"]["structure:10"]["palette:10"][
-                            "default:10"]["block_position_data:10"][f"{pointer}:10"][
-                                "block_entity_data:10"]["Command:8"]
-                        command = command.replace('-----Mark of use 0x10-----','\\n')
-                        command = command.replace('\\n','\n')
-                        command = command.replace('\\"','"')
-                        command = command.encode(encoding="utf-8")
+                        changesValue = blockNBT.main.blockList[foreground[0]][str(foreground[1])]
+                        outputCommand.append(blockNBT.Container.main(changesValue[1],pointer,changesValue[0]))
+                        success_to_translate = True
                     except:
-                        command = bytearray(b'')
-                    # 命令方块内的指令
-                    try:
-                        name = share.mcs["Root:10"]["structure:10"]["palette:10"][
-                            "default:10"]["block_position_data:10"][f"{pointer}:10"][
-                                "block_entity_data:10"]["CustomName:8"]
-                        name = name.replace('-----Mark of use 0x10-----','\\n')
-                        name = name.replace('\\n','\n')
-                        name = name.replace('\\"','"')
-                        name = name.encode(encoding="utf-8")
-                    except:
-                        name = bytearray(b'')
-                    # 悬浮字
-                    try:
-                        delay = share.mcs["Root:10"]["structure:10"]["palette:10"][
-                            "default:10"]["block_position_data:10"][f"{pointer}:10"][
-                                "block_entity_data:10"]["TickDelay:3"].to_bytes(length=4,byteorder='big',signed=True)
-                    except:
-                        delay = bytearray(b'\x00\x00\x00\x00')
-                    # 延迟
-                    try:
-                        executeOnFirstTick = share.mcs["Root:10"]["structure:10"]["palette:10"][
-                            "default:10"]["block_position_data:10"][f"{pointer}:10"][
-                                "block_entity_data:10"]["ExecuteOnFirstTick:1"].to_bytes(length=1,byteorder='big',signed=True)
-                    except:
-                        executeOnFirstTick = bytearray(b'\x00')
-                    # 在启动后的第一时刻执行命令(仅限于 重复 命令方块)
-                    try:
-                        trackOutput = share.mcs["Root:10"]["structure:10"]["palette:10"][
-                            "default:10"]["block_position_data:10"][f"{pointer}:10"][
-                                "block_entity_data:10"]["TrackOutput:1"].to_bytes(length=1,byteorder='big',signed=True)
-                    except:
-                        trackOutput = bytearray(b'\x01')
-                    # 是否保留执行日志
-                    try:
-                        conditional = share.mcs["Root:10"]["structure:10"]["palette:10"][
-                            "default:10"]["block_position_data:10"][f"{pointer}:10"][
-                                "block_entity_data:10"]["conditionalMode:1"].to_bytes(length=1,byteorder='big',signed=True)
-                    except:
-                        conditional = bytearray(b'\x00')
-                    # 是否有条件
-                    try:
-                        needRedstone = share.mcs["Root:10"]["structure:10"]["palette:10"][
-                            "default:10"]["block_position_data:10"][f"{pointer}:10"][
-                                "block_entity_data:10"]["auto:1"]
-                        if needRedstone == 0:
-                            nrs = bytearray(b'\x01')
-                        else:
-                            nrs = bytearray(b'\x00')
-                    except:
-                        nrs = bytearray(b'\x01')
-                    # 是否需要红石
-                    outputCommand.append(bytearray(b'\x24')+facing+Type+command+bytearray(b'\x00')+name+
-                    bytearray(b'\x00')+bytearray(b'\x00')+delay+executeOnFirstTick+trackOutput+conditional+nrs)
-                    # 写入放置命令
-                elif foreground[-1] != '摆烂':
-                    if upPointer == False:
-                        outputCommand.append(bytearray(b'\x07') + 
-                        fgId.to_bytes(length=2,byteorder='big') + 
-                        foreground[1].to_bytes(length=2,byteorder='big'))
+                        None
+                # 翻译容器内的物品
+                if success_to_translate == False and foreground[-1] != '摆烂' and upPointer == False:
+                     outputCommand.append(bytearray(b'\x07') + 
+                     fgId.to_bytes(length=2,byteorder='big') + 
+                     foreground[1].to_bytes(length=2,byteorder='big'))
+                # 处理普通情况
                 # 写入命令
 
                 if zMove > 0:
@@ -387,13 +332,19 @@ if translateMode == True:
                 file.write(str(i) + '\n')
         print('完成：已输出警告日志，保存在当前目前下的 warning.log 中.')
     # 输出警告
-    if len(errorList) > 0:
+    if len(share.errorList) > 0:
         print('错误：翻译时发生了错误，现在正在输出 错误 日志……')
         with open("error.log","w+") as file:
-            for i in errorList:
+            for i in share.errorList:
                 file.write(str(i) + '\n')
         print('完成：已输出错误日志，保存在当前目前下的 error.log 中.\n请通知开发者并附上此文件以修复Bug.')
     # 输出错误
+    if len(share.experimental) > 0:
+        print('信息：翻译时翻译了带有物品的容器，现在输出相关日志……')
+        with open("experimental.log","w+") as file:
+            for i in share.experimental:
+                file.write(str(i) + '\n')
+        print('完成：已输出物品转换日志，保存在当前目前下的 experimental.log 中.')
     # 输出日志
 
 

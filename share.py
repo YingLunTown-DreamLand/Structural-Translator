@@ -1,3 +1,7 @@
 mcs = []
 pool = []
 pointer = []
+ans = []
+name = []
+experimental = []
+errorList = []

@@ -6,16 +6,16 @@ import share
 
 
 def main():
-    name = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["name:8"]
-    pillar_axis = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["pillar_axis:8"]
+    name = share.name
+    pillar_axis = share.ans["pillar_axis:8"]
     #
     if name == 'minecraft:log' or name == 'minecraft:log2':
         try:
-            type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["old_log_type:8"]
+            type = share.ans["old_log_type:8"]
         except:
             None
         try:
-            type = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["new_log_type:8"]
+            type = share.ans["new_log_type:8"]
         except:
             None
     else:

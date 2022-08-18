@@ -6,9 +6,9 @@ import share
 
 
 def main():
-    attachment = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["attachment:8"]
+    attachment = share.ans["attachment:8"]
     #
-    direction = share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_palette:9"][share.pointer]["states:10"]["direction:3"]
+    direction = share.ans["direction:3"]
     #
     if attachment == 'standing':
         return direction
