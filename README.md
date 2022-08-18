@@ -83,6 +83,23 @@ This program only supports Chinese.<br>
 You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
+- `v30.0 - 2022/08/18 Morning`
+   - 支持了容器中的物品(仅限 `物品数据值` )，具体如下 & 于 [e7d8f4a](https://github.com/Happy2018new/Structural-Translator/commit/e7d8f4ab88f4584de79ab773b41dbe339956049a) 更新
+   ```
+   高炉(燃烧的高炉)
+   烟熏炉(燃烧的烟熏炉)
+   熔炉(燃烧的熔炉)
+   木桶
+   箱子
+   陷阱箱
+   讲台
+   漏斗
+   发射器
+   投掷器
+   炼药锅(岩浆炼药锅)
+   唱片机
+   酿造台
+   ```
 - `v26.4 - 2022/08/13 Afternoon`
    - 修复了在使用 `组件 - 替换方块ID` 时会打印 `方块池` 列表的问题 & 于 [31e43eb](https://github.com/Happy2018new/Structural-Translator/commit/31e43eb705d9b9eb5cc63fd33e7c75c9419ee569) 修复
 - `v26.3 - 2022/08/13 Afternoon`
