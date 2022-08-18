@@ -177,7 +177,7 @@ def Component(input:bytearray,pointer:int=0):
             jsonList.append(f'"{ans[2]}"')
             jsonList.append(',')
             pointer = ans[-1]
-        # 处理 shrot, bytes, int, string 情况
+        # 处理 short, bytes, int, string 情况
     return pointer
 # 处理组
 
@@ -239,7 +239,7 @@ def List(input:bytearray,Type:int,repeat:int,pointer:int):
             jsonList.append(f'"{ans[2]}"')
             jsonList.append(',')
             pointer = ans[-1]
-        # 处理 shrot, bytes, int, string 情况
+        # 处理 short, bytes, int, string 情况
     return pointer
 # 处理列表
 
