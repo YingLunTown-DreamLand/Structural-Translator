@@ -83,6 +83,8 @@ This program only supports Chinese.<br>
 You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
+- `v31.5 - 2022/08/18 Noon`
+   - 修复了容器为空时不会放置的问题 & 于 [5cebe8d](https://github.com/Happy2018new/Structural-Translator/commit/5cebe8db0a1b854f30d97102a1bde1aa0d25ea2b) 修复
 - `v31.0 - 2022/08/18 Noon`
    - 支持了 `潜影盒` 中的物品(仅限 `物品数据值` ) & 于 [bcbc0dd](https://github.com/Happy2018new/Structural-Translator/commit/bcbc0dd727bf7a1d6698653dddecf47b074db0f4) 更新
 - `v30.0 - 2022/08/18 Morning`
