@@ -29,7 +29,7 @@ def main(runtimeId:int,pointer:int,Type:str):
         share.errorList.append(['Container','unknown.error',pointer,share.mcs["Root:10"]["structure:10"]["palette:10"][
         "default:10"]["block_position_data:10"][f"{pointer}:10"][
         "block_entity_data:10"]])
-        return bytearray(b'')
+        0/0
     repeat = legth = len(data)
     List = []
     location = -1
@@ -39,7 +39,7 @@ def main(runtimeId:int,pointer:int,Type:str):
         share.errorList.append(['Container','container.empty',pointer,share.mcs["Root:10"]["structure:10"]["palette:10"][
         "default:10"]["block_position_data:10"][f"{pointer}:10"][
         "block_entity_data:10"]])
-        return bytearray(b'')
+        0/0
     # 当容器没有物品时
 
     while repeat > 0:
