@@ -7,7 +7,7 @@ import function
 
 ###
 while True:
-    print('您是否需要使用 替换方块ID 之功能？(新版本的方块ID跟网易租赁服版本的方块ID可能不同，您可能需要把新ID转换为旧ID)\n请回答 Yes 或 No')
+    print('您是否需要使用 替换方块ID 之功能？(新版本的方块ID跟网易租赁服版本的方块ID可能不同，您可能需要把新ID转换为旧ID)\n请回答 Yes 或 No\n注意：此功能会同时影响箱子内的物品！')
     replaceBlockID = input()
     if (replaceBlockID == 'Yes') or (replaceBlockID == 'yes') or (replaceBlockID == 'y') or (replaceBlockID == 'Y'):
         replaceBlockID = True
@@ -117,5 +117,5 @@ if rbiSit == True:
                     del poolNew[-1][2]
                 break
     share.pool = copy.deepcopy(poolNew)
-    print(f'替换方块ID：完成，总计替换 {successCount} 次.')
+    print(f'替换方块ID：完成，已替换方块池中的 ID 及 数据值 ，总计替换 {successCount} 次.')
 # 组件 - 替换方块ID

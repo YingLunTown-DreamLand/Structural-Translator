@@ -103,6 +103,15 @@ def main(runtimeId:int,pointer:int,Type:str):
             del List[-1]
         # 决定最终数据值
 
+        import replaceBlockID
+        if replaceBlockID.replaceBlockID == True:
+            for i in replaceBlockID.rbiList:
+                if (Name == i[0] and damageAns == i[1]) or (Name == i[0] and i[1] == -1):
+                    Name = i[2]
+                    if i[3] != -1:
+                        damageAns = i[3]
+        # 组件 - 替换方块ID
+
         share.experimental.append([Name,Count,damageAns,Slot,dataLocation])
         # 实验性功能
 
