@@ -105,11 +105,14 @@ def main(runtimeId:int,pointer:int,Type:str):
 
         import replaceBlockID
         if replaceBlockID.replaceBlockID == True:
-            for i in replaceBlockID.rbiList:
-                if (Name == i[0] and damageAns == i[1]) or (Name == i[0] and i[1] == -1):
-                    Name = i[2]
-                    if i[3] != -1:
-                        damageAns = i[3]
+            try:
+                for i in replaceBlockID.rbiList:
+                    if (Name == i[0] and damageAns == i[1]) or (Name == i[0] and i[1] == -1):
+                        Name = i[2]
+                        if i[3] != -1:
+                            damageAns = i[3]
+            except AttributeError:
+                None
         # 组件 - 替换方块ID
 
         share.experimental.append([Name,Count,damageAns,Slot,dataLocation])
