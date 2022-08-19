@@ -83,6 +83,8 @@ This program only supports Chinese.<br>
 You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
+- `v32.0 - 2022/08/19 Morning`
+   - `组件 - 替换方块ID` 将会对容器内的物品生效 & 于 [943ee3d](https://github.com/Happy2018new/Structural-Translator/commit/943ee3d174a0b44442f36cb52233abc639970757) 更新
 - `v31.5 - 2022/08/18 Noon`
    - 修复了容器为空时不会放置的问题 & 于 [5cebe8d](https://github.com/Happy2018new/Structural-Translator/commit/5cebe8db0a1b854f30d97102a1bde1aa0d25ea2b) 修复
 - `v31.0 - 2022/08/18 Noon`
