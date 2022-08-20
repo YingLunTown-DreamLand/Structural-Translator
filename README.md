@@ -84,6 +84,8 @@ This program only supports Chinese.<br>
 You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
+- `v32.5 - 2022/08/20 Morning`
+   - 现在在移动画笔时使用了其他类型的命令，一定程度上优化了解压后的文件大小 & 于 [b65eabb](https://github.com/Happy2018new/Structural-Translator/commit/b65eabbcb932f4534f25b4bf949e26d49aaafb40) 和 [f85f649](https://github.com/Happy2018new/Structural-Translator/commit/f85f6495b00e8f4c3bc00308808b1fc5e98c18bd) 更新
 - `v32.2 - 2022/08/19 Morning`
    - 修复了在使用 `组件 - 替换方块ID` 时可能导致的容器内物品丢失的问题 & 于 [5b38745](https://github.com/Happy2018new/Structural-Translator/commit/5b38745f5a01050212bfaa8a4594b4e15e0c8806) 修复
 - `v32.0 - 2022/08/19 Morning`
