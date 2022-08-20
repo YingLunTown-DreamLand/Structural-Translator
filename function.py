@@ -57,51 +57,29 @@ def moveCommand(input:int,Type:str):
     """
     # 函数声明
 
-    if input == 1 or input == 2 or input == 3:
+    if input == 1 or input == 2:
         if Type == 'x':
-            if input == 1:
-                return bytearray(b'\x0e')
-            if input == 2:
-                return bytearray(b'\x0e\x0e')
-            if input == 3:
-                return bytearray(b'\x0e\x0e\x0e')
+            return bytearray(b'\x0e') * input
         if Type == 'y':
-            if input == 1:
-                return bytearray(b'\x10')
-            if input == 2:
-                return bytearray(b'\x10\x10')
-            if input == 3:
-                return bytearray(b'\x10\x10\x10')
+            return bytearray(b'\x10') * input
         if Type == 'z':
-            if input == 1:
-                return bytearray(b'\x12')
-            if input == 2:
-                return bytearray(b'\x12\x12')
-            if input == 3:
-                return bytearray(b'\x12\x12\x12')
+            return bytearray(b'\x12') * input
 
-    if input == -1 or input == -2 or input == -3:
+    if input == -1 or input == -2:
         if Type == 'x':
-            if input == -1:
-                return bytearray(b'\x0f')
-            if input == -2:
-                return bytearray(b'\x0f\x0f')
-            if input == -3:
-                return bytearray(b'\x0f\x0f\x0f')
+            return bytearray(b'\x0f') * abs(input)
         if Type == 'y':
-            if input == -1:
-                return bytearray(b'\x11')
-            if input == -2:
-                return bytearray(b'\x11\x11')
-            if input == -3:
-                return bytearray(b'\x11\x11\x11')
+            return bytearray(b'\x11') * abs(input)
         if Type == 'z':
-            if input == -1:
-                return bytearray(b'\x13')
-            if input == -2:
-                return bytearray(b'\x13\x13')
-            if input == -3:
-                return bytearray(b'\x13\x13\x13')
+            return bytearray(b'\x13') * abs(input)
+    
+    if -128 <= input <= 127:
+        if Type == 'x':
+            return bytearray(b'\x1c') + input.to_bytes(length=1,byteorder='big',signed=True)
+        if Type == 'y':
+            return bytearray(b'\x1d') + input.to_bytes(length=1,byteorder='big',signed=True)
+        if Type == 'z':
+            return bytearray(b'\x1e') + input.to_bytes(length=1,byteorder='big',signed=True)
 
     if -32768 <= input <= 65536:
         if Type == 'x':
