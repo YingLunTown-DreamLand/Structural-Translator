@@ -51,20 +51,19 @@ def GetInf(input:bytearray,pointer:int=0,Type:int=None):
     `Type:int` 指要解析的类型(专门为列表设计，因为列表内的元素是没有`type`的)
     \n返回值
     返回`list`，格式为`[类型:str|int, 名称:str|None, 内容:str|int|list, 指针位置:int]`
-    如果解析结果应被丢弃(只要不是这些: `bytes`、`short`、`int`、`string`、`list`和`component`)，则返回的`类型`是`str(int)`，否则返回`int`
-    对于返回的`类型`，即:可用`int()`函数变为数字的数字或字符串，它们(数字)分别指代以下事物
+    返回的`类型`是`int`，它们(数字)分别指代以下事物
         `1(int):Bytes`
-        `2(short):int`
+        `2(int):short`
         `3(int):int`
-        `4:舍弃`
-        `5:舍弃`
-        `6:舍弃`
-        `7:舍弃`
+        `4(int):long`
+        `5(float):float`
+        `6(float):double`
+        `7(list):byte_array`
         `8(str):string`
         `9(list):list`
-        `10(dict):component`
-        `11:舍弃`
-        `12:舍弃`
+        `10(dict):compound`
+        `11(list):int_array`
+        `12(list):long_array`
     如果解析类型属于`9`，即:`list`类型，则返回的`内容`的类型是`list`，格式为`[列表元素类型, 列表元素个数]`，否则返回的`内容`的类型是`str`(对于`字符串`)或`int`(对于`整数`)或`None`(其他)
     \n注意事项
     返回的`内容`如果是`str`类型，那么在解析前，若这个被解析的`input`存在`\\n`，那么会被强制转译为`\\\\n`；对于`\\n`，则会被替换为`-----Mark of use 0x10-----`；对于`"`，则会被强制转译为`\\"`
@@ -72,54 +71,83 @@ def GetInf(input:bytearray,pointer:int=0,Type:int=None):
     """
     # 函数声明
     if Type == None:
-        Type = ord(input[pointer:pointer+1])
-        name = input[pointer+3:pointer+3+struct.unpack('<H',input[pointer+1:pointer+3])[0]].decode(encoding='UTF-8')
+        Type = struct.unpack('<b',input[pointer:pointer+1])[0]
+        name = input[pointer+3:pointer+3+struct.unpack('<h',input[pointer+1:pointer+3])[0]].decode(encoding='UTF-8')
         name = name.replace('\\n','-----Mark of use 0x10-----')
         name = name.replace('\n','\\n')
         name = name.replace('"','\\"')
         if name == '':
             name = 'undefined'
-        pointer = pointer + 3 + struct.unpack('<H',input[pointer+1:pointer+3])[0]
+        pointer = pointer + 3 + struct.unpack('<h',input[pointer+1:pointer+3])[0]
     else:
         name = None
     # 获取类型及名称
     if Type == 1:
-        return [Type,name,ord(input[pointer:pointer+1]),pointer+1]
+        return [Type,name,struct.unpack('<b',input[pointer:pointer+1])[0],pointer+1]
     if Type == 2:
         return [Type,name,struct.unpack('<h',input[pointer:pointer+2])[0],pointer+2]
     if Type == 3:
         return [Type,name,struct.unpack('<i',input[pointer:pointer+4])[0],pointer+4]
+    if Type == 4:
+        return [Type,name,struct.unpack('<q',input[pointer+4:pointer+8]+input[pointer:pointer+4])[0],pointer+8]
+    if Type == 5:
+        return [Type,name,struct.unpack('<f',input[pointer:pointer+4])[0],pointer+4]
+    if Type == 6:
+        return [Type,name,struct.unpack('<d',input[pointer:pointer+8])[0],pointer+8]
+    if Type == 7:
+        pointerSave = pointer
+        LenList = struct.unpack('<i',input[pointer:pointer+4])[0]
+        pointer = pointer + 4
+        ListSelf = []
+        while LenList > 0:
+            ListSelf.append(struct.unpack('<b',input[pointer:pointer+1])[0])
+            LenList = LenList - 1
+            pointer = pointer + 1
+        pointer = pointerSave
+        return [Type,name,ListSelf,pointer+4+struct.unpack('<i',input[pointer:pointer+4])[0]]
     if Type == 8:
-        string = input[pointer+2:pointer+2+struct.unpack('<H',input[pointer:pointer+2])[0]].decode(encoding='UTF-8')
+        string = input[pointer+2:pointer+2+struct.unpack('<h',input[pointer:pointer+2])[0]].decode(encoding='UTF-8')
         string = string.replace('\\n','-----Mark of use 0x10-----')
         string = string.replace('\n','\\n')
         string = string.replace('"','\\"')
         return [Type,name,string,
-        pointer+2+struct.unpack('<H',input[pointer:pointer+2])[0]]
+        pointer+2+struct.unpack('<h',input[pointer:pointer+2])[0]]
     if Type == 9:
         return [Type,name,
-        [ord(input[pointer:pointer+1]),
+        [struct.unpack('<b',input[pointer:pointer+1])[0],
         struct.unpack('<i',input[pointer+1:pointer+5])[0]],
         pointer+5]
     if Type == 10:
         return [Type,name,pointer]
-    if Type == 4 or Type == 6:
-        return [str(Type),name,pointer+8]
-    if Type == 5:
-        return [str(Type),name,pointer+4]
-    if Type == 7:
-        return [str(Type),name,pointer+4+struct.unpack('<i',input[pointer:pointer+4])[0]]
     if Type == 11:
-        return [str(Type),name,pointer+4+4*struct.unpack('<i',input[pointer:pointer+4])[0]]
+        pointerSave = pointer
+        LenList = struct.unpack('<i',input[pointer:pointer+4])[0]
+        pointer = pointer + 4
+        ListSelf = []
+        while LenList > 0:
+            ListSelf.append(struct.unpack('<i',input[pointer:pointer+4])[0])
+            LenList = LenList - 1
+            pointer = pointer + 4
+        pointer = pointerSave
+        return [Type,name,ListSelf,pointer+4+4*struct.unpack('<i',input[pointer:pointer+4])[0]]
     if Type == 12:
-        return [str(Type),name,pointer+4+8*struct.unpack('<i',input[pointer:pointer+4])[0]]
-    # 返回 [类型:str|int, 名称:str|None, 内容:str|int|list, 指针位置:int]
+        pointerSave = pointer
+        LenList = struct.unpack('<i',input[pointer:pointer+4])[0]
+        pointer = pointer + 4
+        ListSelf = []
+        while LenList > 0:
+            ListSelf.append(struct.unpack('<q',input[pointer+4:pointer+8]+input[pointer:pointer+4])[0])
+            LenList = LenList - 1
+            pointer = pointer + 8
+        pointer = pointerSave
+        return [Type,name,ListSelf,pointer+4+8*struct.unpack('<i',input[pointer:pointer+4])[0]]
+    # 返回 [类型:int, 名称:str|None, 内容:str|int|list, 指针位置:int]
 # 获取结构信息的最小化模块
 
-def Component(input:bytearray,pointer:int=0):
+def Compound(input:bytearray,pointer:int=0):
     """
     \n摘要
-    处理`component`类型及其子成员(可调用函数本身或被`List`函数调用，未限制递归深度)
+    处理`Compound`类型及其子成员(可调用函数本身或被`List`函数调用，未限制递归深度)
     \n参数
     `input:bytearray` 指要处理的`bytearray`
     `pointer:int` 指处理位置(将指针移动到`input`的哪里)
@@ -131,7 +159,6 @@ def Component(input:bytearray,pointer:int=0):
     """
     # 函数声明
     global jsonList
-    global jumpList
     # 声明全局变量
     while True:
         MemoryProtect()
@@ -151,16 +178,11 @@ def Component(input:bytearray,pointer:int=0):
         # 结束递归
         ans = GetInf(input,pointer)
         # 取得基本信息
-        if type(ans[0]) != int:
-            pointer = ans[-1]
-            jumpList.append(ans)
-            continue
-        # 跳过无关内容
         jsonList.append(f'"{ans[1]}:{ans[0]}":')
         # 插入名称
         if ans[0] == 10:
             jsonList.append('{')
-            pointer = Component(input,ans[-1])
+            pointer = Compound(input,ans[-1])
             continue
         # 调用组函数，如果当前是组的话
         if ans[0] == 9:
@@ -177,14 +199,14 @@ def Component(input:bytearray,pointer:int=0):
             jsonList.append(f'"{ans[2]}"')
             jsonList.append(',')
             pointer = ans[-1]
-        # 处理 short, bytes, int, string 情况
+        # 处理非 compound、list 情况
     return pointer
 # 处理组
 
 def List(input:bytearray,Type:int,repeat:int,pointer:int):
     """
     \n摘要
-    处理`list`类型及其子成员(可调用函数本身或被`Component`函数调用，未限制递归深度)
+    处理`list`类型及其子成员(可调用函数本身或被`Compound`函数调用，未限制递归深度)
     \n参数
     `input:bytearray` 指要处理的`bytearray`
     `Type:int` 指列表中的元素类型
@@ -193,11 +215,10 @@ def List(input:bytearray,Type:int,repeat:int,pointer:int):
     \n运行机制
     在运行过程中向列表`jsonList`(是全局变量)插入`JSON`内容(插入的是`str`)，而非返回完整的`JSON`内容
     \n返回值
-    返回指针位置`pointer:int`，用于调用自身或被`Component`函数调用时的承上启下之衔接
+    返回指针位置`pointer:int`，用于调用自身或被`Compound`函数调用时的承上启下之衔接
     """
     # 函数声明
     global jsonList
-    global jumpList
     # 声明全局变量
     while True:
         MemoryProtect()
@@ -215,14 +236,9 @@ def List(input:bytearray,Type:int,repeat:int,pointer:int):
         # 结束递归
         ans = GetInf(input,pointer,Type)
         # 取得基本信息
-        if type(ans[0]) != int:
-            pointer = ans[-1]
-            jumpList.append(ans)
-            continue
-        # 跳过无关内容
         if ans[0] == 10:
             jsonList.append('{')
-            pointer = Component(input,ans[-1])
+            pointer = Compound(input,ans[-1])
             continue
         # 调用组函数，如果当前是组的话
         if ans[0] == 9:
@@ -239,17 +255,16 @@ def List(input:bytearray,Type:int,repeat:int,pointer:int):
             jsonList.append(f'"{ans[2]}"')
             jsonList.append(',')
             pointer = ans[-1]
-        # 处理 short, bytes, int, string 情况
+        # 处理非 compound、list 情况
     return pointer
 # 处理列表
 
 
 
 jsonList = []
-jumpList = []
 # 创建列表
 print('进度：正在转换格式……')
-Component(fileContext,0)
+Compound(fileContext,0)
 # 取得 JSON 初始形式
 with open("translator.tmp","r+",encoding='utf-8') as file:
     share.mcs = '{"Root' + (('{' + "".join(file.readlines()) + "".join(jsonList))[:-1]).split('{"undefined',maxsplit=1)[1]

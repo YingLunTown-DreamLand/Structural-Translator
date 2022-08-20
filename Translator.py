@@ -325,13 +325,6 @@ print('完成：翻译完成，保存在当前目录下的 ans.bdx 中.')
 
 
 if translateMode == True:
-    if len(mcstructureTojson.jumpList) > 0:
-        print('警告：翻译时舍弃了部分 NBT 数据，现在正在输出 警告 日志……')
-        with open("warning.log","w+") as file:
-            for i in mcstructureTojson.jumpList:
-                file.write(str(i) + '\n')
-        print('完成：已输出警告日志，保存在当前目前下的 warning.log 中.')
-    # 输出警告
     if len(share.errorList) > 0:
         print('错误：翻译时发生了错误，现在正在输出 错误 日志……')
         with open("error.log","w+") as file:
