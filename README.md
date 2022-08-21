@@ -84,6 +84,8 @@ This program only supports Chinese.<br>
 You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
+- `v33.5 - 2022/08/21 Noon`
+   - 列表中的数据类型将不再丢失，现在将完整翻译 `.mcstructure` 中的数据 & 于 [48eab3c](https://github.com/Happy2018new/Structural-Translator/commit/48eab3cf0958771ce7b5e6bba55528f0322a96d4) 更新
 - `v33.1 - 2022/08/21 Morning`
    - 修复了在翻译命令方块时可能存在的转义问题 & 于 [d7e759c](https://github.com/Happy2018new/Structural-Translator/commit/d7e759c1604a51f795502e02af5f3c2903e029f4) 和 [a7bb844](https://github.com/Happy2018new/Structural-Translator/commit/a7bb84480cc703dd221ec9afa1f32814f1c1bb07) 更新
 - `v33.0 - 2022/08/20 Afternoon`
