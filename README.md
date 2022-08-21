@@ -85,6 +85,7 @@ You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
 - `v33.0 - 2022/08/20 Afternoon`
+   - 修复了在翻译命令方块时可能存在的转义问题 & 于 [d7e759c](https://github.com/Happy2018new/Structural-Translator/commit/d7e759c1604a51f795502e02af5f3c2903e029f4) 和 [a7bb844](https://github.com/Happy2018new/Structural-Translator/commit/a7bb84480cc703dd221ec9afa1f32814f1c1bb07) 更新
    - 现在将完整解析 `.mcstructure` 文件 & 于 [4597049](https://github.com/Happy2018new/Structural-Translator/commit/45970490d6f1312c012255c94270939d8db14307) 更新
 - `v32.5 - 2022/08/20 Morning`
    - 现在在移动画笔时使用了其他类型的命令，一定程度上优化了解压后的文件大小 & 于 [b65eabb](https://github.com/Happy2018new/Structural-Translator/commit/b65eabbcb932f4534f25b4bf949e26d49aaafb40) 和 [f85f649](https://github.com/Happy2018new/Structural-Translator/commit/f85f6495b00e8f4c3bc00308808b1fc5e98c18bd) 更新
