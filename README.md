@@ -12,7 +12,7 @@ A software that translates `.mcstructure` into `.bdx` .<br>
    - [Download link](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
 2. Then run this program.
 ***
-1. 下载`Translator.exe`并把它和`input.mcstructure`放在一起。
+1. 下载 `Translator.exe` 并把它和 `input.mcstructure` 放在一起。
    - [下载链接](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
 2. 然后运行这个程序。
 ## Run the program on source code(For `Termux` )
