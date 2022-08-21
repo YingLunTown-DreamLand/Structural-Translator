@@ -246,13 +246,27 @@ def List(input:bytearray,Type:int,repeat:int,pointer:int):
             pointer = List(input,ans[2][0],ans[2][1],ans[-1])
             continue
         # 调用列表函数，如果当前是列表的话
-        if ans[0] != 8:
-            jsonList.append(str(ans[2]))
-            jsonList.append(',')
-            pointer = ans[-1]
-            continue
-        else:
-            jsonList.append(f'"{ans[2]}"')
+        if 1 <= ans[0] <= 12:
+            typeAddList = {
+                "1":":01",
+                "2":":02",
+                "4":":04",
+                "5":":05",
+                "6":":06",
+                "8":":08"
+            }
+            try:
+                jsonList.append(f'"{ans[2]}' + typeAddList[str(ans[0])] + '"')
+            except:
+                if ans[0] == 7 or ans[0] == 11 or ans[0] == 12:
+                    typeAddList2 = {
+                        "7":":07",
+                        "11":":11",
+                        "12":":12"
+                    }
+                    jsonList.append((f'{[str(i) + typeAddList2[str(ans[0])] for i in ans[2]]}').replace('\'','"'))
+                else:
+                    jsonList.append(str(ans[2]))
             jsonList.append(',')
             pointer = ans[-1]
         # 处理非 compound、list 情况
