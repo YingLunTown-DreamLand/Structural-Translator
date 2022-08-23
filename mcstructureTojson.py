@@ -287,22 +287,23 @@ print('进度：已删除 translator.tmp 缓存文件')
 os.remove('translator.tmp')
 # 删除缓存文件
 
+share.mcs = json.loads(share.mcs)
+print('进度：已成功转换为 JSON 格式！')
+del fileContext
+del jsonList
+# 生成字典形式并删除放入到内存的结构
+
 ###
 while True:
     print('是否在当前目录下输出 MCStructure 的 JSON 形式？\n请回答 Yes 或 No')
     CreatorMode = input()
     if (CreatorMode == 'Yes') or (CreatorMode == 'yes') or (CreatorMode == 'y') or (CreatorMode == 'Y'):
-        with open("ans.json","w+b") as file:
-            file.write(share.mcs.encode(encoding='utf-8'))
+        with open("ans.json","w+") as file:
+            file.write(json.dumps(share.mcs,sort_keys=True,indent=4,separators=(',', ':')))
         print('完成：已成功在当前目录下生成 ans.json 文件.')
         break
     if (CreatorMode == 'No') or (CreatorMode == 'no') or (CreatorMode == 'n') or (CreatorMode == 'N'):
         break
     print('错误：请不要答非所问.\n\n\n')
 ###
-
-share.mcs = json.loads(share.mcs)
-print('进度：已成功转换为 JSON 格式！')
-del fileContext
-del jsonList
-# 生成字典形式并删除放入到内存的结构
+# 开发者选项
