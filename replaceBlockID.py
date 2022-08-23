@@ -7,7 +7,7 @@ import function
 
 ###
 while True:
-    print('您是否需要使用 替换方块ID 之功能？(新版本的方块ID跟网易租赁服版本的方块ID可能不同，您可能需要把新ID转换为旧ID)\n请回答 Yes 或 No\n注意：此功能会同时影响箱子内的物品！')
+    print('您是否需要使用 替换方块ID 之功能？(新版本的方块ID跟网易租赁服版本的方块ID可能不同，您可能需要把新ID转换为旧ID)\n请回答 Yes 或 No\n注意：此功能附加了对容器内物品的支持！')
     replaceBlockID = input()
     if (replaceBlockID == 'Yes') or (replaceBlockID == 'yes') or (replaceBlockID == 'y') or (replaceBlockID == 'Y'):
         replaceBlockID = True
@@ -23,6 +23,7 @@ if replaceBlockID == True:
     try:
         with open("replaceBlockID.txt","r+b") as file:
             rbiList = []
+            crbiList = []
             unSuccessCount = 0
             unSuccessLine = 0
             unSuccessLineList = []
@@ -37,17 +38,20 @@ if replaceBlockID == True:
                     del i[-1]
                 i = i.split(bytearray(b','))
                 #
-                if (len(i) == 4) and (len(i[2].split(bytearray(b'minecraft:'))) == 2):
+                if (len(i) == 5) and (len(i[3].split(bytearray(b'minecraft:'))) == 2):
                     try:
-                        if (len(i[1].split(bytearray(b'.'))) > 1) or (len(i[3].split(bytearray(b'.'))) > 1):
+                        if (len(i[2].split(bytearray(b'.'))) > 1) or (len(i[4].split(bytearray(b'.'))) > 1):
                             0/0
-                        i[1] = int(i[1])
-                        i[3] = int(i[3])
-                        if ((i[1] < 0) and (i[1] != -1)) or ((i[3] < 0) and (i[3] != -1)):
+                        i[2] = int(i[2])
+                        i[4] = int(i[4])
+                        if ((i[2] < 0) and (i[2] != -1)) or ((i[4] < 0) and (i[4] != -1)):
                             0/0
-                        blockName = function.bytearrayToStr(i[0])
-                        blockName1 = function.bytearrayToStr(i[2])
-                        rbiList.append([blockName,i[1],blockName1,i[3]])
+                        blockName = function.bytearrayToStr(i[1])
+                        blockName1 = function.bytearrayToStr(i[3])
+                        if i[0] == bytearray(b'B'):
+                            rbiList.append([blockName,i[2],blockName1,i[4]])
+                        if i[0] == bytearray(b'C'):
+                            crbiList.append([blockName,i[2],blockName1,i[4]])
                     except:
                         unSuccessCount = unSuccessCount + 1
                         unSuccessLineList.append(unSuccessLine)
@@ -87,17 +91,17 @@ if replaceBlockID == True:
     except:
         rbiSit = False
         print('错误：替换方块ID 之功能未能成功，原因是未能找到当前目录下的 replaceBlockID.txt 文件')
-        print('文件配置方法：每行只写1种方块，如果要把数据值为 m 的 A 方块改为数据值是 n 的 B 方块，则写“A,m,B,n”')
+        print('文件配置方法：每行只写 1 种方块，如果要把数据值为 m 的 X 方块改为数据值是 n 的 Y 方块，则写“B,X,m,Y,n”')
         print('例子：把新版本的数据值为 0 的 minecraft:grass 方块改变为数据值为 1 的 minecraft:glass 方块，则写：')
-        print('minecraft:grass,0,minecraft:glass,1')
+        print('B,minecraft:grass,0,minecraft:glass,1')
         print('其他一些例子：')
-        print('minecraft:dirt,5,minecraft:anvil,7')
-        print('minecraft:redstone_block,0,minecraft:end_portal,0')
-        print('minecraft:kelp,10,minecraft:bamboo,3')
+        print('B,minecraft:dirt,5,minecraft:anvil,7')
+        print('B,minecraft:redstone_block,0,minecraft:end_portal,0')
+        print('B,minecraft:kelp,10,minecraft:bamboo,3')
         print('注意：请一定在原本方块ID前加上“minecraft:”，否则会替换失败！')
-        print('注意：目前不支持将方块改变为命令方块，请知悉.')
         print('注意：方块的数据值是正整数；通常地，方块的数据值是 0 .')
         print('注意：如果您希望忽略数据值，则请在对应数据值处填写 -1 .')
+        print('注意：如果您希望将此功能作用于容器，则请使用“C,X,m,Y,n”')
 successCount = 0
 if rbiSit == True:
     poolNew = []

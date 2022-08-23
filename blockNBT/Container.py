@@ -106,7 +106,7 @@ def main(runtimeId:int,pointer:int,Type:str):
         import replaceBlockID
         if replaceBlockID.replaceBlockID == True:
             try:
-                for i in replaceBlockID.rbiList:
+                for i in replaceBlockID.crbiList:
                     if (Name == i[0] and damageAns == i[1]) or (Name == i[0] and i[1] == -1):
                         Name = i[2]
                         if i[3] != -1:
