@@ -84,6 +84,8 @@ This program only supports Chinese.<br>
 You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
+- `v34.0 - 2022/08/23 Morning`
+   - 现在 `组件 - 替换方块ID` 将区分替换的是 `方块池` 中的方块还是 `容器` 中的物品 & 于 [3af2fa0](https://github.com/Happy2018new/Structural-Translator/commit/3af2fa02dc33a59840715cd52aae5c283dcdae89) 更新
 - `v33.5 - 2022/08/21 Noon`
    - 列表中的数据类型将不再丢失，现在将完整翻译 `.mcstructure` 中的数据 & 于 [48eab3c](https://github.com/Happy2018new/Structural-Translator/commit/48eab3cf0958771ce7b5e6bba55528f0322a96d4) 更新
 - `v33.1 - 2022/08/21 Morning`
