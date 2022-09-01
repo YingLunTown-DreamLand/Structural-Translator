@@ -298,8 +298,8 @@ while True:
     print('是否在当前目录下输出 MCStructure 的 JSON 形式？\n请回答 Yes 或 No')
     CreatorMode = input()
     if (CreatorMode == 'Yes') or (CreatorMode == 'yes') or (CreatorMode == 'y') or (CreatorMode == 'Y'):
-        with open("ans.json","w+") as file:
-            file.write(json.dumps(share.mcs,sort_keys=True,indent=4,separators=(',', ':')))
+        with open("ans.json","w+",encoding='UTF-8') as file:
+            file.write(json.dumps(share.mcs,sort_keys=True,indent=4,separators=(', ', ': '),ensure_ascii=False))
         print('完成：已成功在当前目录下生成 ans.json 文件.')
         break
     if (CreatorMode == 'No') or (CreatorMode == 'no') or (CreatorMode == 'n') or (CreatorMode == 'N'):

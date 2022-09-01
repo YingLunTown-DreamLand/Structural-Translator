@@ -216,6 +216,12 @@ while True:
                 if success_to_translate == False and translateMode == True and upPointer == False:
                     try:
                         changesValue = blockNBT.main.blockList[foreground[0]][str(foreground[1])]
+                        # 取得参数
+                        if 1083 <= changesValue[1] <= 1088:
+                            outputCommand.append(bytearray(b'\x26\x00\x00\x1b\xdf\x00'))
+                        if 7135 <= changesValue[1] <= 7140:
+                            outputCommand.append(bytearray(b'\x26\x00\x00\x04;\x00'))
+                        # 如果是 箱子 或 陷阱箱 ，则无论是否是大型箱，都需要进行断开处理
                         outputCommand.append(blockNBT.Container.main(changesValue[1],pointer,changesValue[0]))
                         success_to_translate = True
                     except:
@@ -326,15 +332,15 @@ print('完成：翻译完成，保存在当前目录下的 ans.bdx 中.')
 
 if translateMode == True:
     if len(share.errorList) > 0:
-        print('错误：翻译时发生了错误，现在正在输出 错误 日志……')
-        with open("error.log","w+") as file:
+        print('错误：翻译时可能发生了错误，现在正在输出 警告 日志……')
+        with open("Warning.log","w+",encoding='UTF-8') as file:
             for i in share.errorList:
                 file.write(str(i) + '\n')
-        print('完成：已输出错误日志，保存在当前目前下的 error.log 中.\n请通知开发者并附上此文件以修复Bug.')
+        print('完成：已输出错误日志，保存在当前目前下的 Warning.log 中.\n如有必要，请通知开发者并附上此文件以修复Bug.')
     # 输出错误
     if len(share.experimental) > 0:
         print('信息：翻译时翻译了带有物品的容器，现在输出相关日志……')
-        with open("experimental.log","w+") as file:
+        with open("Experimental.log","w+",encoding='UTF-8') as file:
             for i in share.experimental:
                 file.write(str(i) + '\n')
         print('完成：已输出物品转换日志，保存在当前目前下的 experimental.log 中.')
