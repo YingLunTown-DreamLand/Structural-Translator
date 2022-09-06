@@ -84,6 +84,8 @@ This program only supports Chinese.<br>
 You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 ## 更新日志(This is not translated into English)
+- `v34.7 - 2022/09/06 Night`
+   - 修复了前景层为 `None` 时会翻译失败的问题、修复了部分文案问题 & 于[92c3c23](https://github.com/Happy2018new/Structural-Translator/commit/92c3c230d26fa1da8b6376809f85113de1546a7b) 修复
 - `v34.5 - 2022/09/01 Morning`
    - 修复了下述问题并进行了一些技术型更新 & 于 [8270a2d](https://github.com/Happy2018new/Structural-Translator/commit/8270a2defafc16865c3f8ff51a5c52053cd3d0f4) 更新和修复
      - 大型箱子或大型陷阱箱将不会错误拼接，现在将自动拆分为单个的箱子
