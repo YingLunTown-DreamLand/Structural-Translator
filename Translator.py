@@ -136,7 +136,7 @@ else:
 # # 初始化(2)
 partPosz = zMove - 1
 partPosx = xMove - 1
-fgIsWater = False
+bgIsWater = False
 # # 初始化(3)
 # 初始化
 print('进度：翻译开始.')
@@ -198,7 +198,7 @@ while True:
 
                 if background[0] != None:
                     if (len(background[0].split('water')) > 1) and (foreground[0] != None):
-                        fgIsWater = True
+                        bgIsWater = True
                         outputCommand.append(bytearray(b'\x07') + 
                         bgId.to_bytes(length=2,byteorder='big') + 
                         background[1].to_bytes(length=2,byteorder='big'))
@@ -227,7 +227,7 @@ while True:
                     except:
                         None
                 # 翻译容器内的物品
-                if success_to_translate == False and foreground[-1] != '摆烂' and upPointer == False:
+                if success_to_translate == False and foreground[-1] != '摆烂' and foreground[0] != None and upPointer == False:
                      outputCommand.append(bytearray(b'\x07') + 
                      fgId.to_bytes(length=2,byteorder='big') + 
                      foreground[1].to_bytes(length=2,byteorder='big'))
@@ -321,7 +321,7 @@ with open("ans.bdx","r+b") as file:
 # 读取原缓存内容
 with open("ans.bdx","w+b") as file:
     file.write(bytearray(b'BD@') + brotli.compress( ans + bytearray(b'').join(outputCommand) + bytearray(b'XE')))
-if fgIsWater == True:
+if bgIsWater == True:
     print('警告：检测到此被翻译的结构存在含水方块，因此请在导入时不要使用 Omega 的 load 命令，否则会丢失这一特性！')
 print('完成：翻译完成，保存在当前目录下的 ans.bdx 中.')
 # 写入翻译结果
@@ -343,7 +343,7 @@ if translateMode == True:
         with open("Experimental.log","w+",encoding='UTF-8') as file:
             for i in share.experimental:
                 file.write(str(i) + '\n')
-        print('完成：已输出物品转换日志，保存在当前目前下的 experimental.log 中.')
+        print('完成：已输出物品转换日志，保存在当前目前下的 Experimental.log 中.')
     # 输出日志
 
 
