@@ -73,7 +73,7 @@ You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 
 ## 更新日志
 - `v40.0 - 2022/10/04 Afternoon`
-   - 支持了作弊软件 `白墙` 导出的 `JSON` 文件中的命令方块和容器数据 & 于[25a70b5](https://github.com/Happy2018new/Structural-Translator/commit/25a70b55fd74f567f88791897b44b71fb214a553) 更新
+   - 支持了作弊软件 `白墙` 导出的 `JSON` 文件中的命令方块和容器数据 & 于 [25a70b5](https://github.com/Happy2018new/Structural-Translator/commit/25a70b55fd74f567f88791897b44b71fb214a553) 更新
      > **注意事项**<br>
      > 由于 `v40.0` 更新，因此您可能会安装失败或更新失败，原因是依赖库 `numpy` 无法成功安装。<br>
      > 欲解决此问题，请参考 [此文章](https://www.bilibili.com/read/mobile?id=14467258) 中的解决方案，谢谢。<br>
