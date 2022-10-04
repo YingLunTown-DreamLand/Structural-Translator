@@ -72,6 +72,8 @@ You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 
 ## 更新日志
+- `v40.1 - 2022/10/04 Afternoon`
+   - 修复了在解析 `JSON` 时因容器内物品解析失败而造成的可能的方块错位的问题 & 于 [6345487](https://github.com/Happy2018new/Structural-Translator/commit/634548711e7b932bfb14308e7acd231525f116b0) 修复
 - `v40.0 - 2022/10/04 Afternoon`
    - 支持了作弊软件 `白墙` 导出的 `JSON` 文件中的命令方块和容器数据 & 于 [25a70b5](https://github.com/Happy2018new/Structural-Translator/commit/25a70b55fd74f567f88791897b44b71fb214a553) 更新
      > **注意事项**<br>
