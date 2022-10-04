@@ -2,6 +2,7 @@ import json
 import sys
 sys.path.append(".")
 import share
+import Others.Synthetic
 # 载入依赖项
 
 with open("input.json","r+b") as file:
@@ -53,6 +54,8 @@ del blockMatrixNew
 # 取得方块索引表的字典
 pos = [0,0,0]
 blockList = []
+blockEntityDataList = {}
+repeatingCount = -1
 xRepeat = xSize
 yRepeat = ySize
 zRepeat = zSize
@@ -66,9 +69,16 @@ while xRepeat > 0:
         while zRepeat > 0:
             zRepeat = zRepeat - 1
             # 改变数值
+            repeatingCount = repeatingCount + 1
+            # 得到当前被处理方块在密集矩阵下的角标
             try:
                 ans = blockMatrix[str(pos[0])+','+str(pos[1])+','+str(pos[2])]
                 blockList.append(blockId[str([whiteWalljson[ans]["name"],whiteWalljson[ans]["aux"]])])
+                # 将待处理的方块在方块池中的 ID 写入到密集矩阵中
+                blockEntityData = Others.Synthetic.main(whiteWalljson[ans],repeatingCount)
+                if blockEntityData != None:
+                    blockEntityDataList[f'{repeatingCount}:10'] = blockEntityData
+                # 处理方块实体数据，如果有的话
             except:
                 blockList.append((len(share.pool) - 1))
             # 向方块索引表加入方块
@@ -107,5 +117,17 @@ for i in blockMatrix:
     mcs.append(',')
 mcs[-1] = ']]}}}'
 mcs = json.loads("".join(mcs))
-share.mcs = mcs
 # 转换为支持的格式(半转换)
+
+if len(blockEntityDataList) > 0:
+    mcs["Root:10"]["structure:10"]["palette:10"] = {
+        "default:10":
+        {
+           "block_position_data:10": blockEntityDataList
+        }
+    }
+# 处理方块实体数据，若存在的话
+
+share.mcs = mcs
+del mcs
+# 善后

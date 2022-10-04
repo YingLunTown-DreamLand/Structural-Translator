@@ -2,7 +2,7 @@
 A software that translates `.mcstructure` into `.bdx` .<br>
 这是一个翻译软件，用于将 `.mcstructure` 文件转换为 `.bdx` 格式。
 
-## 置顶内容(This is not translated into English)
+## 置顶内容
 请勿将本工具用于有版权建筑，一切都应该取得建筑原作者的授权！！！！！！<br>
 本工具的目的是为了导入“有灵魂”的建筑物，所以我十分建议自己造！！！<br>
 如果侵权事件仍然发生，那么未来将不会考虑支持更多功能(指的是 `JSON` 方面)，而是将相应功能从库中删除。
@@ -15,33 +15,16 @@ A software that translates `.mcstructure` into `.bdx` .<br>
 1. 下载 `Translator.exe` 并把它和 `input.mcstructure` 放在一起。
    - [下载链接](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
 2. 然后运行这个程序。
-## Run the program on source code(For `Termux` )
-Download and First Use
-1. Execute the following command
-```
-apt update && apt upgrade && apt install python && apt install git && pip install brotli && cd /sdcard && git clone https://github.com/Happy2018new/Structural-Translator/ && cd Structural-Translator
-```
-2. Then put `input.mcstructure` in the path `/storage/emulated/0/Structural-Translator` and run command `python Translator.py` .
-***
-Subsequent Use
-1. Run command `cd /sdcard/Structural-Translator` .
-2. Then put `input.mcstructure` in the path `/storage/emulated/0/Structural-Translator` .
-3. Run command `python Translator.py` .
-***
-Remove
-```
-cd /sdcard && rm -r Structural-Translator
-```
-***
-Update
-```
-cd /sdcard && rm -r Structural-Translator && git clone https://github.com/Happy2018new/Structural-Translator/
-```
+
 ## 从源代码运行程序(对于 `Termux` )
+注意事项<br>
+> 由于 `v40.0` 更新，因此您可能会安装失败或更新失败，原因是依赖库 `numpy` 无法成功安装。<br>
+> 欲解决此问题，请参考 [此文章](https://www.bilibili.com/read/mobile?id=14467258) 中的解决方案，谢谢。<br>
+***
 下载和首次使用
 1. 在 `Termux` 执行此命令：
 ```
-apt update && apt upgrade && apt install python && apt install git && pip install brotli && cd /sdcard && git clone https://github.com/Happy2018new/Structural-Translator/ && cd Structural-Translator
+apt update && apt upgrade && apt install python && apt install git && pip install brotli && pip install nbtlib && cd /sdcard && git clone https://github.com/Happy2018new/Structural-Translator/ && cd Structural-Translator
 ```
 2. 将 `input.mcstructure` 或 `input.json` 放置在路径 `/storage/emulated/0/Structural-Translator` ，然后在 `Termux` 执行命令 `python Translator.py` 。
 ***
@@ -57,12 +40,14 @@ cd /sdcard && rm -r Structural-Translator
 ***
 更新
 ```
-cd /sdcard && rm -r Structural-Translator && git clone https://github.com/Happy2018new/Structural-Translator/
+apt update && apt upgrade && apt install python && apt install git && pip install brotli && pip install nbtlib && cd /sdcard && rm -r Structural-Translator && git clone https://github.com/Happy2018new/Structural-Translator/
 ```
+
 ## Language(语言)
 This program only supports Chinese.<br>
 这个程序只支持中文。
-## 已加入的功能(This is not translated into English)
+
+## 已加入的功能
 - 基本的翻译功能
 - 读取命令方块的数据并写入到生成的 `.bdx` 文件中
 - 大部分方块的方块状态(数据值)
@@ -72,7 +57,8 @@ This program only supports Chinese.<br>
 - 蛇形翻译(以最大 `16 * 16` 的区域为基础来进行翻译，且方向是蛇形的，便于后续的导入)
 - 支持超大文件(如大小达到 `500 MB` 的结构)
 - 显示翻译进度
-## 什么是 `.mcstructure` 和 `.bdx` ?(This is not translated into English)
+
+## 什么是 `.mcstructure` 和 `.bdx` ?
 1. `.mcstructure` 是 `Minecraft Bedrock Edition` 的原版文件，因此可以在电脑端通过 `结构方块` 导出。
 2. `.bdx` 是 `FastBuilder` 支持的文件格式，用于将 `.bdx` 内记录的建筑物数据导入到 网易我的世界中国版 · 基岩版租赁服。
 3. 你可以在这里访问 `FastBuilder` 的库：
@@ -80,10 +66,12 @@ This program only supports Chinese.<br>
 4. 如果你想要购买 `FastBuilder` ，您可以前往：
    - [用户中心](https://uc.fastbuilder.pro/)
    - [官网](https://fastbuilder.pro/)
+
 ## About Me(联系我)
 You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
-## 更新日志(This is not translated into English)
+
+## 更新日志
 - `v34.7 - 2022/09/06 Night`
    - 修复了前景层为 `None` 时会翻译失败的问题、修复了部分文案问题 & 于[92c3c23](https://github.com/Happy2018new/Structural-Translator/commit/92c3c230d26fa1da8b6376809f85113de1546a7b) 修复
 - `v34.5 - 2022/09/01 Morning`
@@ -172,7 +160,8 @@ You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
   - 修复了无法正常解析 `minecraft:planks` 的数据值的问题 & 于 [359a7ba](https://github.com/Happy2018new/Structural-Translator/commit/359a7bacc32c9c479fc88600f03f740e6c3d0e27) 修复
 - `v20.1 - 2022/08/09 Night`
   - 修复了无法正常解析 `minecraft:stone` 的数据值的问题 & 于 [359a7ba](https://github.com/Happy2018new/Structural-Translator/commit/359a7bacc32c9c479fc88600f03f740e6c3d0e27) 和 [895ac42](https://github.com/Happy2018new/Structural-Translator/commit/895ac4285c2ee1415236905a2017d9ddc06e82f2) 修复
-## 免责声明(This is not translated into English)
+
+## 免责声明
 - 若因为使用本软件而造成了任何可能的问题，我不会对此负责。（例如侵权等恶性事件）
 - 本工具的初衷是更高效的创作以及保留租赁服内的建筑物，而非实施其他可能的违法事件。
 - 同时，作者保留有关此工具的所有解释权。

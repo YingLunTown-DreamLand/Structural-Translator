@@ -208,12 +208,12 @@ while True:
 
                 if ((foreground[0] == 'minecraft:command_block') or (
                     foreground[0] == 'minecraft:repeating_command_block') or 
-                    (foreground[0] == 'minecraft:chain_command_block')) and (translateMode == True) and (
+                    (foreground[0] == 'minecraft:chain_command_block')) and (
                     upPointer == False):
                     outputCommand.append(blockNBT.CommandBlock.cbGet(foreground,pointer))
                     success_to_translate = True
                 # 翻译命令方块
-                if success_to_translate == False and translateMode == True and upPointer == False:
+                if success_to_translate == False and upPointer == False:
                     try:
                         changesValue = blockNBT.main.blockList[foreground[0]][str(foreground[1])]
                         # 取得参数
@@ -330,21 +330,20 @@ print('完成：翻译完成，保存在当前目录下的 ans.bdx 中.')
 
 
 
-if translateMode == True:
-    if len(share.errorList) > 0:
-        print('错误：翻译时可能发生了错误，现在正在输出 警告 日志……')
-        with open("Warning.log","w+",encoding='UTF-8') as file:
-            for i in share.errorList:
-                file.write(str(i) + '\n')
-        print('完成：已输出错误日志，保存在当前目前下的 Warning.log 中.\n如有必要，请通知开发者并附上此文件以修复Bug.')
-    # 输出错误
-    if len(share.experimental) > 0:
-        print('信息：翻译时翻译了带有物品的容器，现在输出相关日志……')
-        with open("Experimental.log","w+",encoding='UTF-8') as file:
-            for i in share.experimental:
-                file.write(str(i) + '\n')
-        print('完成：已输出物品转换日志，保存在当前目前下的 Experimental.log 中.')
-    # 输出日志
+if len(share.errorList) > 0:
+    print('错误：翻译时可能发生了错误，现在正在输出 警告 日志……')
+    with open("Warning.log","w+",encoding='UTF-8') as file:
+        for i in share.errorList:
+            file.write(str(i) + '\n')
+    print('完成：已输出错误日志，保存在当前目前下的 Warning.log 中.\n如有必要，请通知开发者并附上此文件以修复Bug.')
+# 输出错误日志
+if len(share.experimental) > 0:
+    print('信息：翻译时翻译了带有物品的容器，现在输出相关日志……')
+    with open("Experimental.log","w+",encoding='UTF-8') as file:
+        for i in share.experimental:
+            file.write(str(i) + '\n')
+    print('完成：已输出物品转换日志，保存在当前目前下的 Experimental.log 中.')
+# 输出物品转换日志
 
 
 
