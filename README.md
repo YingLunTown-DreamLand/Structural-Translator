@@ -80,7 +80,7 @@ You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
      > 由于 `v40.0` 更新，因此您可能会安装失败或更新失败，原因是依赖库 `numpy` 无法成功安装。<br>
      > 欲解决此问题，请参考 [此文章](https://www.bilibili.com/read/mobile?id=14467258) 中的解决方案，谢谢。<br>
 - `v34.7 - 2022/09/06 Night`
-   - 修复了前景层为 `None` 时会翻译失败的问题、修复了部分文案问题 & 于[92c3c23](https://github.com/Happy2018new/Structural-Translator/commit/92c3c230d26fa1da8b6376809f85113de1546a7b) 修复
+   - 修复了前景层为 `None` 时会翻译失败的问题、修复了部分文案问题 & 于 [92c3c23](https://github.com/Happy2018new/Structural-Translator/commit/92c3c230d26fa1da8b6376809f85113de1546a7b) 修复
 - `v34.5 - 2022/09/01 Morning`
    - 修复了下述问题并进行了一些技术型更新 & 于 [8270a2d](https://github.com/Happy2018new/Structural-Translator/commit/8270a2defafc16865c3f8ff51a5c52053cd3d0f4) 更新和修复
      - 大型箱子或大型陷阱箱将不会错误拼接，现在将自动拆分为单个的箱子
