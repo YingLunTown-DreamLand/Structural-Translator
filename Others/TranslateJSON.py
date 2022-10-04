@@ -75,12 +75,15 @@ while xRepeat > 0:
                 ans = blockMatrix[str(pos[0])+','+str(pos[1])+','+str(pos[2])]
                 blockList.append(blockId[str([whiteWalljson[ans]["name"],whiteWalljson[ans]["aux"]])])
                 # 将待处理的方块在方块池中的 ID 写入到密集矩阵中
+            except:
+                blockList.append((len(share.pool) - 1))
+            try:
                 blockEntityData = Others.Synthetic.main(whiteWalljson[ans],repeatingCount)
                 if blockEntityData != None:
                     blockEntityDataList[f'{repeatingCount}:10'] = blockEntityData
                 # 处理方块实体数据，如果有的话
             except:
-                blockList.append((len(share.pool) - 1))
+                None
             # 向方块索引表加入方块
             if zRepeat > 0:
                 pos[2] = pos[2] + 1
