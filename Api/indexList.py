@@ -29,4 +29,25 @@ indexList = {
         bytearray(b'\x1c'): 'addX_int8', # addX(int8_t)
         bytearray(b'\x1d'): 'addX_int8', # addY(int8_t)
         bytearray(b'\x1e'): 'addX_int8', # addZ(int8_t)
+        bytearray(b'\x1f'): 'useRuntimeIdPalette', # useRuntimeIdPalette
+        bytearray(b'\x20'): 'addX', # placeBlockWithRuntimeId(uint16_t)	
+        bytearray(b'\x21'): 'jumpX', # placeBlockWithRuntimeId
+        bytearray(b'\x22'): 'placeCommandBlockWithRuntimeId', # placeCommandBlockWithRuntimeId(uint16_t)
+        bytearray(b'\x23'): 'placeCommandBlockWithRuntimeId', # placeCommandBlockWithRuntimeId
+        bytearray(b'\x24'): 'placeCommandBlockWithRuntimeId', # placeCommandBlockWithDataNew
+        bytearray(b'\x25'): 'placeBlockWithChestData_int16', # placeBlockWithChestData(uint16_t)
     }
+# 这个列表中每个键是操作编号，其对应的值则是应该调用的 Api.unpack 中的函数
+
+
+
+indexListforMain = {
+    bytearray(b'\x01'): 'addToBlockPalette', # addToBlockPalette
+    bytearray(b'\x02'): 'x+Move-old', # addX
+    bytearray(b'\x03'): 'x+Move-old', # X++
+    bytearray(b'\x04'): 'y+Move-old', # addY
+    bytearray(b'\x05'): 'y+Move-old', # Y++
+    bytearray(b'\x06'): 'z+Move-old', # addZ
+    bytearray(b'\x08'): 'z+Move-old', # Z++
+    bytearray(b'\x07'): 'placeBlock', # placeBlock
+}
