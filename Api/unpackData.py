@@ -1,5 +1,6 @@
 import brotli
 import struct
+import nbtlib
 import sys
 sys.path.append(".")
 import Api.indexList
@@ -7,163 +8,193 @@ import Api.indexList
 
 def getBDXdata(path:str)->bytearray:
     with open(path,"r+b") as file:
-        return (brotli.decompress((bytearray(b'').join(file.readlines()))[3:]))[4:]
-    # return BDXdata:bytearray
+        return (brotli.decompress((b''.join(file.readlines()))[3:]))[4:]
+    # return BDXdata:bytes
 
-def getBDXauthor(input:bytearray)->list:
-    context = input.split(bytearray(b'\x00'),maxsplit=1)
-    return [context[0].decode(encoding='utf-8'),context[1]]
-    # return [authorName:str, remainder:bytearray]
+def getBDXauthor(input:bytearray,pointer:int)->list:
+    newPoiner = input.index(b'\x00',pointer)
+    return [input[pointer:newPoiner].decode(encoding='utf-8'), newPoiner+1]
+    # return [authorName:str, newPoiner:int]
 
-def getType(input:bytearray)->list|bool:
-    Type = input[0:1]
+def getType(input:bytearray,pointer:int)->list|bool:
+    Type = input[pointer:pointer+1]
     if Type in Api.indexList.indexList:
-        return [Api.indexList.indexList[Type],Type,input[1:]]
+        return [Api.indexList.indexList[Type],Type,pointer+1]
     else:
         return False
-    # return [functionName:str, operation:bytearray, remainder:bytearray]
+    # return [functionName:str, operation:bytearray, newPoiner:int]
     # return False:bool
 
-def addX(input:bytearray)->list:
-    return [struct.unpack('>H',input[0:2])[0],input[2:]]
-    # return [addX:short(int), remainder:bytearray]
+def addX(input:bytearray,pointer:int)->list:
+    return [struct.unpack('>H',input[pointer:pointer+2])[0],pointer+2]
+    # return [addX:short(int), newPoiner:int]
 
-def Xaddadd(input:bytearray)->list:
-    return [1,input]
-    # return [X++(1), remainder:bytearray]
+def Xaddadd(input:bytearray,pointer:int)->list:
+    return [1,pointer]
+    # return [X++(1), newPoiner:int]
 
-def placeBlock(input:bytearray)->list:
-    return [struct.unpack('>H',input[0:2])[0],struct.unpack('>H',input[2:4])[0],input[4:]]
-    # return [blockID:short(int), blockData:short(int), remainder:bytearray]
-
-def NOP(input:bytearray)->bytearray:
-    return input
-    # return remainder:bytearray
-
-def jumpX(input:bytearray)->list:
-    return [struct.unpack('>I',input[0:4])[0],input[4:]]
-    # return [addX:int, remainder:bytearray]
-
-def addX_int16(input:bytearray):
-    return [struct.unpack('>h',input[0:2])[0],input[2:]]
-    # return [addX:short(int), remainder:bytearray]
-
-def addX_int32(input:bytearray):
-    return [struct.unpack('>i',input[0:4])[0],input[4:]]
-    # return [addX:int, remainder:bytearray]
-
-def assignCommandBlockData(input:bytearray)->list:
-    strPart = input[4:].split(bytearray(b'\x00'),maxsplit=3)
+def placeBlock(input:bytearray,pointer:int)->list:
     return [
-        struct.unpack('>I',input[0:4])[0],
-        (strPart[0]).decode(encoding='utf-8'),
-        (strPart[1]).decode(encoding='utf-8'),
-        (strPart[2]).decode(encoding='utf-8'),
-        struct.unpack('>i',(strPart[3])[0:4])[0],
-        struct.unpack('>u',(strPart[3])[4:5])[0],
-        struct.unpack('>u',(strPart[3])[5:6])[0],
-        struct.unpack('>u',(strPart[3])[6:7])[0],
-        struct.unpack('>u',(strPart[3])[7:8])[0],
-        (strPart[3])[8:]
+        struct.unpack('>H',input[pointer:pointer+2])[0],
+        struct.unpack('>H',input[pointer+2:pointer+4])[0],
+        pointer+4
+        ]
+    # return [blockID:short(int), blockData:short(int), newPoiner:int]
+
+def jumpX(input:bytearray,pointer:int)->list:
+    return [struct.unpack('>I',input[pointer:pointer+4])[0],pointer+4]
+    # return [addX:int, newPoiner:int]
+
+def addX_int16(input:bytearray,pointer:int):
+    return [struct.unpack('>h',input[pointer:pointer+2])[0],pointer+2]
+    # return [addX:short(int), newPoiner:int]
+
+def addX_int32(input:bytearray,pointer:int):
+    return [struct.unpack('>i',input[pointer:pointer+4])[0],pointer+4]
+    # return [addX:int, newPoiner:int]
+
+def assignCommandBlockData(input:bytearray,pointer:int)->list:
+    location1 = input.index(b'\x00',pointer+4)
+    command = input[pointer+4:location1]
+    # command
+    location2 = input.index(b'\x00',location1+1)
+    name = input[location1+1:location2]
+    # name
+    location3 = input.index(b'\x00',location2+1)
+    lastoutput = input[location2+1:location3]
+    # lastoutput
+    return [
+        struct.unpack('>I',input[pointer:pointer+4])[0],
+        command.decode(encoding='utf-8'),
+        name.decode(encoding='utf-8'),
+        lastoutput.decode(encoding='utf-8'),
+        struct.unpack('>i',input[location3+1:location3+5])[0],
+        struct.unpack('>?',input[location3+5:location3+6])[0],
+        struct.unpack('>?',input[location3+6:location3+7])[0],
+        struct.unpack('>?',input[location3+7:location3+8])[0],
+        struct.unpack('>?',input[location3+8:location3+9])[0],
+        location3 + 9
     ]
     # return [
     # mode:int, command:str, name:str, lastoutput:str, tickdelay:int, executeOnFirstTick:bool, 
-    # trackOutput:bool, conditional:bool, needRedstone:bool, remainder:bytearray
+    # trackOutput:bool, conditional:bool, needRedstone:bool, newPoiner:int
     # ]
 
-def placeCommandBlockWithData(input:bytearray)->list:
-    strPart = input[8:].split(bytearray(b'\x00'),maxsplit=3)
+def placeCommandBlockWithData(input:bytearray,pointer:int)->list:
+    location1 = input.index(b'\x00',pointer+8)
+    command = input[pointer+8:location1]
+    # command
+    location2 = input.index(b'\x00',location1+1)
+    name = input[location1+1:location2]
+    # name
+    location3 = input.index(b'\x00',location2+1)
+    lastoutput = input[location2+1:location3]
+    # lastoutput
     return [
-        struct.unpack('>H',input[0:2])[0],
-        struct.unpack('>H',input[2:4])[0],
-        struct.unpack('>I',input[4:8])[0],
-        (strPart[0]).decode(encoding='utf-8'),
-        (strPart[1]).decode(encoding='utf-8'),
-        (strPart[2]).decode(encoding='utf-8'),
-        struct.unpack('>i',(strPart[3])[0:4])[0],
-        struct.unpack('>u',(strPart[3])[4:5])[0],
-        struct.unpack('>u',(strPart[3])[5:6])[0],
-        struct.unpack('>u',(strPart[3])[6:7])[0],
-        struct.unpack('>u',(strPart[3])[7:8])[0],
-        (strPart[3])[8:]
+        struct.unpack('>H',input[pointer:pointer+2])[0],
+        struct.unpack('>H',input[pointer+2:pointer+4])[0],
+        struct.unpack('>I',input[pointer+4:pointer+8])[0],
+        command.decode(encoding='utf-8'),
+        name.decode(encoding='utf-8'),
+        lastoutput.decode(encoding='utf-8'),
+        struct.unpack('>i',input[location3+1:location3+5])[0],
+        struct.unpack('>?',input[location3+5:location3+6])[0],
+        struct.unpack('>?',input[location3+6:location3+7])[0],
+        struct.unpack('>?',input[location3+7:location3+8])[0],
+        struct.unpack('>?',input[location3+8:location3+9])[0],
+        location3 + 9
     ]
     # return [
     # blockID:short(int), blockData:short(int), mode:int, command:str, name:str, 
     # lastoutput:str, tickdelay:int, executeOnFirstTick:bool, trackOutput:bool, 
-    # conditional:bool, needRedstone:bool, remainder:bytearray
+    # conditional:bool, needRedstone:bool, newPoiner:int
     # ]
 
-def addX_int8(input:bytearray)->list:
-    return [struct.unpack('>b',input[0:1])[0],input[1:]]
-    # return [addX:char(int), remainder:bytearray]
+def addX_int8(input:bytearray,pointer:int)->list:
+    return [struct.unpack('>b',input[pointer:pointer+1])[0],pointer+1]
+    # return [addX:char(int), newPoiner:int]
 
-def useRuntimeIdPalette(input:bytearray)->list:
-    return [struct.unpack('>B',input[0:1])[0],input[1:]]
-    # return [addX:char(int), remainder:bytearray]
+def useRuntimeIdPalette(input:bytearray,pointer:int)->list:
+    return [struct.unpack('>B',input[pointer:pointer+1])[0],pointer+1]
+    # return [addX:char(int), newPoiner:int]
 
-def placeCommandBlockWithRuntimeId(input:bytearray)->list:
-    strPart = input[6:].split(bytearray(b'\x00'),maxsplit=3)
+def placeCommandBlockWithRuntimeId(input:bytearray,pointer:int)->list:
+    location1 = input.index(b'\x00',pointer+6)
+    command = input[pointer+6:location1]
+    # command
+    location2 = input.index(b'\x00',location1+1)
+    name = input[location1+1:location2]
+    # name
+    location3 = input.index(b'\x00',location2+1)
+    lastoutput = input[location2+1:location3]
+    # lastoutput
     return [
-        struct.unpack('>H',input[0:2])[0],
-        struct.unpack('>I',input[2:6])[0],
-        (strPart[0]).decode(encoding='utf-8'),
-        (strPart[1]).decode(encoding='utf-8'),
-        (strPart[2]).decode(encoding='utf-8'),
-        struct.unpack('>i',(strPart[3])[0:4])[0],
-        struct.unpack('>u',(strPart[3])[4:5])[0],
-        struct.unpack('>u',(strPart[3])[5:6])[0],
-        struct.unpack('>u',(strPart[3])[6:7])[0],
-        struct.unpack('>u',(strPart[3])[7:8])[0],
-        (strPart[3])[8:]
+        struct.unpack('>H',input[pointer:pointer+2])[0],
+        struct.unpack('>I',input[pointer+2:pointer+6])[0],
+        command.decode(encoding='utf-8'),
+        name.decode(encoding='utf-8'),
+        lastoutput.decode(encoding='utf-8'),
+        struct.unpack('>i',input[location3+1:location3+5])[0],
+        struct.unpack('>?',input[location3+5:location3+6])[0],
+        struct.unpack('>?',input[location3+6:location3+7])[0],
+        struct.unpack('>?',input[location3+7:location3+8])[0],
+        struct.unpack('>?',input[location3+8:location3+9])[0],
+        location3 + 9
     ]
     # return [
     # runtimeId:short(int), mode:int, command:str, name:str, lastoutput:str, 
     # tickdelay:int, executeOnFirstTick:bool, trackOutput:bool, conditional:bool, 
-    # needRedstone:bool, remainder:bytearray
+    # needRedstone:bool, newPoiner:int
     # ]
 
-def placeBlockWithChestData_int16(input:bytearray)->list:
-    runtimeId = struct.unpack('>H',input[0:2])[0]
-    ChestDataCount = struct.unpack('>B',input[2:3])[0]
-    input = input[3:]
-    ChestData = []
-    for i in range(ChestDataCount):
-        itemName = input.split(bytearray(b'\x00'),maxsplit=1)
-        ChestData.append({
-            "itemName": (itemName[0]).decode(encoding='utf-8'),
-            "itemCount": struct.unpack('>B',(itemName[1])[0:1]),
-            "itemData": struct.unpack('>H',(itemName[1])[1:3]),
-            "slotID": struct.unpack('>B',(itemName[1])[3:4])
-        })
-        input = (itemName[1])[4:]
+def placeBlockWithChestData_int16(input:bytearray,pointer:int)->list:
+    runtimeId = struct.unpack('>H',input[pointer:pointer+2])[0]
+    repeatCount = struct.unpack('>B',input[pointer+2:pointer+3])[0]
+    pointer = pointer + 3
+    ChestData = nbtlib.tag.List[nbtlib.tag.Compound]()
+    # prepare
+    for i in range(repeatCount):
+        location = input.index(b'\x00',pointer)
+        itemName = input[pointer:location].decode(encoding='utf-8')
+        # split by b'\x00'
+        ChestData.append(nbtlib.tag.Compound({
+            "Name": nbtlib.tag.String(itemName),
+            "Count": nbtlib.tag.Byte(struct.unpack('>B',input[location+1:location+2])[0]),
+            "Damage": nbtlib.tag.Short(struct.unpack('>H',input[location+2:location+4])[0]),
+            "Slot": nbtlib.tag.Byte(struct.unpack('>B',input[location+4:location+5])[0])
+        }))
+        pointer = location + 5
+        # set newPointer
     return [
         runtimeId,
-        ChestDataCount,
         ChestData,
-        input
+        pointer
     ]
-    # return [runtimeId:short(int), slotCount:char(int), ChestData:list]
+    # return [runtimeId:short(int), ChestData:list, newPoiner:int]
     # ChestData:list = [{itemName:str, itemCount:char(int), itemData:short(int), slotID:char(int)}]
 
-def placeBlockWithChestData(input:bytearray)->list:
-    runtimeId = struct.unpack('>I',input[0:4])[0]
-    ChestDataCount = struct.unpack('>B',input[4:5])[0]
-    input = input[5:]
-    ChestData = []
-    for i in range(ChestDataCount):
-        itemName = input.split(bytearray(b'\x00'),maxsplit=1)
-        ChestData.append({
-            "itemName": (itemName[0]).decode(encoding='utf-8'),
-            "itemCount": struct.unpack('>B',(itemName[1])[0:1]),
-            "itemData": struct.unpack('>H',(itemName[1])[1:3]),
-            "slotID": struct.unpack('>B',(itemName[1])[3:4])
-        })
-        input = (itemName[1])[4:]
+def placeBlockWithChestData(input:bytearray,pointer:int)->list:
+    runtimeId = struct.unpack('>I',input[pointer:pointer+4])[0]
+    repeatCount = struct.unpack('>B',input[pointer+4:pointer+5])[0]
+    pointer = pointer + 5
+    ChestData = nbtlib.tag.List[nbtlib.tag.Compound]()
+    # prepare
+    for i in range(repeatCount):
+        location = input.index(b'\x00',pointer)
+        itemName = input[pointer:location].decode(encoding='utf-8')
+        # split by b'\x00'
+        ChestData.append(nbtlib.tag.Compound({
+            "Name": nbtlib.tag.String(itemName),
+            "Count": nbtlib.tag.Byte(struct.unpack('>B',input[location+1:location+2])[0]),
+            "Damage": nbtlib.tag.Short(struct.unpack('>H',input[location+2:location+4])[0]),
+            "Slot": nbtlib.tag.Byte(struct.unpack('>B',input[location+4:location+5])[0])
+        }))
+        pointer = location + 5
+        # set newPointer
     return [
         runtimeId,
-        ChestDataCount,
         ChestData,
-        input
+        pointer
     ]
-    # return [runtimeId:int, slotCount:char(int), ChestData:list]
+    # return [runtimeId:int, ChestData:list, newPoiner:int]
     # ChestData:list = [{itemName:str, itemCount:char(int), itemData:short(int), slotID:char(int)}]
