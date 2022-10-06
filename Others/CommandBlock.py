@@ -60,7 +60,7 @@ def cbGet(input:dict)->dict:
             ans['auto:1'] = 1
         if input['isRedStoneMode'] == 1:
             ans['auto:1'] = 0
-        if (input['isRedStoneMode'] != 0) or (input['isRedStoneMode'] != 1):
+        if (input['isRedStoneMode'] != 0) and (input['isRedStoneMode'] != 1):
             ans['auto:1'] = 0
     except:
         ans['auto:1'] = 0
