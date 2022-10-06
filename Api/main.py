@@ -87,11 +87,6 @@ while True:
         pointer = lsSave[-1]
         continue
     # 放置方块(不含 NBT 数据)
-    if Api.indexList.indexListforMain[operation] == 'NOP':
-        exec(f'lsSave = Api.unpackData.{functionName}(BDXContext,pointer)')
-        pointer = lsSave[-1]
-        continue
-    # “摆烂”操作
     if Api.indexList.indexListforMain[operation] == 'xMove':
         exec(f'lsSave = Api.unpackData.{functionName}(BDXContext,pointer)')
         if operation == b'\x0f':
