@@ -72,6 +72,8 @@ You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
 您可以通过 `QQ` 联系我，我的 `QQ` 是 `3527679800` 。
 
 ## 更新日志
+- `v40.3 - 2022/10/07 Midnight`
+   - 修复了翻译 `JSON` 时命令方块永远是 `红石控制` 的问题 & 于 [293d98f](https://github.com/Happy2018new/Structural-Translator/commit/293d98fb400010fc88c05e3dce8b8c7e00ccb796) 修复
 - `v40.1 - 2022/10/04 Afternoon`
    - 修复了在解析 `JSON` 时因容器内物品解析失败而造成的可能的方块错位的问题 & 于 [6345487](https://github.com/Happy2018new/Structural-Translator/commit/634548711e7b932bfb14308e7acd231525f116b0) 修复
 - `v40.0 - 2022/10/04 Afternoon`
