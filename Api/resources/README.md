@@ -1,7 +1,7 @@
 # 代码引用说明
 
 ## 来源
-本 `resources` 文件夹及其内部的全部文件夹和文件来源于 [LNSSPsd/PhoenixBuilder](https://github.com/LNSSPsd/PhoenixBuilder/)
+当前目录下的 `blockRuntimeIDs` 文件夹及其内部的全部文件夹和文件来源于 [LNSSPsd/PhoenixBuilder](https://github.com/LNSSPsd/PhoenixBuilder/)
 
 ## 修改
 相应的文件夹及文件拷贝自 [resources](https://github.com/LNSSPsd/PhoenixBuilder/tree/main/resources) 文件夹，并作如下修改。
