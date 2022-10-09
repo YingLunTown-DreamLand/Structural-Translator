@@ -39,7 +39,8 @@ indexList = [
     'placeBlockWithChestData_int16', # placeBlockWithChestData(uint16_t)
     'placeBlockWithChestData', # placeBlockWithChestData
     ]
-# 这个列表中每个键是操作编号，其对应的值则是应该调用的 Api.unpack 中的函数
+# 此列表用于解包部分
+# Api.unpack
 
 
 
@@ -84,5 +85,6 @@ indexListforMain = [
     'placeBlockWithChestData', # placeBlockWithChestData(uint16_t)
     'placeBlockWithChestData', # placeBlockWithChestData
     ]
-# 这个列表中每个键是操作编号，其对应的值则是要实现目标操作的方法名
-# 方法无非就是——画笔的移动、放置方块、放置特殊方块，然后再进行细分就可以了
+# 此列表用于实现具体的 operation 方法
+# Api.function
+# 实现这些方法无非就是——画笔的移动、放置方块、放置特殊方块，然后再进行细分就可以了
