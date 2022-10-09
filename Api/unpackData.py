@@ -17,12 +17,13 @@ def getBDXauthor(input:bytearray,pointer:int)->list:
     # return [authorName:str, newPoiner:int]
 
 def getType(input:bytearray,pointer:int)->list|bool:
-    Type = input[pointer:pointer+1]
-    if Type in Api.indexList.indexList:
-        return [Api.indexList.indexList[Type],Type,pointer+1]
+    Type = input[pointer]
+    TypeByte = input[pointer:pointer+1]
+    if Type <= len(Api.indexList.indexList) - 1:
+        return [Api.indexList.indexList[Type],TypeByte,Type,pointer+1]
     else:
         return False
-    # return [functionName:str, operation:bytearray, newPoiner:int]
+    # return [functionName:str, operation:bytearray, operationNum:int, newPoiner:int]
     # return False:bool
 
 def addX(input:bytearray,pointer:int)->list:

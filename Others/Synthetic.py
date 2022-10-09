@@ -28,7 +28,7 @@ def main(input:dict,location:int)->list:
     # 载入资源
 
     if ('cmddata' in input) and ((input['name'] == 'minecraft:command_block') or (
-        input['name'] == 'minecraft:chaincommand_block') or (input['name'] == 'minecraft:repeating_command_block')):
+        input['name'] == 'minecraft:chain_command_block') or (input['name'] == 'minecraft:repeating_command_block')):
         return {"block_entity_data:10":Others.CommandBlock.cbGet(input['cmddata'])}
     # 若为命令方块
     if ('entitynbt' in input) and (input['name'] in indexList):
