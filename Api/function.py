@@ -127,7 +127,6 @@ def placeCommandBlockWithData():
 def useRuntimeIdPalette():
     exec(f'Api.share.lsSave = Api.unpackData.{Api.share.functionName}(Api.share.BDXContext,Api.share.pointer)')
     exec(f'Api.share.runtimeIdsBlockPalette = Api.RuntimeIdPalette.version{Api.share.lsSave[0]}')
-    print(Api.share.lsSave)
     Api.share.pointer = Api.share.lsSave[-1]
 # 旧版 - 设置 runtimeId 方块池
 
