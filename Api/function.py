@@ -103,11 +103,17 @@ def assignCommandBlockData():
 
 def placeCommandBlockWithData():
     exec(f'Api.share.lsSave = Api.unpackData.{Api.share.functionName}(Api.share.BDXContext,Api.share.pointer)')
+    if Api.share.lsSave[2] == 0:
+        name = 'minecraft:command_block'
+    elif Api.share.lsSave[2] == 1:
+        name = 'minecraft:repeating_command_block'
+    else:
+        name = 'minecraft:chain_command_block'
     Api.share.resultList.append({
     "x": Api.share.penPos[0],
     "y": Api.share.penPos[1],
     "z": Api.share.penPos[2],
-        "name": 'minecraft:' + Api.share.blockPalette[Api.share.lsSave[0]],
+        "name": name,
         "aux": Api.share.lsSave[1],
         "cmddata":
         {
@@ -144,11 +150,17 @@ def placeBlockWithRuntimeId():
 
 def placeCommandBlockWithRuntimeId():
     exec(f'Api.share.lsSave = Api.unpackData.{Api.share.functionName}(Api.share.BDXContext,Api.share.pointer)')
+    if Api.share.lsSave[1] == 0:
+        name = 'minecraft:command_block'
+    elif Api.share.lsSave[1] == 1:
+        name = 'minecraft:repeating_command_block'
+    else:
+        name = 'minecraft:chain_command_block'
     Api.share.resultList.append({
         "x": Api.share.penPos[0],
         "y": Api.share.penPos[1],
         "z": Api.share.penPos[2],
-        "name": 'minecraft:' + Api.share.runtimeIdsBlockPalette[Api.share.lsSave[0]][0],
+        "name": name,
         "aux": Api.share.runtimeIdsBlockPalette[Api.share.lsSave[0]][1],
         "cmddata":
         {
