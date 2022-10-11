@@ -9,11 +9,11 @@ A software that translates `.mcstructure` into `.bdx` .<br>
 
 ## How to use(如何使用)?
 1. Download the file named `Translator.exe` and put it with `input.mcstructure` .
-   - [Download link](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
+   - [Download link](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha/Translator.exe)
 2. Then run this program.
 ***
 1. 下载 `Translator.exe` 并把它和 `input.mcstructure` 放在一起。
-   - [下载链接](https://github.com/Happy2018new/Structural-Translator/raw/main/Translator.exe)
+   - [下载链接](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha/Translator.exe)
 2. 然后运行这个程序。
 
 ## 从源代码运行程序(对于 `Termux` )
