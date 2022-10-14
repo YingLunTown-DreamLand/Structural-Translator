@@ -2,7 +2,7 @@ def jumpSpace(command:str,pointer:int)->int:
     while True:
         if pointer >= len(command) - 1:
             return pointer
-        elif command[pointer] == ' ':
+        elif command[pointer] == ' ' or command[pointer] == '/':
             pointer = pointer + 1
         else:
             return pointer
@@ -44,7 +44,7 @@ def getRightBarrier(command:str,pointer:int)->int:
 
 def searchForExecute(command:str,pointer:int)->list:
     pointer = jumpSpace(command,pointer)
-    if command[pointer:pointer+7].replace('E','e').replace('X','x').replace('C','c').replace('U','u',).replace('T','t') == 'execute' or '/execute':
+    if command[pointer:pointer+7].replace('E','e').replace('X','x').replace('C','c').replace('U','u',).replace('T','t') == 'execute':
         return [pointer+7,True]
     else:
         return [pointer,False]
@@ -102,7 +102,7 @@ def getPos(command:str,pointer:int)->list:
         if command[pointer] == '^' or command[pointer] == '~':
             transit = highSearching(command,pointer+1,[' ','^','~','a','b','c','d','e','f','g','h','i','j','k','l','m','n',
             'o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O',
-            'P','Q','R','S','T','U','V','W','X','Y','Z','/','?'])
+            'P','Q','R','S','T','U','V','W','X','Y','Z','?'])
             ans.append(
                 command[
                     pointer:
