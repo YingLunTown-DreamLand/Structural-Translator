@@ -173,4 +173,4 @@ You can contact me through `QQ` , my `QQ` is `3527679800` .<br>
   - 修复了无法正常解析 `minecraft:stone` 的数据值的问题 & 于 [359a7ba](https://github.com/Happy2018new/Structural-Translator/commit/359a7bacc32c9c479fc88600f03f740e6c3d0e27) 和 [895ac42](https://github.com/Happy2018new/Structural-Translator/commit/895ac4285c2ee1415236905a2017d9ddc06e82f2) 修复
 
 ## 免责声明
-详见 [LICENSE](https://github.com/Happy2018new/Structural-Translator/blob/main/LICENSE) 处的文件。<br>
+详见 [LICENSE](https://github.com/Happy2018new/Structural-Translator/blob/main/LICENSE) 处的文件。
