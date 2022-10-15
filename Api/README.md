@@ -1,10 +1,7 @@
-# 使用说明
+# 导航
 
-## 要解析的 `BDX` 文件
-要解析的 `input.bdx` 文件请置于 `Api` 文件夹下。
+## `ParseBDX`
+此文件夹内提供的 `Api` 用于解析 `BDX` 文件
 
-## 输出位置
-解析后的文件输出在 `Api` 文件夹下，格式为 `JSON` 且可以被 `WhiteWall` 解析。
-
-## 运行源代码
-请通过 `Visual Studio Code` 打开 `Api` 文件夹的上一级目录，然后运行 `main.py` 即可。
+## `UpgradeExecuteCommand`
+此文件夹内提供的 `Api` 用于将其中记录的 `Execute` 命令升级为新版本格式

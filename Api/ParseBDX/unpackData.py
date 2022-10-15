@@ -3,7 +3,7 @@ import struct
 import nbtlib
 import sys
 sys.path.append(".")
-import Api.indexList
+import Api.ParseBDX.indexList
 # 载入依赖项
 
 def getBDXdata(path:str)->bytearray:
@@ -19,8 +19,8 @@ def getBDXauthor(input:bytearray,pointer:int)->list:
 def getType(input:bytearray,pointer:int)->list|bool:
     Type = input[pointer]
     TypeByte = input[pointer:pointer+1]
-    if Type <= len(Api.indexList.indexList) - 1:
-        return [Api.indexList.indexList[Type],TypeByte,Type,pointer+1]
+    if Type <= len(Api.ParseBDX.indexList.indexList) - 1:
+        return [Api.ParseBDX.indexList.indexList[Type],TypeByte,Type,pointer+1]
     else:
         return False
     # return [functionName:str, operation:bytearray, operationNum:int, newPoiner:int]
