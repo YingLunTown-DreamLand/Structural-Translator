@@ -145,7 +145,11 @@ def run(command:str)->str:
 
             selector = selector[0]
             pos = pos[0]
-            ans.append(f'execute as {selector} at {selector} positioned {pos} run ')
+
+            if pos == '~ ~ ~':
+                ans.append(f'execute as {selector} at {selector} run ')
+            else:
+                ans.append(f'execute as {selector} at {selector} positioned {pos} run ')
         else:
             ans.append(command[markable[0]:])
             break
