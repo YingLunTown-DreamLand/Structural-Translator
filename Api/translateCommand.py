@@ -99,20 +99,15 @@ def getPos(command:str,pointer:int)->list:
     pointer = jumpSpace(command,pointer)
     ans = []
     for i in range(3):
-        if command[pointer] == '^' or command[pointer] == '~':
-            transit = highSearching(command,pointer+1,[' ','^','~','a','b','c','d','e','f','g','h','i','j','k','l','m','n',
-            'o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O',
-            'P','Q','R','S','T','U','V','W','X','Y','Z','?'])
-            ans.append(
-                command[
-                    pointer:
-                    transit[0]
-                ])
-            pointer = jumpSpace(command,transit[0])
-        else:
-            transit = command.index(' ',pointer)
-            ans.append(command[pointer:transit])
-            pointer = jumpSpace(command,transit)
+        transit = highSearching(command,pointer+1,[' ','^','~','a','b','c','d','e','f','g','h','i','j','k','l','m','n',
+        'o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O',
+        'P','Q','R','S','T','U','V','W','X','Y','Z','?','/'])
+        ans.append(
+            command[
+                pointer:
+                transit[0]
+            ])
+        pointer = jumpSpace(command,transit[0])
     return [
         ans[0] + ' ' + ans[1] + ' ' + ans[2],
         pointer
