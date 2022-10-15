@@ -122,13 +122,6 @@ def getPos(command:str,pointer:int)->list:
 
 
 
-def getAns(selector:str,pos:str)->str:
-    return f'execute as {selector} at {selector} positioned {pos} run '
-
-
-
-
-
 def run(command:str)->str:
     ans = []
     pointer = -1
@@ -145,15 +138,10 @@ def run(command:str)->str:
 
             selector = selector[0]
             pos = pos[0]
-            ans.append(
-                getAns(
-                    selector,
-                    pos
-                )
-            )
+            ans.append(f'execute as {selector} at {selector} positioned {pos} run ')
         else:
             ans.append(command[markable[0]:])
             break
-    
+
 
     return "".join(ans)
