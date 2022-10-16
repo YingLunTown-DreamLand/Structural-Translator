@@ -53,9 +53,9 @@ This program only supports Chinese<br>
 - Basic translation function
 - Get the command blocks data and write them into the `.bdx` file
 - Block States
-- `experimental` - The items of the container
+- `Experimental - The items of the container`
 - Replace thr block id or thr block state to another
-- `Optional options` - Skip the air
+- `Optional options - Skip the air`
 - Based on the `16 * 16` areas
 - Support large `.mcstructure` files
 - Display translation progress
