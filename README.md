@@ -1,14 +1,14 @@
 # Structural-Translator
-A software that translates `.mcstructure` into `.bdx` .<br>
+A software that translates `.mcstructure` into `.bdx`
 
 
 
 
 
 ## How to use?
-1. Download the file named `Translator.exe` and put it with `input.mcstructure` .
+1. Download the file named `Translator.exe` and put it with `input.mcstructure`
    - [Download link](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha/Translator.exe)
-2. Then run this program.
+2. Then run this program
 
 
 
