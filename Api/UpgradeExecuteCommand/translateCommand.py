@@ -126,6 +126,29 @@ def getPos(command:str,pointer:int)->list:
 
 
 
+def detectBlock(command:str,pointer:int)->list:
+    pointer = jumpSpace(command,pointer)
+    if command[pointer:pointer+6].replace('D','d').replace('E','e').replace('T','t').replace('C','c') == 'detect':
+        pointer = getPos(command,jumpSpace(command,pointer+6))
+        pos = pointer[0]
+        startLocation = pointer = jumpSpace(command,pointer[-1])
+        endLocation = command.index(' ',pointer)
+        spaceLocation = command.index(' ',jumpSpace(command,endLocation + 1))
+        return [
+            True,
+            f' if block {pos} {command[startLocation:endLocation]} {command[endLocation + 1:spaceLocation]}',
+            spaceLocation
+        ]
+    else:
+        return [
+            False,
+            pointer
+        ]
+
+
+
+
+
 def run(command:str)->str:
     ans = []
     pointer = -1
@@ -138,15 +161,17 @@ def run(command:str)->str:
         if markable[1] == True:
             selector = getSelector(command,markable[0])
             pos = getPos(command,selector[-1])
-            pointer = pos[-1] - 1
+            detect = detectBlock(command,pos[-1])
+            pointer = detect[-1] - 1
 
             selector = selector[0]
             pos = pos[0]
+            detect = detect[1] if detect[0] == True else ''
 
-            if pos == '~ ~ ~':
-                ans.append(f'execute as {selector} at {selector} run ')
-            else:
-                ans.append(f'execute as {selector} at {selector} positioned {pos} run ')
+            ans.append(
+                f'execute as {selector} at {selector}{detect} run 'f'execute as {selector} at {selector}{detect} run ' if (
+                    pos == '~ ~ ~') else f'execute as {selector} at {selector} positioned {pos}{detect} run '
+            )
         else:
             ans.append(command[markable[0]:])
             break
