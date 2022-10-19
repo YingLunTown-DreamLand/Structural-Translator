@@ -169,7 +169,7 @@ def run(command:str)->str:
             detect = detect[1] if detect[0] == True else ''
 
             ans.append(
-                f'as {selector} at {selector}{detect} 'if (
+                f'as {selector} at {selector}{detect} ' if (
                     pos == '~ ~ ~') else f'as {selector} at {selector} positioned {pos}{detect} '
             )
         else:
