@@ -169,12 +169,16 @@ def run(command:str)->str:
             detect = detect[1] if detect[0] == True else ''
 
             ans.append(
-                f'execute as {selector} at {selector}{detect} run 'f'execute as {selector} at {selector}{detect} run ' if (
-                    pos == '~ ~ ~') else f'execute as {selector} at {selector} positioned {pos}{detect} run '
+                f'as {selector} at {selector}{detect} 'if (
+                    pos == '~ ~ ~') else f'as {selector} at {selector} positioned {pos}{detect} '
             )
         else:
             ans.append(command[markable[0]:])
             break
 
 
-    return "".join(ans)
+    if len(ans) <= 1:
+        return "".join(ans)
+    else:
+        ans[-1] = 'run ' + ans[-1]
+        return 'execute ' + "".join(ans)
