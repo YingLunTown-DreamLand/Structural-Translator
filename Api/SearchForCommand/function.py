@@ -17,6 +17,7 @@ def run(path:str,outputPath:str,outputLogPath:str)->None:
     with open(outputPath,'w+',encoding='utf-8') as file:
         file.write(json.dumps(ans,sort_keys=True,indent=4,separators=(', ', ': '),ensure_ascii=False))
     with open(outputLogPath,'w+',encoding='utf-8') as file:
+        ans = [i['cmddata']['command'] for i in ans]
         for i in ans:
-            file.write("['" + i['cmddata']['command'] + "']\n")
+            file.write(json.dumps(ans,sort_keys=True,indent=4,separators=(', ', ': '),ensure_ascii=False))
     # 输出提纯结果及相应日志
