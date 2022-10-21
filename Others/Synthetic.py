@@ -7,14 +7,13 @@ import blockNBT.main
 
 
 
-def main(input:dict,location:int)->list:
+def main(input:dict)->list:
     """
     \n摘要
     根据 `JSON` 记录的命令方块或容器数据，返回 `.mcstructure` 所支持的 `方块实体` 格式。
     \n参数
     `input:dict` 形如下述格式。
         `{"x":0, "y":0, "z":1, "name":"minecraft:glass", "aux":7}`
-    `location:int` 指的是当前正在处理的方块在密集矩阵下的角标
     \n返回值
     当待处理的方块是命令方块或支持的容器时，返回一个字典，格式如下。\n
     `{`
