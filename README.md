@@ -7,7 +7,7 @@ A software that translates `.mcstructure` into `.bdx`
 
 ## How to use?
 1. Download the file named `Translator.exe` and put it with `input.mcstructure`
-   - [Download link](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha/Translator.exe)
+   - [Download link](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v42.0)/Translator.exe)
 2. Then run this program
 
 
