@@ -95,8 +95,10 @@ You can contact me through the following links
 
 
 ## Update Logs
-_No more description_<br>
 _For the update logs of previous versions, please go to link [Old Update Logs](https://github.com/Happy2018new/Structural-Translator/blob/main/Old%20Update%20Logs.md)_
+***
+- `v42.0 - 2022/10/21 Night`
+   - 重写了翻译 `WhiteWallJson` 的主函数 & 于 [6bc8325](https://github.com/Happy2018new/Structural-Translator/commit/6bc832594685b6cae448a6397c0afd7f7eadaa68) 更新
 
 
 
