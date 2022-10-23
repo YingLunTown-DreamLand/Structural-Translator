@@ -224,3 +224,11 @@ def placeBlockWithChestData():
     })
     Api.ParseBDX.share.pointer = Api.ParseBDX.share.lsSave[-1]
 # 未使用的特性(但可调用) - 放置带有物品的容器
+
+def operation39():
+    exec(f'Api.ParseBDX.share.lsSave = Api.ParseBDX.unpackData.{Api.ParseBDX.share.functionName}(Api.ParseBDX.share.BDXContext,Api.ParseBDX.share.pointer)')
+    print(Api.ParseBDX.share.lsSave[0])
+    Api.ParseBDX.share.pointer = Api.ParseBDX.share.lsSave[-1]
+# 未被实现的特性/保留的特性
+# 在 BDX 中支持一个可选的 Operation ，用于记录方块或实体的 NBT 数据
+# https://github.com/LNSSPsd/PhoenixBuilder/issues/83

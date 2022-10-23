@@ -38,6 +38,7 @@ indexList = [
     'placeCommandBlockWithRuntimeId', # placeCommandBlockWithDataNew
     'placeBlockWithChestData_int16', # placeBlockWithChestData(uint16_t)
     'placeBlockWithChestData', # placeBlockWithChestData
+    'operation39' # operation39
     ]
 # 此列表用于解包部分
 # Api.unpack
@@ -84,6 +85,7 @@ indexListforMain = [
     'placeCommandBlockWithDataNew', # placeCommandBlockWithDataNew
     'placeBlockWithChestData', # placeBlockWithChestData(uint16_t)
     'placeBlockWithChestData', # placeBlockWithChestData
+    'operation39' # operation39
     ]
 # 此列表用于实现具体的 operation 方法
 # Api.function
