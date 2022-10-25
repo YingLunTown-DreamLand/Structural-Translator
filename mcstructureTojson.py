@@ -255,16 +255,19 @@ def List(input:bytearray,Type:int,repeat:int,pointer:int):
                 "6":":06",
                 "8":":08"
             }
-            try:
+            if str(ans[0]) in typeAddList:
                 jsonList.append(f'"{ans[2]}' + typeAddList[str(ans[0])] + '"')
-            except:
+            else:
                 if ans[0] == 7 or ans[0] == 11 or ans[0] == 12:
                     typeAddList2 = {
                         "7":":07",
                         "11":":11",
                         "12":":12"
                     }
-                    jsonList.append((f'{[str(i) + typeAddList2[str(ans[0])] for i in ans[2]]}').replace('\'','"'))
+                    if len(ans[2]) > 0:
+                        jsonList.append((f'{[str(i) + typeAddList2[str(ans[0])] for i in ans[2]]}').replace('\'','"'))
+                    else:
+                        jsonList.append(f'["empty{typeAddList2[str(ans[0])]}"]')
                 else:
                     jsonList.append(str(ans[2]))
             jsonList.append(',')

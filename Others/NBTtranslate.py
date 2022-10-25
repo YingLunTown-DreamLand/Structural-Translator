@@ -129,25 +129,34 @@ def List(input)->list:
 
     if type(input) == nbtlib.tag.List[nbtlib.tag.ByteArray]:
         for i in input:
-            memorySave = []
-            for i1 in i:
-                memorySave.append(f'{int(i1)}:07')
+            if len(i) == 0:
+                memorySave = ['empty:07']
+            else:
+                memorySave = []
+                for i1 in i:
+                    memorySave.append(f'{int(i1)}:07')
             ans.append(memorySave)
         return ans
     # list-byte_array
     if type(input) == nbtlib.tag.List[nbtlib.tag.IntArray]:
         for i in input:
-            memorySave = []
-            for i1 in i:
-                memorySave.append(f'{int(i1)}:11')
+            if len(i) == 0:
+                memorySave = ['empty:11']
+            else:
+                memorySave = []
+                for i1 in i:
+                    memorySave.append(f'{int(i1)}:11')
             ans.append(memorySave)
         return ans
     # list-int_array
     if type(input) == nbtlib.tag.List[nbtlib.tag.LongArray]:
         for i in input:
-            memorySave = []
-            for i1 in i:
-                memorySave.append(f'{int(i1)}:12')
+            if len(i) == 0:
+                memorySave = ['empty:12']
+            else:
+                memorySave = []
+                for i1 in i:
+                    memorySave.append(f'{int(i1)}:12')
             ans.append(memorySave)
         return ans
     # list-long_array
