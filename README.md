@@ -7,7 +7,7 @@ A software that translates `.mcstructure` into `.bdx`
 
 ## How to use?
 1. Download the file named `Translator.exe` and put it with `input.mcstructure`
-   - [Download link](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v42.0)/Translator.exe)
+   - [Download link](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v43.0)/Translator.exe)
 2. Then run this program
 
 
@@ -97,8 +97,10 @@ You can contact me through the following links
 ## Update Logs
 _For the update logs of previous versions, please go to link [Old Update Logs](https://github.com/Happy2018new/Structural-Translator/blob/main/Old%20Update%20Logs.md)_
 ***
+- `v43.0 - 2022/10/25 MidNight`
+   - Full `.mcstructure` files parsing and reverse parsing are supported and fix some bugs & Update and fix in [afcd812](https://github.com/Happy2018new/Structural-Translator/commit/afcd812e12c301152af52806e31d42bec8e7cc2c)
 - `v42.0 - 2022/10/21 Night`
-   - 重写了翻译 `WhiteWallJson` 的主函数 & 于 [6bc8325](https://github.com/Happy2018new/Structural-Translator/commit/6bc832594685b6cae448a6397c0afd7f7eadaa68) 更新
+   - Rewrite the main function which translate the `WhiteWallJson` files & Update in [6bc8325](https://github.com/Happy2018new/Structural-Translator/commit/6bc832594685b6cae448a6397c0afd7f7eadaa68)
 
 
 
