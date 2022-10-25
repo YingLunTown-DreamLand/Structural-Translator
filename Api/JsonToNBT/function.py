@@ -87,56 +87,49 @@ def JSONList(input:list)->List:
 
 
     if type(input[0]) == list:
-        if len(input[0]) == 0:
-            return List([List([])])
-            # input[0] == []
-
-        if type(input[0][0]) == list or type(input[0][0]) == int:
-            return List[List]([JSONList(i) for i in input])
-            # list or int
-
-        if type(input[0][0]) == str:
-            if input[0][0][-3:] == ':07':
-                ans = List[ByteArray]([])
-                for i in input:
-                    save = []
-                    for i1 in i:
-                        if i[0] == 'empty:07':
-                            break
-                        else:
-                            save.append(int(i1[:-3]))
-                    ans.append(ByteArray(save))
-                return ans
+        if not len(input[0]) == 0:
+            if type(input[0][0]) == str:
+                if input[0][0][-3:] == ':07':
+                    ans = List[ByteArray]([])
+                    for i in input:
+                        save = []
+                        for i1 in i:
+                            if i[0] == 'empty:07':
+                                break
+                            else:
+                                save.append(int(i1[:-3]))
+                        ans.append(ByteArray(save))
+                    return ans
                 # list-byte_array
 
-            if input[0][0][-3:] == ':11':
-                ans = List[IntArray]([])
-                for i in input:
-                    save = []
-                    for i1 in i:
-                        if i[0] == 'empty:11':
-                            break
-                        else:
-                            save.append(int(i1[:-3]))
-                    ans.append(IntArray(save))
-                return ans
+                if input[0][0][-3:] == ':11':
+                    ans = List[IntArray]([])
+                    for i in input:
+                        save = []
+                        for i1 in i:
+                            if i[0] == 'empty:11':
+                                break
+                            else:
+                                save.append(int(i1[:-3]))
+                        ans.append(IntArray(save))
+                    return ans
                 # list-byte_array
 
-            if input[0][0][-3:] == ':12':
-                ans = List[LongArray]([])
-                for i in input:
-                    save = []
-                    for i1 in i:
-                        if i[0] == 'empty:12':
-                            break
-                        else:
-                            save.append(int(i1[:-3]))
-                    ans.append(LongArray(save))
-                return ans
+                if input[0][0][-3:] == ':12':
+                    ans = List[LongArray]([])
+                    for i in input:
+                        save = []
+                        for i1 in i:
+                            if i[0] == 'empty:12':
+                                break
+                            else:
+                                save.append(int(i1[:-3]))
+                        ans.append(LongArray(save))
+                    return ans
                 # list-long-array
 
-            return List[List]([JSONList(i) for i in input])
-            # list-list-byte/short/long/float/double/string
+        return List[List]([JSONList(i) for i in input])
+        # list-list-byte/short/long/float/double/string
     # list
 
 
