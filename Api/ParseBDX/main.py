@@ -1,5 +1,6 @@
 import sys
 sys.path.append(".")
+import json
 import Api.ParseBDX.function
 import Api.ParseBDX.share
 import Api.ParseBDX.indexList
@@ -55,6 +56,12 @@ while True:
 
 
 
+if len(Api.ParseBDX.share.recordBlockEntityData) > 0:
+    Api.ParseBDX.function.collectionRecordBlockEntityData()
+# 将 operation39(recordBlockEntityData) 找到的 NBT 写入到主列表 Api.ParseBDX.share.resultList 中
+
+
+
 if authorName == '':
     print('作者未定义.')
 else:
@@ -65,8 +72,28 @@ if Api.ParseBDX.share.successStates == True:
     print('文件完整.')
 # 打印作者名称及文件完整结论
 with open("Api/ParseBDX/ans.json","w+",encoding='utf-8') as file:
-    import json
     file.write(json.dumps(Api.ParseBDX.share.resultList,sort_keys=True,indent=4,separators=(', ', ': '),ensure_ascii=False))
 # 输出结果
+
+
+
+ans = []
+for i in Api.ParseBDX.share.resultList:
+    if 'entitynbt' in i:
+        ans.append(i)
+if len(ans) > 0:
+    with open('Api/ParseBDX/blockNBT_find_out.json',"w+",encoding='utf-8') as file:
+        file.write(json.dumps(ans,sort_keys=True,indent=4,separators=(', ', ': '),ensure_ascii=False))
+        print('SUCCESS - 检测到目标文件中包含方块实体数据，相关提取结果保存在 Api/ParseBDX/blockNBT_find_out.json 下.')
+# 打印方块实体日志
+
+
+if len(Api.ParseBDX.share.recordBlockEntityDataErrorList) > 0:
+    with open('Api/ParseBDX/blockNBT_error.json',"w+",encoding='utf-8') as file:
+        file.write(json.dumps(Api.ParseBDX.share.recordBlockEntityDataErrorList,sort_keys=True,indent=4,separators=(', ', ': '),ensure_ascii=False))
+        print('WARNING - 在解析 39 号操作(recordBlockEntityDataErrorList) 时发生了错误，相关日志保存在 Api/ParseBDX/blockNBT_error.json 下.')
+# 打印方块实体错误日志
+
+
 print('SUCCESS - 已成功解析目标文件，已保存在 Api/ParseBDX/ans.json 下.')
 # 打印解析结果

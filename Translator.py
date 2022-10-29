@@ -13,6 +13,11 @@ import brotli
 
 
 
+
+
+
+
+
 ###
 while True:
     print('您希望翻译 MCStructure 吗？(回答 Yes 或 No)\n注：选择 No 将翻译 白墙JSON 文件！')
@@ -26,6 +31,15 @@ while True:
     print('错误：请不要答非所问.\n\n\n')
 ###
 # 确定翻译模式
+
+
+
+
+
+
+
+
+
 
 if translateMode == True:
     try:
@@ -55,6 +69,11 @@ else:
 
 
 
+
+
+
+
+
 if translateMode == True:
     import check
     # 检查结构完整性
@@ -65,8 +84,18 @@ if translateMode == True:
 
 
 
+
+
+
+
+
 import replaceBlockID
 # 组件 - 替换方块ID
+
+
+
+
+
 
 
 
@@ -88,6 +117,13 @@ while True:
 
 
 
+
+
+
+
+
+
+
 print('进度：即将开始翻译……')
 areaPosStates = [1,1]
 areaPos = [1,1]
@@ -106,6 +142,10 @@ else:
 
 
 
+
+
+
+
 outputCommand = []
 outputCommand.append(bytearray(
     b'BDX\x00\xe9\x98\xbf\xe5\xa4\x9a\xe7\xb1\xb3\xe5\xb0\xbc\xe6\x96\xaf\xe5\xa4\x9a\xe9\x9b\xb7\xe7\x89\xb9\x00\x1f\x75'
@@ -114,16 +154,26 @@ for i in share.pool:
     outputCommand.append(bytearray(b'\x01' + (i[0].split('minecraft:',maxsplit=1)[1]).encode() + bytearray(b'\x00')))
 # 将方块池写入到指令列表
 
+
+
+
+
 with open("ans.bdx","w+") as file:
     file.write('')
 # 创建文件
+
+
+
+
 
 executeStates = 0
 pointer = 0
 moveFacing = 1
 pointerPos = [0,0,0]
 T = share.mcs["Root:10"]["size:9"][2]
-# # 初始化(1)
+
+
+
 yMove = share.mcs["Root:10"]["size:9"][1]
 if share.mcs["Root:10"]["size:9"][0] < 16:
     xMove = share.mcs["Root:10"]["size:9"][0]
@@ -133,12 +183,25 @@ if share.mcs["Root:10"]["size:9"][2] < 16:
     zMove = share.mcs["Root:10"]["size:9"][2]
 else:
     zMove = 16
-# # 初始化(2)
+
+
+
 partPosz = zMove - 1
 partPosx = xMove - 1
 bgIsWater = False
-# # 初始化(3)
+
+
+
+if "block_position_data:10" in share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]:
+    hasBlockNBT = True
+else:
+    hasBlockNBT = False
 # 初始化
+
+
+
+
+
 print('进度：翻译开始.')
 while True:
     executeStates = executeStates + 1
@@ -147,6 +210,10 @@ while True:
     # 打印进度
     lastPointer = pointer
     # 记录指针位置
+
+
+
+
 
     while xMove > 0:
         xMove = xMove - 1
@@ -176,6 +243,8 @@ while True:
                     background = [None,0]
                 # 得到待处理方块的背景层和前景层
 
+
+
                 if ((foreground[0] == 'minecraft:air' and background[0] == None) or (
                     foreground[0] == None and background[0] == 'minecraft:air') or (
                     foreground[0] == 'minecraft:air' and background[0] == 'minecraft:air')) and (jumpAir == True):
@@ -183,6 +252,8 @@ while True:
                 else:
                     upPointer = False
                 # 确定是否提交指针位置改变
+
+
 
                 if upPointer == False:
                     if pointerPos[0] != 0:
@@ -196,6 +267,8 @@ while True:
                         pointerPos[2] = 0
                 # 变更指针位置(若需要变更的话)
 
+
+
                 if background[0] != None:
                     if (len(background[0].split('water')) > 1) and (foreground[0] != None):
                         bgIsWater = True
@@ -203,6 +276,8 @@ while True:
                         bgId.to_bytes(length=2,byteorder='big') + 
                         background[1].to_bytes(length=2,byteorder='big'))
                 # 处理含水方块(若需要处理的话)
+
+
 
                 success_to_translate = False
 
@@ -212,7 +287,8 @@ while True:
                     upPointer == False):
                     outputCommand.append(blockNBT.CommandBlock.cbGet(foreground,pointer))
                     success_to_translate = True
-                # 翻译命令方块
+                # # 翻译命令方块
+
                 if success_to_translate == False and upPointer == False:
                     try:
                         changesValue = blockNBT.main.blockList[foreground[0]][str(foreground[1])]
@@ -226,13 +302,26 @@ while True:
                         success_to_translate = True
                     except:
                         None
-                # 翻译容器内的物品
+                # # 翻译容器内的物品
+
                 if success_to_translate == False and foreground[-1] != '摆烂' and foreground[0] != None and upPointer == False:
                      outputCommand.append(bytearray(b'\x07') + 
                      fgId.to_bytes(length=2,byteorder='big') + 
                      foreground[1].to_bytes(length=2,byteorder='big'))
-                # 处理普通情况
+                # # 处理普通情况
+
+                if hasBlockNBT == True:
+                    if f"{pointer}:10" in share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_position_data:10"]:
+                        strNBT = function.outputStrNBT(share.mcs,pointer).encode(encoding='utf-8')
+                        outputCommand.append(
+                            bytearray(b'\x27') + 
+                            len(strNBT).to_bytes(length=4,byteorder='big',signed=False) + 
+                            strNBT
+                        )
+                # # 写入方块实体数据
                 # 写入命令
+
+
 
                 if zMove > 0:
                     pointer = pointer + 1
@@ -252,11 +341,17 @@ while True:
             yMove = share.mcs["Root:10"]["size:9"][1]
             zMove = partPosz + 1
         # 移动指针
+
+
+
     if moveFacing == 1:
         areaPos[1] = areaPos[1] + 1
     else:
         areaPos[1] = areaPos[1] - 1
     # 移动到下一个区块(不考虑溢出)
+
+
+
     if (areaPos[1] > areaPosStates[1]) or (areaPos[1] < 1):
         if moveFacing == 1:
             areaPos[1] = areaPosStates[1]
@@ -285,6 +380,8 @@ while True:
         break
     # 移动到下一个区块并移动指针(考虑溢出)、结束循环
 
+
+
     if (share.mcs["Root:10"]["size:9"][0] - (areaPos[0] - 1) * 16) >= 16:
         xMove = 16
         partPosx = 15
@@ -308,8 +405,18 @@ while True:
 
 
 
+
+
+
+
+
 del share.mcs
 # 删除不必要内容
+
+
+
+
+
 
 
 
@@ -330,6 +437,11 @@ print('完成：翻译完成，保存在当前目录下的 ans.bdx 中.')
 
 
 
+
+
+
+
+
 if len(share.errorList) > 0:
     print('错误：翻译时可能发生了错误，现在正在输出 警告 日志……')
     with open("Warning.log","w+",encoding='UTF-8') as file:
@@ -344,6 +456,11 @@ if len(share.experimental) > 0:
             file.write(str(i) + '\n')
     print('完成：已输出物品转换日志，保存在当前目前下的 Experimental.log 中.')
 # 输出物品转换日志
+
+
+
+
+
 
 
 

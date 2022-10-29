@@ -225,10 +225,53 @@ def placeBlockWithChestData():
     Api.ParseBDX.share.pointer = Api.ParseBDX.share.lsSave[-1]
 # 未使用的特性(但可调用) - 放置带有物品的容器
 
-def operation39():
+def recordBlockEntityData():
     exec(f'Api.ParseBDX.share.lsSave = Api.ParseBDX.unpackData.{Api.ParseBDX.share.functionName}(Api.ParseBDX.share.BDXContext,Api.ParseBDX.share.pointer)')
-    print('Operation 39 - ' + Api.ParseBDX.share.lsSave[0])
+    if type(Api.ParseBDX.share.lsSave[0]) == str:
+        Api.ParseBDX.share.recordBlockEntityData.append(
+            {
+                "x": Api.ParseBDX.share.penPos[0],
+                "y": Api.ParseBDX.share.penPos[1],
+                "z": Api.ParseBDX.share.penPos[2],
+                "entitynbt": Api.ParseBDX.share.lsSave[0],
+                "location": Api.ParseBDX.share.pointer
+            }
+        )
+    else:
+        Api.ParseBDX.share.recordBlockEntityDataErrorList.append(
+            {
+                "x": Api.ParseBDX.share.penPos[0],
+                "y": Api.ParseBDX.share.penPos[1],
+                "z": Api.ParseBDX.share.penPos[2],
+                "entitynbt": str(Api.ParseBDX.share.lsSave[0]),
+                "errorType": "Can not parse the nbt",
+                "errorLocation": Api.ParseBDX.share.pointer
+            }
+        )
     Api.ParseBDX.share.pointer = Api.ParseBDX.share.lsSave[-1]
 # 未被实现的特性/保留的特性
 # 在 BDX 中支持一个可选的 Operation ，用于记录方块或实体的 NBT 数据
 # https://github.com/LNSSPsd/PhoenixBuilder/issues/83
+
+def collectionRecordBlockEntityData():
+    indexList = {}
+    for i in range(len(Api.ParseBDX.share.resultList)):
+        String = Api.ParseBDX.share.resultList[i]
+        String = str(String["x"]) + ',' + str(String["y"]) + ',' + str(String["z"])
+        indexList[String] = i
+    for i in Api.ParseBDX.share.recordBlockEntityData:
+        String = str(i["x"]) + ',' + str(i["y"]) + ',' + str(i["z"])
+        if String in indexList:
+            Api.ParseBDX.share.resultList[indexList[String]]["entitynbt"] = i["entitynbt"]
+        else:
+            Api.ParseBDX.share.recordBlockEntityDataErrorList.append(
+                {
+                    "x": i["x"],
+                    "y": i["y"],
+                    "z": i["z"],
+                    "entitynbt": i["entitynbt"],
+                    "errorType": "Block not found",
+                    "errorLocation": i["location"]
+                }
+            )
+# 将 operation39(recordBlockEntityData) 记录的 NBT 汇总并写入到具体的方块中

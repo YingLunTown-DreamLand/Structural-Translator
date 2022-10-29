@@ -200,10 +200,16 @@ def placeBlockWithChestData(input:bytearray,pointer:int)->list:
     # return [runtimeId:int, ChestData:list, newPoiner:int]
     # ChestData:list = [{itemName:str, itemCount:char(int), itemData:short(int), slotID:char(int)}]
 
-def operation39(input:bytearray,pointer:int)->list:
+def recordBlockEntityData(input:bytearray,pointer:int)->list:
     newPointer = pointer + 4 + struct.unpack('>I',input[pointer:pointer+4])[0]
-    return [
-        input[pointer+4:newPointer].decode(encoding='utf-8'),
-        newPointer
-    ]
-    # return [blockNBT:str, newPoiner:int]
+    try:
+        return [
+            input[pointer+4:newPointer].decode(encoding='utf-8'),
+            newPointer
+        ]
+    except:
+        return [
+            input[pointer+4:newPointer],
+            newPointer
+        ]
+    # return [blockNBT:str|bytearray, newPoiner:int]

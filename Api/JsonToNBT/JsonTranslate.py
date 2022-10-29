@@ -6,6 +6,17 @@ from nbtlib.tag import *
 
 
 def JSONCompound(input:dict)->Compound:
+    """
+    \n摘要
+    将本系统通过转换 `.mcstructure` 所得到的 `字典` 转换为 `nbtlib` 库支持的形式
+    \n参数
+    `input:dict` 指的是本系统通过转换 `.mcstructure` 所得到的 `字典` 
+    \n返回值
+    返回对应的 `nbtlib.tag.Compound`
+    """
+    # 函数声明
+
+
     ans = Compound({})
     # 初始化
 
@@ -71,6 +82,17 @@ def JSONCompound(input:dict)->Compound:
 
 
 def JSONList(input:list)->List:
+    """
+    \n摘要
+    将本系统通过转换 `.mcstructure` 所得到的 `列表` 转换为 `nbtlib` 库支持的形式
+    \n参数
+    `input:list` 指的是本系统通过转换 `.mcstructure` 所得到的 `列表` 
+    \n返回值
+    返回对应的 `nbtlib.tag.List[...|None]`
+    """
+    # 函数声明
+
+
     if len(input) == 0:
         return List([])
     # if input == []

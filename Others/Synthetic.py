@@ -2,7 +2,6 @@ import sys
 sys.path.append(".")
 import Others.CommandBlock
 import Others.NBTtranslate
-import blockNBT.main
 # 载入依赖项
 
 
@@ -15,23 +14,27 @@ def main(input:dict)->list:
     `input:dict` 形如下述格式。
         `{"x":0, "y":0, "z":1, "name":"minecraft:glass", "aux":7}`
     \n返回值
-    当待处理的方块是命令方块或支持的容器时，返回一个字典，格式如下。\n
+    当待处理的方块携带有 `方块实体数据` 或是一个 `命令方块` ，则返回一个 `字典` ，格式如下。\n
     `{`
         `"block_entity_data:10": dict(Return)`
     `}`\n
-    否则，返回 `None` 。
+    否则，返回 `None` 。\n
+    特别地，`方块实体数据` 具有更高的优先级，可以覆盖 `命令方块` 选项
     """
     # 函数声明
 
-    indexList = blockNBT.main.blockList
-    # 载入资源
+
+    if 'entitynbt' in input:
+        try:
+            return {"block_entity_data:10":Others.NBTtranslate.getAns(input['entitynbt'])}
+        except:
+            return None
+    # 若携带有可解析的 NBT 数据
 
     if ('cmddata' in input) and ((input['name'] == 'minecraft:command_block') or (
         input['name'] == 'minecraft:chain_command_block') or (input['name'] == 'minecraft:repeating_command_block')):
         return {"block_entity_data:10":Others.CommandBlock.cbGet(input['cmddata'])}
     # 若为命令方块
-    if ('entitynbt' in input) and (input['name'] in indexList):
-        return {"block_entity_data:10":Others.NBTtranslate.getAns(input['entitynbt'])}
-    # 若为容器
+
     return None
     # 如果既不是命令方块也不是容器，则返回 None

@@ -1,6 +1,6 @@
 import sys
 sys.path.append(".")
-import Api.JsonToNBT.function
+import Api.JsonToNBT.JsonTranslate
 import json
 import nbtlib
 # 载入依赖项
@@ -11,7 +11,7 @@ outputPath = 'Api/JsonToNBT/ans.txt'
 
 with open(path,"r+",encoding='utf-8') as file:
     ans = nbtlib.serialize_tag(
-        Api.JsonToNBT.function.JSONCompound(
+        Api.JsonToNBT.JsonTranslate.JSONCompound(
             json.load(file)
         )
     )
