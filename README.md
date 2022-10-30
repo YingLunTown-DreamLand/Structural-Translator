@@ -7,7 +7,7 @@ A software that translates `.mcstructure` into `.bdx`
 
 ## How to use?
 1. Download the file named `Translator.exe` and put it with `input.mcstructure`
-   - [Download link](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v46.0)/Translator.exe)
+   - [Download link](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v43.0)/Translator.exe)
 2. Then run this program
 
 
@@ -97,6 +97,8 @@ You can contact me through the following links
 ## Update Logs
 _For the update logs of previous versions, please go to link [Old Update Logs](https://github.com/Happy2018new/Structural-Translator/blob/main/Old%20Update%20Logs.md)_
 ***
+- `v46.1 - 2022/10/30 Afternoon`
+   - A small change of add `Operation 39(recordBlockEntityData)` to the output `BDX` files & Updated in [701aecd](https://github.com/Happy2018new/Structural-Translator/commit/701aecd9f70bef778cb075e2da010045f8b0b975)
 - `v46.0 - 2022/10/29 Noon`
    - Support `Operation 39(recordBlockEntityData)` & Updated in [4afadf4](https://github.com/Happy2018new/Structural-Translator/commit/4afadf447c2ca890bb18458d080d63bec1c6fa14)
 - `v43.0 - 2022/10/25 MidNight`
