@@ -130,10 +130,7 @@ def outputStrNBT(input:dict,location:int)->str:
     NBTdata = input["Root:10"]["structure:10"]["palette:10"][
         "default:10"]["block_position_data:10"][f"{location}:10"]["block_entity_data:10"]
     # 获取方块实体数据
-    if type(NBTdata) == dict:
-        NBTdata = Api.JsonToNBT.JsonTranslate.JSONCompound(NBTdata)
-    elif type(NBTdata) == list:
-        NBTdata = Api.JsonToNBT.JsonTranslate.JSONList(NBTdata)
+    NBTdata = Api.JsonToNBT.JsonTranslate.JSONCompound(NBTdata)
     # 转换为 NBT 库下的格式
     return nbtlib.serialize_tag(NBTdata)
     # 返回值
