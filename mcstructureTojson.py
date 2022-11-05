@@ -348,14 +348,14 @@ class mcstructureTojson:
 
 
 
-    def main(self)->dict:
+    def main(self):
         """
         \n摘要
         本函数是 `class: mcstructureTojson` 的主函数
         \n参数
         `self` 指的是已经被实例化的项目
         \n返回值
-        返回转义得到的结果，数据类型是 `dict`
+        不会返回任何东西(`None`)，但转义得到的 `字典` 将会储存在 `self.json` 中
         """
         # 函数声明
 
@@ -390,10 +390,5 @@ class mcstructureTojson:
             with open(self.CreatorMode[1],"w+",encoding='UTF-8') as file:
                 file.write(json.dumps(self.json,sort_keys=True,indent=4,separators=(', ', ': '),ensure_ascii=False))
         # 开发者选项
-
-
-
-        return self.json
-        # 返回值
 
     # 主函数
