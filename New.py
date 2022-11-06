@@ -43,9 +43,12 @@ class startFunction:
 
         self.inputPath = inputPath    # 文件输入路径
         self.replaceBlockID = replaceBlockID    # “组件 - 替换方块ID”用到的列表
+        self.rbi_errorLog = []    # “组件 - 替换方块ID”的错误日志
+        self.rbi_result = []    # “组件 - 替换方块ID”得到的替换结果
         self.translateMode = translateMode    # 翻译模式
         self.jumpAir = jumpAir    # 是否跳过空气
         self.CreatorMode = CreatorMode    # 开发者选项
+        self.check = 10    # 结构完整性的检查结果
         # 实例化
 
     # 实例化函数
@@ -67,75 +70,36 @@ class startFunction:
             share.mcs = share.mcs.json
             # 取得结构信息
             import check
-            if check.main()[0] == False:
+            self.check = check.main()
+            if self.check[0] == False:
+                self.check = self.check[1]
                 return False
             # 检查结构完整性
-            
+            import pool
+            pool.main()
+            # 提取方块池
         else:
             from Others.TranslateJSON import TranslateJSON
-            share.mcs = TranslateJSON(self.inputPath)
-            TranslateJSON.main(share.mcs)
-            share.mcs = share.mcs.json
+            ans = TranslateJSON(self.inputPath)
+            TranslateJSON.main(ans)
+            share.pool = ans.pool
+            share.mcs = ans.json
+            del ans
             # 取得 JSON 信息
         # 取得信息
-            
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-if translateMode == True:
-    import check
-    # 检查结构完整性
-    import pool
-    # 提取方块池
-
-
-
-
-
-
-
-
-
-
-import replaceBlockID
-# 组件 - 替换方块ID
-
-
-
-
-
-
-
-
-
-
-###
-while True:
-    print('您可以选择在翻译时跳过空气方块，这样在一定程度上可以提高效率.\n您真的希望跳过空气吗？(回答 Yes 或 No)')
-    jumpAir = input()
-    if (jumpAir == 'Yes') or (jumpAir == 'yes') or (jumpAir == 'y') or (jumpAir == 'Y'):
-        jumpAir = True
-        break
-    if (jumpAir == 'No') or (jumpAir == 'no') or (jumpAir == 'n') or (jumpAir == 'N'):
-        jumpAir = False
-        break
-    print('错误：请不要答非所问.\n\n\n')
-###
-# 询问是否跳过空气方块
+        if len(self.replaceBlockID) > 0:
+            from replaceBlockID import replaceBlockID
+            rbi = replaceBlockID(self.replaceBlockID)
+            replaceBlockID.main(rbi)
+            self.rbi_errorLog = rbi.errorLog
+            self.rbi_result = rbi.result
+        else:
+            self.rbi_errorLog = None
+            self.rbi_result = False
+        # 组件 - 替换方块ID
 
 
 

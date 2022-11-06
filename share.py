@@ -5,6 +5,7 @@ ans = []
 name = []
 experimental = []
 errorList = []
+ContainerReplaceBlockIDList = []
 # 全局共享变量
 
 def reset():
@@ -16,4 +17,5 @@ def reset():
     name = []
     experimental = []
     errorList = []
+    replaceBlockID = []
 # 重置全局共享变量到初始化状态

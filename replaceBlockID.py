@@ -1,125 +1,146 @@
-import copy
 import share
-import function
+import copy
 # 载入依赖项
 
 
 
-###
-while True:
-    print('您是否需要使用 替换方块ID 之功能？(新版本的方块ID跟网易租赁服版本的方块ID可能不同，您可能需要把新ID转换为旧ID)\n请回答 Yes 或 No\n注意：此功能附加了对容器内物品的支持！')
-    replaceBlockID = input()
-    if (replaceBlockID == 'Yes') or (replaceBlockID == 'yes') or (replaceBlockID == 'y') or (replaceBlockID == 'Y'):
-        replaceBlockID = True
-        break
-    if (replaceBlockID == 'No') or (replaceBlockID == 'no') or (replaceBlockID == 'n') or (replaceBlockID == 'N'):
-        replaceBlockID = False
-        rbiSit = False
-        break
-    print('错误：请不要答非所问.\n\n\n')
-###
 
-if replaceBlockID == True:
-    try:
-        with open("replaceBlockID.txt","r+b") as file:
-            rbiList = []
-            crbiList = []
-            unSuccessCount = 0
-            unSuccessLine = 0
-            unSuccessLineList = []
-            #
-            for i in file:
-                unSuccessLine = unSuccessLine + 1
-                #
-                i = bytearray(i)
-                if i[-1] == 10:
-                    del i[-1]
-                if i[-1] == 13:
-                    del i[-1]
-                i = i.split(bytearray(b','))
-                #
-                if (len(i) == 5) and (len(i[3].split(bytearray(b'minecraft:'))) == 2):
-                    try:
-                        if (len(i[2].split(bytearray(b'.'))) > 1) or (len(i[4].split(bytearray(b'.'))) > 1):
-                            0/0
-                        i[2] = int(i[2])
-                        i[4] = int(i[4])
-                        if ((i[2] < 0) and (i[2] != -1)) or ((i[4] < 0) and (i[4] != -1)):
-                            0/0
-                        blockName = function.bytearrayToStr(i[1])
-                        blockName1 = function.bytearrayToStr(i[3])
-                        if i[0] == bytearray(b'B'):
-                            rbiList.append([blockName,i[2],blockName1,i[4]])
-                        if i[0] == bytearray(b'C'):
-                            crbiList.append([blockName,i[2],blockName1,i[4]])
-                    except:
-                        unSuccessCount = unSuccessCount + 1
-                        unSuccessLineList.append(unSuccessLine)
-                else:
-                    unSuccessCount = unSuccessCount + 1
-                    unSuccessLineList.append(unSuccessLine)
-                #
-            #
-            if unSuccessCount > 0:
-                heigh = len(str(max(unSuccessLineList)))
-                outputErrorMessage = []
-                while len(unSuccessLineList) > 10:
-                    repeat = 10
-                    outputErrorMessageLS = []
-                    while repeat > 0:
-                        i = str(unSuccessLineList[0])
-                        while len(i) < heigh:
-                            i = '0' + i
-                        outputErrorMessageLS.append(i)
-                        del unSuccessLineList[0]
-                        repeat = repeat - 1
-                    outputErrorMessage.append(outputErrorMessageLS)
-                #
-                print(f'替换方块ID：总计 {unSuccessCount} 处未能成功，错误发生在下列行数中：')
-                #
-                for i in outputErrorMessage:
-                    i = ", ".join(i)
-                    print(i)
-                if len(unSuccessLineList) > 0:
-                    unSuccessLineList = ", ".join([str(i) for i in unSuccessLineList])
-                    print(unSuccessLineList)
-                #
-            #
-        #
-        rbiSit = True
-        #
-    except:
-        rbiSit = False
-        print('错误：替换方块ID 之功能未能成功，原因是未能找到当前目录下的 replaceBlockID.txt 文件')
-        print('文件配置方法：每行只写 1 种方块，如果要把数据值为 m 的 X 方块改为数据值是 n 的 Y 方块，则写“B,X,m,Y,n”')
-        print('例子：把新版本的数据值为 0 的 minecraft:grass 方块改变为数据值为 1 的 minecraft:glass 方块，则写：')
-        print('B,minecraft:grass,0,minecraft:glass,1')
-        print('其他一些例子：')
-        print('B,minecraft:dirt,5,minecraft:anvil,7')
-        print('B,minecraft:redstone_block,0,minecraft:end_portal,0')
-        print('B,minecraft:kelp,10,minecraft:bamboo,3')
-        print('注意：请一定在原本方块ID前加上“minecraft:”，否则会替换失败！')
-        print('注意：方块的数据值是正整数；通常地，方块的数据值是 0 .')
-        print('注意：如果您希望忽略数据值，则请在对应数据值处填写 -1 .')
-        print('注意：如果您希望将此功能作用于容器，则请使用“C,X,m,Y,n”')
-successCount = 0
-if rbiSit == True:
-    poolNew = []
-    for i in share.pool:
-        if i[-1] != '摆烂':
-            poolNew.append([i[0],i[1]])
-        else:
-            poolNew.append([i[0],i[1],i[2]])
-        #
-        for i1 in rbiList:
-            if ((i[0] == i1[0]) and (i[1] == i1[1])) or ((i[0] == i1[0]) and (i1[1] == -1)):
-                poolNew[-1][0] = i1[2]
-                successCount = successCount + 1
-                if i1[3] != -1:
-                    poolNew[-1][1] = i1[3]
-                if i[-1] == '摆烂':
-                    del poolNew[-1][2]
-                break
-    share.pool = copy.deepcopy(poolNew)
-    print(f'替换方块ID：完成，已替换方块池中的 ID 及 数据值 ，总计替换 {successCount} 次.')
-# 组件 - 替换方块ID
+
+
+
+
+
+
+class replaceBlockID:
+    def __init__(
+        self,
+        input:list
+    )->None:
+        """
+        \n摘要
+        本函数用于去实例化某个项目
+        \n参数
+        `input:list` 提供的替换列表
+        """
+        # 函数声明
+
+        self.input = input    # 提供的替换列表
+        self.errorLog = []    # 错误日志
+        self.result = []    # 处理结果
+        # 实例化
+    
+    # 实例化函数
+
+
+
+
+
+
+
+    def main(self)->None:
+        """
+        \n摘要
+        本函数是 `class: replaceBlockID` 的主函数
+        \n参数
+        `self` 指的是已经被实例化的项目
+        \n返回值
+        不会返回任何东西(`None`)。当该组件运行时发生了错误，则会在 `self.errorLog: list` 显示 `self.input` 的错误位置。
+        除此之外，替换结果会保存在 `self.result: list` 下，格式为 `[share.pool, share.ContainerReplaceBlockIDList]` 。\n
+        应当特别说明的是，本函数会自动更新 `share.pool` 中的内容，因此 `self.result: list` 只是为了记录结果而构造的一个列表。
+        """
+        # 函数声明
+
+
+
+
+
+        for i in range(len(self.input)):    # example: i = 'B;minecraft:grass,2,minecraft:glass,0'
+            location = i
+            # 记录当前正在处理的项
+
+            i = self.input[i].split(';',maxsplit=1)    # ['B', 'minecraft:grass,2,minecraft:glass,0']
+            try:
+                Type = i[0]    # 'B'
+                String = i[1]    # 'minecraft:grass,2,minecraft:glass,0'
+            except:
+                self.errorLog.append(location)    # 写入错误日志
+                continue
+            # 提取类型及替换字符串
+
+
+
+            String = String.split(',',maxsplit=3)    # ['minecraft:grass', '2', 'minecraft:glass', '0']
+            # 将替换字符串拆分为列表
+
+
+
+            try:
+                FromName = String[0]    # 'minecraft:grass'
+                FromData = int(String[1])    # 2
+                ToName = String[2]    # 'minecraft:glass'
+                ToData = int(String[3])    # 0
+            except:
+                self.errorLog.append(location)    # 写入错误日志
+                continue
+            # 提取替换方块的名称、数据值和被替换方块的名称、数据值
+
+
+
+            del String
+
+            if FromName.find('minecraft:') == -1 or ToName.find('minecraft:') == -1:
+                self.errorLog.append(location)    # 写入错误日志
+                continue
+                # 检查提供的名称是否存在“minecraft”命名空间
+
+            if (FromData != -1 and FromData < 0) or (ToData != -1 and ToData < 0):
+                self.errorLog.append(location)    # 写入错误日志
+                continue
+                # 检查提供的数据值是否是自然数或 -1
+
+            # 删除无关内容并进行检查
+
+
+
+            if Type == 'B':
+                for i in range(len(share.pool)):
+
+                    save = share.pool[i]    # example: save = ['minecraft:grass', 2]
+
+                    if FromName == save[0] and (FromData == save[1] or FromData == -1):
+                        share.pool[i][0] = ToName
+                        # 修改名称
+
+                        if save[-1] == '摆烂':    # 这里考虑 save = ['minecraft:double_plant', 0, '摆烂']
+                            del share.pool[i][-1]
+                        # 考虑“摆烂”情况
+
+                        if ToData != -1:
+                            share.pool[i][1] = ToData
+                        # 修改数据值
+
+            # 处理方块池(share.pool)
+
+
+            elif Type == 'C':
+                share.ContainerReplaceBlockIDList.append(
+                    [
+                        FromName,
+                        FromName,
+                        ToName,
+                        ToData
+                    ]
+                )
+            # 处理容器内的物品
+    # 主体部分
+
+
+
+
+
+        self.result = [
+            copy.deepcopy(share.pool),
+            copy.deepcopy(share.ContainerReplaceBlockIDList)
+        ]
+        # 写入处理结果
+    # 主函数
