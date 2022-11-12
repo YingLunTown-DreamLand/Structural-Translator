@@ -58,7 +58,7 @@ for i in filePath:
         os.makedirs(mkdirPath)
     # 创建文件夹，若对应的文件夹不存在的话
 
-    outputLocation = os.path.join(outputPath,i.replace(searchPath + '\\','',1) + '.json')
+    outputLocation = os.path.join(outputPath,i.replace(searchPath + '\\','',1))
     with open(outputLocation,"w+",encoding='utf-8') as file:
         file.write(json.dumps(Upgrade.resultList,sort_keys=True,indent=4,separators=(', ', ': '),ensure_ascii=False))
     # 写入到文件
