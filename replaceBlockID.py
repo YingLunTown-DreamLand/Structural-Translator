@@ -126,7 +126,7 @@ class replaceBlockID:
                 share.ContainerReplaceBlockIDList.append(
                     [
                         FromName,
-                        FromName,
+                        FromData,
                         ToName,
                         ToData
                     ]
