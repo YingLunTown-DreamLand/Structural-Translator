@@ -79,5 +79,26 @@ def main()->list:
     if check == 10:
         return [True]
     else:
+        if check == 0:
+            check = '你正尝试修改源代码，但你似乎改错了……'
+        elif check == 1:
+            check = '文件可能已损坏'
+        elif check == 2:
+            check = '文件中声明的结构大小为负数'
+        elif check == 3:
+            check = '缺少方块索引表或调色板中至少其一'
+        elif check == 4:
+            check = '未找到原版调色板'
+        elif check == 5:
+            check = '原版调色板缺少方块状态数据或方块实体数据中至少其一'
+        elif check == 6:
+            check = '方块索引表中前景层和背景层的方块数目不等价'
+        elif check == 7:
+            check = '声明的方块数跟结构中实际记录的方块数不等价'
+        elif check == 8:
+            check = '方块索引表中指定的方块超出原版调色板范围'
+        elif check == 9:
+            check = '原版调色板中存在某一个方块未指定方块名或未指定命名空间'
+        # 解析错因
         return [False, check]
     # 检查文件内容是否完整
