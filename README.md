@@ -42,6 +42,13 @@ apt update && apt upgrade && apt install python && apt install git && pip instal
 
 
 
+## Advanced Functions
+We support batch mode as advanced functions. The sample documentation [here](https://github.com/Happy2018new/Structural-Translator/blob/main/Doc/settings.json.py) shows you how to use these advanced options.
+
+
+
+
+
 ## Language
 This program only supports Chinese<br>
 
@@ -59,6 +66,7 @@ This program only supports Chinese<br>
 - Based on the `16 * 16` areas
 - Support large `.mcstructure` files
 - Display translation progress
+- `Advanced Functions - Batch mode`
 
 
 

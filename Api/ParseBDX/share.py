@@ -10,3 +10,18 @@ operation = []
 lsSave = []
 recordBlockEntityData = []
 recordBlockEntityDataErrorList = []
+
+def reset():
+    global BDXContext,pointer,penPos,blockPalette,resultList,runtimeIdsBlockPalette,successStates,functionName,operation,lsSave,recordBlockEntityData,recordBlockEntityDataErrorList
+    BDXContext = []
+    pointer = []
+    penPos = []
+    blockPalette = []
+    resultList = []
+    runtimeIdsBlockPalette = []
+    successStates = []
+    functionName = []
+    operation = []
+    lsSave = []
+    recordBlockEntityData = []
+    recordBlockEntityDataErrorList = []
