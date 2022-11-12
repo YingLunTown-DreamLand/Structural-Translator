@@ -45,7 +45,7 @@ for i in filePath:
     try:
         Upgrade.main()
     except:
-        print(f'Failed to parse "{i}" ,and it maybe not a correct BDX file.')
+        print(f'Failed to parse "{i}" ,and it maybe not a correct JSON file.')
         continue
     # 解析文件
 
