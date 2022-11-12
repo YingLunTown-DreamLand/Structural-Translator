@@ -199,7 +199,11 @@ class TranslateJSON:
                     [
                         [],
                         []
-                    ]
+                    ],
+                    "palette:10":
+                    {
+                        "default:10":{}
+                    }
                 }
             }
         }
