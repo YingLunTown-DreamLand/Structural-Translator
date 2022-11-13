@@ -29,6 +29,3 @@ print(demo.resultList)    # result: dict
 print(demo.logList)    # logs: list
 # Print
 ```
-
-## 注意事项
-此 `Api` 使用了其自身模块中的 `全局变量` ，因此您应当注意到部分情况下您不能在您的代码下使用此 `Api` 。
