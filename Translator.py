@@ -173,7 +173,7 @@ for i in filePath:
 
         relativePath = i.replace(workPath + '/','',1) + '.bdx'
 
-        mkdirPath = os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],relativePath)).replace('\\','/').split('/')
+        mkdirPath = os.path.normpath(os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],relativePath)).replace('\\','/').split('/')
         del mkdirPath[-1]
         mkdirPath = "/".join(mkdirPath)
 
