@@ -82,18 +82,6 @@ class UpgradeExecuteCommand:
 
 
         self.resultList = WhiteWallJson
-        # 输出文件
+        # 保存结果
         self.logList = successStatesList
-        # 输出日志
-
-
-
-
-
-
-
-
-inputPath = 'Api/UpgradeExecuteCommand/input.json'
-outputPath = 'Api/UpgradeExecuteCommand/ans.json'
-logPath = 'Api/UpgradeExecuteCommand/Upgrade.log'
-# 确定输入文件、输出文件及日志文件的路径
+        # 保存日志
