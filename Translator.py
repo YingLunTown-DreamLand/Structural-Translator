@@ -20,8 +20,8 @@ except:
 default = {
     "全局设置":
     {
-        "文件搜索路径": os.path.normpath(os.getcwd()),
-        "文件输出路径": os.path.normpath(f"{os.path.normpath(os.getcwd())}\\Output"),
+        "文件搜索路径": os.path.normpath(os.getcwd()).replace('\\','/'),
+        "文件输出路径": os.path.normpath(f"{os.path.normpath(os.getcwd())}\\Output").replace('\\','/'),
         "组件 - 替换方块ID": [
             "B;minecraft:double_stone_block_slab,-1,minecraft:double_stone_slab,-1",
             "B;minecraft:double_stone_block_slab2,-1,minecraft:double_stone_slab2,-1",
@@ -84,13 +84,13 @@ for i in range(len(file["自定义配置"])):
 
 
 
-file["全局设置"]["文件搜索路径"] = os.path.normpath(file["全局设置"]["文件搜索路径"])
-file["全局设置"]["文件输出路径"] = os.path.normpath(file["全局设置"]["文件输出路径"])
+file["全局设置"]["文件搜索路径"] = os.path.normpath(file["全局设置"]["文件搜索路径"]).replace('\\','/')
+file["全局设置"]["文件输出路径"] = os.path.normpath(file["全局设置"]["文件输出路径"]).replace('\\','/')
 for i in range(len(file["自定义配置"])):
     file["自定义配置"][i]["文件输入路径"] = [
-        os.path.normpath(i1) for i1 in file["自定义配置"][i]["文件输入路径"]
+        os.path.normpath(i1).replace('\\','/') for i1 in file["自定义配置"][i]["文件输入路径"]
     ]
-    file["自定义配置"][i]["文件输出路径"] = os.path.normpath(file["自定义配置"][i]["文件输出路径"])
+    file["自定义配置"][i]["文件输出路径"] = os.path.normpath(file["自定义配置"][i]["文件输出路径"]).replace('\\','/')
 # 格式化配置文件中的所有路径
 
 
@@ -99,7 +99,7 @@ for i in range(len(file["自定义配置"])):
 
 for i in range(len(file["自定义配置"])):
     file["自定义配置"][i]["文件输入路径"] = [
-        os.path.normpath(os.path.join(file["全局设置"]["文件搜索路径"],i1)) for i1 in file["自定义配置"][i]["文件输入路径"]
+        os.path.normpath(os.path.join(file["全局设置"]["文件搜索路径"],i1)).replace('\\','/') for i1 in file["自定义配置"][i]["文件输入路径"]
     ]
     if os.path.isabs(file["自定义配置"][i]["文件输出路径"]) == False:
         file["自定义配置"][i]["文件输出路径"] = default["全局设置"]["文件输出路径"]
@@ -112,14 +112,14 @@ for i in range(len(file["自定义配置"])):
 filePath = []
 for root,dirs,files in os.walk(file["全局设置"]["文件搜索路径"]):
     for fileName in files:
-        String = os.path.normpath(os.path.join(root,fileName)).split('\\')
+        String = os.path.normpath(os.path.join(root,fileName)).replace('\\','/').split('/')
         String[-1] = String[-1].split('.')
         if len(String[-1]) > 0:
             String[-1][-1].replace('M','m').replace('C','c').replace('S','s').replace('T','t').replace('R','r').replace(
                 'U','u').replace('E','e').replace('J','j').replace('S','s').replace('O','o').replace('N','n')
         String[-1] = ".".join(String[-1])
         if os.path.splitext(String[-1])[-1] == '.mcstructure' or os.path.splitext(String[-1])[-1] == '.json' and String[-1] != 'settings.json' and String[-1] != 'translateLog.json':
-            filePath.append("\\".join(String))
+            filePath.append("/".join(String))
 # 查找到所有的待翻译文件
 
 
@@ -162,7 +162,7 @@ for i in filePath:
 
 
     if i in customPath:
-        fileType = i.split('\\')
+        fileType = i.split('/')
         if len(fileType[-1].split('.mcstructure')) > 1:
             fileType = True
         elif len(fileType[-1].split('.json')) > 1:
@@ -170,13 +170,13 @@ for i in filePath:
         # 确定文件类型
 
 
-        relativePath = i.replace(workPath + '\\','',1) + '.bdx'
+        relativePath = i.replace(workPath + '/','',1) + '.bdx'
 
-        mkdirPath = os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],relativePath)).split('\\')
+        mkdirPath = os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],relativePath)).replace('\\','/').split('/')
         del mkdirPath[-1]
-        mkdirPath = "\\".join(mkdirPath)
+        mkdirPath = "/".join(mkdirPath)
 
-        creatorModeOutputPath = i.replace(workPath + '\\','',1) + '(CreatorMode).json'
+        creatorModeOutputPath = i.replace(workPath + '/','',1) + '(CreatorMode).json'
         # 确定输入文件的相对路径、文件夹创建路径和开发者模式下的输出路径
 
 
@@ -190,13 +190,13 @@ for i in filePath:
             allNum,
             workPath,
             i,
-            os.path.normpath(os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],relativePath)),
+            os.path.normpath(os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],relativePath)).replace('\\','/'),
             file["自定义配置"][customPath[i]]["组件 - 替换方块ID"],
             fileType,
             file["自定义配置"][customPath[i]]["是否跳过空气"],
             [
                 file["自定义配置"][customPath[i]]["开发者选项 - 是否启用"],
-                os.path.normpath(os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],creatorModeOutputPath))
+                os.path.normpath(os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],creatorModeOutputPath)).replace('\\','/')
             ]
         )
         # 初始化类
@@ -215,7 +215,7 @@ for i in filePath:
         # 若失败
 
 
-        translateLog[i.replace(workPath + '\\','',1)] = {
+        translateLog[i.replace(workPath + '/','',1)] = {
             "SuccessStates": translateAns,
             "replaceBlockID_errorLog": Translate.rbi_errorLog if translateAns == True else None,
             "replaceBlockID_result": Translate.rbi_result if translateAns == True else None,
@@ -225,9 +225,9 @@ for i in filePath:
             "Container": Translate.experimental if translateAns == True else None,
             "CreatorMode": {
                 "enabled": Translate.CreatorMode[0],
-                "outputPath": os.path.normpath(os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],creatorModeOutputPath)) if Translate.CreatorMode[0] == True else None
+                "outputPath": os.path.normpath(os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],creatorModeOutputPath)).replace('\\','/') if Translate.CreatorMode[0] == True else None
             },
-            "outputPath": os.path.normpath(os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],relativePath)) if translateAns == True else None
+            "outputPath": os.path.normpath(os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],relativePath)).replace('\\','/') if translateAns == True else None
         }
         # 记录日志
 
@@ -238,7 +238,7 @@ for i in filePath:
 
 
     else:
-        fileType = i.split('\\')
+        fileType = i.split('/')
         if len(fileType[-1].split('.mcstructure')) > 1:
             fileType = True
         elif len(fileType[-1].split('.json')) > 1:
@@ -246,13 +246,13 @@ for i in filePath:
         # 确定文件类型
 
 
-        relativePath = i.replace(workPath + '\\','',1) + '.bdx'
+        relativePath = i.replace(workPath + '/','',1) + '.bdx'
 
-        mkdirPath = os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],relativePath)).split('\\')
+        mkdirPath = os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],relativePath)).replace('\\','/').split('/')
         del mkdirPath[-1]
-        mkdirPath = "\\".join(mkdirPath)
+        mkdirPath = "/".join(mkdirPath)
 
-        creatorModeOutputPath = i.replace(workPath + '\\','',1) + '(CreatorMode).json'
+        creatorModeOutputPath = i.replace(workPath + '/','',1) + '(CreatorMode).json'
         # 确定输入文件的相对路径、文件夹创建路径和开发者模式下的输出路径
 
 
@@ -266,13 +266,13 @@ for i in filePath:
             allNum,
             workPath,
             i,
-            os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],relativePath)),
+            os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],relativePath)).replace('\\','/'),
             file["全局设置"]["组件 - 替换方块ID"],
             fileType,
             file["全局设置"]["是否跳过空气"],
             [
                 file["全局设置"]["开发者选项 - 是否启用"],
-                os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],creatorModeOutputPath))
+                os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],creatorModeOutputPath)).replace('\\','/')
             ]
         )
         # 初始化类
@@ -291,7 +291,7 @@ for i in filePath:
         # 若失败
 
 
-        translateLog[i.replace(workPath + '\\','',1)] = {
+        translateLog[i.replace(workPath + '/','',1)] = {
             "SuccessStates": translateAns,
             "replaceBlockID_errorLog": Translate.rbi_errorLog if translateAns == True else None,
             "replaceBlockID_result": Translate.rbi_result if translateAns == True else None,
@@ -301,9 +301,9 @@ for i in filePath:
             "Container": Translate.experimental if translateAns == True else None,
             "CreatorMode": {
                 "enabled": Translate.CreatorMode[0],
-                "outputPath": os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],creatorModeOutputPath)) if Translate.CreatorMode[0] == True else None
+                "outputPath": os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],creatorModeOutputPath)).replace('\\','/') if Translate.CreatorMode[0] == True else None
             },
-            "outputPath": os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],relativePath)) if translateAns == True else None
+            "outputPath": os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],relativePath)).replace('\\','/') if translateAns == True else None
         }
         # 记录日志
 
@@ -326,6 +326,6 @@ with open("translateLog.json","w+",encoding='utf-8') as file:
 
 
 print(f'\033[0;32;2018m已完成全部工作，总计遍历了 \033[0m\033[0;37;2018m{len(filePath)}\033[0m \033[0;32;2018m个文件.\033[0m')
-print(f'\033[0;32;2018m翻译日志保存在\033[0m \033[0m\033[0;36;2018m{os.path.normpath(os.getcwd())}\\translateLog.json\033[0m \033[0;32;2018m处.\033[0m')
+print('\033[0;32;2018m翻译日志保存在\033[0m \033[0m\033[0;36;2018m' + os.path.normpath(os.getcwd()).replace('\\','/') + '/translateLog.json\033[0m \033[0;32;2018m处.\033[0m')
 os.system("pause")
 # 打印结束语

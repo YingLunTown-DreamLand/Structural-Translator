@@ -164,14 +164,14 @@ def showStates(
 
 
 
-    provide[0] = os.path.normpath(provide[0])
-    provide[1] = os.path.normpath(provide[1])
-    provide[2] = os.path.normpath(provide[2])
+    provide[0] = os.path.normpath(provide[0]).replace('\\','/')
+    provide[1] = os.path.normpath(provide[1]).replace('\\','/')
+    provide[2] = os.path.normpath(provide[2]).replace('\\','/')
     # 格式化路径
 
 
 
-    provide[1] = provide[1].replace(provide[0] + '\\','',1)
+    provide[1] = provide[1].replace(provide[0] + '/','',1)
     # 提取输入路径的相对路径
 
 
