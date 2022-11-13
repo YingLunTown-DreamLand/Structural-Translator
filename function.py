@@ -126,7 +126,7 @@ def showStates(
     本函数用于在控制台打印程序执行进度。
     \n参数
     `progress:str` 指的是当前正在做或刚刚做完的事情，是一个字符串，分别对应本函数中 `indexDict` 中的键
-    `provide:list` 指的是所有文件的进度，格式为 `[文件输入路径: str, 文件输出路径: str, 当前进度: int, 总进度: int]`
+    `provide:list` 指的是处理进度列表，格式为 `[全局配置中的“文件搜索路径”: str, 文件输入路径: str, 文件输出路径: str, 当前进度: int, 总进度: int]`
     `officalRun:list` 指的是正式翻时传入的进度数据，格式为 `[ 执行次数: int, 横轴区块数: int, 纵轴区块数: int, 当前正在处理的区块: [横轴角标: int, 纵轴角标: int] ]`
        # 默认值为 `[]`
     \n返回值
@@ -158,7 +158,8 @@ def showStates(
         "writing / start": "\033[0;33;2018m正在将翻译结果写入到文件……\033[0m",    # 写入结果到文件
         "writing / end": ["\033[0;33;2018m已完成写入到文件.\033[0m"],    # 写入结果到文件
 
-        "down": f"\033[0;33;2018m此文件处理完成，结果保存在\033[0m \033[0;36;2018m{provide[2]}\033[0m \033[0;33;2018m处.\033[0m"    # 完成
+        "down": f"\033[0;33;2018m此文件处理完成，结果保存在\033[0m \033[0;36;2018m{provide[2]}\033[0m \033[0;33;2018m处.\033[0m",    # 完成
+        "failed": ["\033[0;31;2018m当前文件处理失败.\033[0m"]    # 失败
     }
     # 定义查找表
 
@@ -183,7 +184,7 @@ def showStates(
     # 显示文件基本信息
 
     
-    if progress == 'down':
+    if progress == 'down' or progress == 'failed':
         enter = "\n"
     else:
         enter = ""
@@ -203,7 +204,7 @@ def showStates(
         print(" " + progress,end=enter,flush=True)
         share.showStates = len(progress) + share.showStates
 
-    else:
+    elif type(progress) == list:
         print(" " + progress[0],end=enter,flush=True)
         share.showStates = len(progress[0]) + share.showStates
         time.sleep(random.randint(5,10) / 10)

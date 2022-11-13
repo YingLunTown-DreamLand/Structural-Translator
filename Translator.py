@@ -1,5 +1,6 @@
 from startFunction import startFunction
-import os, json, time, random
+import function
+import os, json, time, random, traceback
 # 载入依赖项
 
 
@@ -204,19 +205,22 @@ for i in filePath:
 
         try:
             translateAns = Translate.main()
+            errorReason = None
         except:
+            errorReason = traceback.format_exc()
             translateAns = False
         # 翻译并生成文件
 
 
         if translateAns == False:
-            print('\n',end="")
             time.sleep(random.randint(5,10) / 10)
+            function.showStates(progress = 'failed', provide = [workPath, i, os.path.normpath(os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],relativePath)).replace('\\','/'), currentNum, allNum])
         # 若失败
 
 
         translateLog[i.replace(workPath + '/','',1)] = {
             "SuccessStates": translateAns,
+            "errorReason": errorReason,
             "replaceBlockID_errorLog": Translate.rbi_errorLog if translateAns == True else None,
             "replaceBlockID_result": Translate.rbi_result if translateAns == True else None,
             "checkStates": Translate.check if translateAns == True else None,
@@ -280,19 +284,22 @@ for i in filePath:
 
         try:
             translateAns = Translate.main()
+            errorReason = None
         except:
+            errorReason = traceback.format_exc()
             translateAns = False
         # 翻译并生成文件
 
 
         if translateAns == False:
-            print('\n',end="")
             time.sleep(random.randint(5,10) / 10)
+            function.showStates(progress = 'failed', provide = [workPath, i, os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],relativePath)).replace('\\','/'), currentNum, allNum])
         # 若失败
 
 
         translateLog[i.replace(workPath + '/','',1)] = {
             "SuccessStates": translateAns,
+            "errorReason": errorReason,
             "replaceBlockID_errorLog": Translate.rbi_errorLog if translateAns == True else None,
             "replaceBlockID_result": Translate.rbi_result if translateAns == True else None,
             "checkStates": Translate.check if translateAns == True else None,
