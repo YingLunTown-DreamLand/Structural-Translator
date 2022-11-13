@@ -49,7 +49,7 @@ for i in filePath:
         continue
     # 解析文件
 
-    mkdirPath = os.path.join(outputPath,i.replace(searchPath + '\\','',1)).split('\\')
+    mkdirPath = os.path.normpath(os.path.join(outputPath,i.replace(searchPath + '\\','',1))).split('\\')
     del mkdirPath[-1]
     mkdirPath = "\\".join(mkdirPath)
     # 确定文件夹创建路径
@@ -58,7 +58,7 @@ for i in filePath:
         os.makedirs(mkdirPath)
     # 创建文件夹，若对应的文件夹不存在的话
 
-    outputLocation = os.path.join(outputPath,i.replace(searchPath + '\\','',1))
+    outputLocation = os.path.normpath(os.path.join(outputPath,i.replace(searchPath + '\\','',1)))
     with open(outputLocation,"w+",encoding='utf-8') as file:
         file.write(json.dumps(Upgrade.resultList,sort_keys=True,indent=4,separators=(', ', ': '),ensure_ascii=False))
     # 写入到文件
@@ -77,7 +77,7 @@ if not os.path.exists(outputPath):
     os.makedirs(outputPath)
 # 创建文件夹，若对应的文件夹不存在的话
 
-logOutputLocation = os.path.join(outputPath,'UpgradeExecuteCommand_log.json')
+logOutputLocation = os.path.normpath(os.path.join(outputPath,'UpgradeExecuteCommand_log.json'))
 
 with open(logOutputLocation,"w+",encoding='utf-8') as file:
     file.write(json.dumps(logList,sort_keys=True,indent=4,separators=(', ', ': '),ensure_ascii=False))

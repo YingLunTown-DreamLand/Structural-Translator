@@ -25,7 +25,7 @@ outputPath = os.path.normpath(outputPath)
 filePath = []
 for root,dirs,files in os.walk(searchPath):
     for fileName in files:
-        String = os.path.normpath(os.path.join(root,fileName)).split('\\')
+        String = os.path.normpath(os.path.normpath(os.path.join(root,fileName))).split('\\')
         String[-1] = String[-1].split('.')
         if len(String[-1]) > 0:
             String[-1][-1].replace('B','b').replace('D','d').replace('X','x')
@@ -58,7 +58,7 @@ for i in filePath:
         continue
     # 解析文件
 
-    mkdirPath = os.path.join(outputPath,i.replace(searchPath + '\\','',1)).split('\\')
+    mkdirPath = os.path.normpath(os.path.join(outputPath,i.replace(searchPath + '\\','',1))).split('\\')
     del mkdirPath[-1]
     mkdirPath = "\\".join(mkdirPath)
     # 确定文件夹创建路径
@@ -67,7 +67,7 @@ for i in filePath:
         os.makedirs(mkdirPath)
     # 创建文件夹，若对应的文件夹不存在的话
 
-    outputLocation = os.path.join(outputPath,i.replace(searchPath + '\\','',1) + '.json')
+    outputLocation = os.path.normpath(os.path.join(outputPath,i.replace(searchPath + '\\','',1) + '.json'))
     with open(outputLocation,"w+",encoding='utf-8') as file:
         file.write(json.dumps(Parse.resultList,sort_keys=True,indent=4,separators=(', ', ': '),ensure_ascii=False))
     # 写入到文件
@@ -86,7 +86,7 @@ if not os.path.exists(outputPath):
     os.makedirs(outputPath)
 # 创建文件夹，若对应的文件夹不存在的话
 
-logOutputLocation = os.path.join(outputPath,'ParseBDX_log.json')
+logOutputLocation = os.path.normpath(os.path.join(outputPath,'ParseBDX_log.json'))
 
 with open(logOutputLocation,"w+",encoding='utf-8') as file:
     file.write(json.dumps(logList,sort_keys=True,indent=4,separators=(', ', ': '),ensure_ascii=False))

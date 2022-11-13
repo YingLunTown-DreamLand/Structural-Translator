@@ -99,7 +99,7 @@ for i in range(len(file["自定义配置"])):
 
 for i in range(len(file["自定义配置"])):
     file["自定义配置"][i]["文件输入路径"] = [
-        os.path.join(file["全局设置"]["文件搜索路径"],i1) for i1 in file["自定义配置"][i]["文件输入路径"]
+        os.path.normpath(os.path.join(file["全局设置"]["文件搜索路径"],i1)) for i1 in file["自定义配置"][i]["文件输入路径"]
     ]
     if os.path.isabs(file["自定义配置"][i]["文件输出路径"]) == False:
         file["自定义配置"][i]["文件输出路径"] = default["全局设置"]["文件输出路径"]
@@ -172,7 +172,7 @@ for i in filePath:
 
         relativePath = i.replace(workPath + '\\','',1) + '.bdx'
 
-        mkdirPath = os.path.join(file["全局设置"]["文件输出路径"],relativePath).split('\\')
+        mkdirPath = os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],relativePath)).split('\\')
         del mkdirPath[-1]
         mkdirPath = "\\".join(mkdirPath)
 
@@ -190,13 +190,13 @@ for i in filePath:
             allNum,
             workPath,
             i,
-            os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],relativePath),
+            os.path.normpath(os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],relativePath)),
             file["自定义配置"][customPath[i]]["组件 - 替换方块ID"],
             fileType,
             file["自定义配置"][customPath[i]]["是否跳过空气"],
             [
                 file["自定义配置"][customPath[i]]["开发者选项 - 是否启用"],
-                os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],creatorModeOutputPath)
+                os.path.normpath(os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],creatorModeOutputPath))
             ]
         )
         # 初始化类
@@ -225,9 +225,9 @@ for i in filePath:
             "Container": Translate.experimental if translateAns == True else None,
             "CreatorMode": {
                 "enabled": Translate.CreatorMode[0],
-                "outputPath": os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],creatorModeOutputPath) if Translate.CreatorMode[0] == True else None
+                "outputPath": os.path.normpath(os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],creatorModeOutputPath)) if Translate.CreatorMode[0] == True else None
             },
-            "outputPath": os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],relativePath) if translateAns == True else None
+            "outputPath": os.path.normpath(os.path.join(file["自定义配置"][customPath[i]]["文件输出路径"],relativePath)) if translateAns == True else None
         }
         # 记录日志
 
@@ -248,7 +248,7 @@ for i in filePath:
 
         relativePath = i.replace(workPath + '\\','',1) + '.bdx'
 
-        mkdirPath = os.path.join(file["全局设置"]["文件输出路径"],relativePath).split('\\')
+        mkdirPath = os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],relativePath)).split('\\')
         del mkdirPath[-1]
         mkdirPath = "\\".join(mkdirPath)
 
@@ -266,13 +266,13 @@ for i in filePath:
             allNum,
             workPath,
             i,
-            os.path.join(file["全局设置"]["文件输出路径"],relativePath),
+            os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],relativePath)),
             file["全局设置"]["组件 - 替换方块ID"],
             fileType,
             file["全局设置"]["是否跳过空气"],
             [
                 file["全局设置"]["开发者选项 - 是否启用"],
-                os.path.join(file["全局设置"]["文件输出路径"],creatorModeOutputPath)
+                os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],creatorModeOutputPath))
             ]
         )
         # 初始化类
@@ -301,9 +301,9 @@ for i in filePath:
             "Container": Translate.experimental if translateAns == True else None,
             "CreatorMode": {
                 "enabled": Translate.CreatorMode[0],
-                "outputPath": os.path.join(file["全局设置"]["文件输出路径"],creatorModeOutputPath) if Translate.CreatorMode[0] == True else None
+                "outputPath": os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],creatorModeOutputPath)) if Translate.CreatorMode[0] == True else None
             },
-            "outputPath": os.path.join(file["全局设置"]["文件输出路径"],relativePath) if translateAns == True else None
+            "outputPath": os.path.normpath(os.path.join(file["全局设置"]["文件输出路径"],relativePath)) if translateAns == True else None
         }
         # 记录日志
 
