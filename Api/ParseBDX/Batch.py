@@ -70,7 +70,7 @@ for i in filePath:
         file.write(json.dumps(Parse.resultList,sort_keys=True,indent=4,separators=(', ', ': '),ensure_ascii=False))
     # 写入到文件
 
-    logList.append(Parse.logList)
+    logList[i] = Parse.logList
     # 写入日志
 
     print(f'"{i}" have been finished, saved in "{outputLocation}" .')
