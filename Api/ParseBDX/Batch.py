@@ -39,21 +39,19 @@ print(f'A total of {len(filePath)} files were found.')
 
 
 
-logList = []
+logList = {}
 for i in filePath:
     Parse = PaeseBDX(i)
     try:
         Parse.main()
     except:
-        logList.append(
-            {
-                "inputPath": i,    # 文件输入路径
-                "blockNBT_find_out": None,    # 找到的可以被解析为 str 的 operation 39
-                "blockNBT_error": None,    # 找到的无法被解析为 str 的 operation 39
-                "authorName": None,    # 作者名称
-                "file_is_integrity": False    # 文件是否完整
-            }
-        )
+        logList[i] = {
+            "inputPath": i,    # 文件输入路径
+            "blockNBT_find_out": None,    # 找到的可以被解析为 str 的 operation 39
+            "blockNBT_error": None,    # 找到的无法被解析为 str 的 operation 39
+            "authorName": None,    # 作者名称
+            "file_is_integrity": False    # 文件是否完整
+        }
         print(f'Failed to parse "{i}" ,and it maybe not a correct BDX file.')
         continue
     # 解析文件
