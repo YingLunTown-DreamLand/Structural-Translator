@@ -8,7 +8,7 @@ demo = ModelRotation('C:\\test.json',xBot=90,yBot=0)
 demo.main()
 # ModelRotation
 
-print(demo.resultList)    # result: list
+print(demo.result)    # result: list
 # Print
 ```
 有关相应的使用说明及详细使用，请见有关函数的注释。
