@@ -11,3 +11,6 @@
 
 ## `JsonToNBT`
 此文件夹内提供的 `Api` 用于将本系统通过 `.mcstructure` 文件翻译得到的 `JSON` 文件转换伪为 `SNBT`
+ 
+## `ModelRotation`
+此文件夹内提供的 `Api` 用于旋转 `WhiteWallJson` 中记录的建筑物

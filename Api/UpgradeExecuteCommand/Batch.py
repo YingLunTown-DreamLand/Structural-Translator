@@ -33,7 +33,7 @@ for root,dirs,files in os.walk(searchPath):
         if os.path.splitext(String[-1])[-1] == '.json' and String[-1] != 'UpgradeExecuteCommand_log.json':
             filePath.append("/".join(String))
 print(f'A total of {len(filePath)} files were found.')
-# 找到 searchPath 下的所有 BDX 文件
+# 找到 searchPath 下的所有 JSON 文件
 
 
 
