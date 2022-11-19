@@ -129,9 +129,17 @@ class ModelRotation:
         # 筛除同一位置上重复的方块，只保留一个结果
 
 
-        del self.input
-        # 删除不必要内容
-
-
-        return True
-        # 返回值
+        xMin = min([i["x"] for i in self.result])
+        yMin = min([i["y"] for i in self.result])
+        zMin = min([i["z"] for i in self.result])
+        if xMin == 0 and yMin == 0 and zMin == 0:
+            del self.input
+            return True
+        else:
+            for i in range(len(self.result)):
+                self.result[i]["x"] = self.result[i]["x"] - xMin
+                self.result[i]["y"] = self.result[i]["y"] - yMin
+                self.result[i]["z"] = self.result[i]["z"] - zMin
+            del self.input
+            return True
+        # 将建筑物修正到第一象限
