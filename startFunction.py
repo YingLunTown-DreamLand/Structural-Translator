@@ -323,7 +323,7 @@ class startFunction:
                                     )
                                     if type(background[1]) == int else
                                     (
-                                        bytearray(b'\x0d') + bgId.to_bytes(length=2,byteorder='big') + json.dumps(background[1],ensure_ascii=False).encode(encoding='utf-8') + b'\x00'
+                                        bytearray(b'\x0d') + bgId.to_bytes(length=2,byteorder='big') + b'[' + json.dumps(background[1],ensure_ascii=False).encode(encoding='utf-8')[1:-1] + b']\x00'
                                     )
                                 )
                         # 处理含水方块(若需要处理的话)
@@ -361,7 +361,7 @@ class startFunction:
                                     )
                                     if type(foreground[1]) == int else
                                     (
-                                        bytearray(b'\x0d') + fgId.to_bytes(length=2,byteorder='big') + json.dumps(foreground[1],ensure_ascii=False).encode(encoding='utf-8') + b'\x00'
+                                        bytearray(b'\x0d') + fgId.to_bytes(length=2,byteorder='big') + b'[' + json.dumps(foreground[1],ensure_ascii=False).encode(encoding='utf-8')[1:-1] + b']\x00'
                                     )
                                 )
                         # # 处理普通情况

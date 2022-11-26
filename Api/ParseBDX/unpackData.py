@@ -47,7 +47,7 @@ def PlaceBlockWithBlockStates(input:bytearray,pointer:int)->list:
     location = input[pointer+2:].index(b'\x00') + pointer + 2
     return [
         struct.unpack('>H',input[pointer:pointer+2])[0],
-        json.loads(input[pointer+2:location].decode(encoding='utf-8')),
+        json.loads('{' + input[pointer+2:location].decode(encoding='utf-8')[1:-1] + '}'),
         location + 1
         ]
     # return [blockID:short(int), blockStates:dict, newPointer:int]
