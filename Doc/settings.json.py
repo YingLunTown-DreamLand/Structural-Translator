@@ -18,30 +18,31 @@ import os
         # 输出在程序所在文件夹下的 Output 文件夹内
         # 这个路径必须是绝对路径
         "组件 - 替换方块ID": [
-            "B;minecraft:double_stone_block_slab,-1,minecraft:double_stone_slab,-1",
-            "B;minecraft:double_stone_block_slab2,-1,minecraft:double_stone_slab2,-1",
-            "B;minecraft:double_stone_block_slab3,-1,minecraft:double_stone_slab3,-1",
-            "B;minecraft:double_stone_block_slab4,-1,minecraft:double_stone_slab4,-1",
-            "B;minecraft:stone_block_slab,-1,minecraft:stone_slab,-1",
-            "B;minecraft:stone_block_slab2,-1,minecraft:stone_slab2,-1",
-            "B;minecraft:stone_block_slab3,-1,minecraft:stone_slab3,-1",
-            "B;minecraft:stone_block_slab4,-1,minecraft:stone_slab4,-1",
-            "B;minecraft:sea_lantern,-1,minecraft:sealantern,-1",
-            "C;minecraft:double_stone_block_slab,-1,minecraft:double_stone_slab,-1",
-            "C;minecraft:double_stone_block_slab2,-1,minecraft:double_stone_slab2,-1",
-            "C;minecraft:double_stone_block_slab3,-1,minecraft:double_stone_slab3,-1",
-            "C;minecraft:double_stone_block_slab4,-1,minecraft:double_stone_slab4,-1",
-            "C;minecraft:stone_block_slab,-1,minecraft:stone_slab,-1",
-            "C;minecraft:stone_block_slab2,-1,minecraft:stone_slab2,-1",
-            "C;minecraft:stone_block_slab3,-1,minecraft:stone_slab3,-1",
-            "C;minecraft:stone_block_slab4,-1,minecraft:stone_slab4,-1",
-            "C;minecraft:sea_lantern,-1,minecraft:sealantern,-1"
+            ['B', 'minecraft:double_stone_block_slab', -1, 'minecraft:double_stone_slab', -1],
+            ['B', 'minecraft:double_stone_block_slab2', -1, 'minecraft:double_stone_slab2', -1],
+            ['B', 'minecraft:double_stone_block_slab3', -1, 'minecraft:double_stone_slab3', -1],
+            ['B', 'minecraft:double_stone_block_slab4', -1, 'minecraft:double_stone_slab4', -1],
+            ['B', 'minecraft:stone_block_slab', -1, 'minecraft:stone_slab', -1],
+            ['B', 'minecraft:stone_block_slab2', -1, 'minecraft:stone_slab2', -1],
+            ['B', 'minecraft:stone_block_slab3', -1, 'minecraft:stone_slab3', -1],
+            ['B', 'minecraft:stone_block_slab4', -1, 'minecraft:stone_slab4', -1],
+            ['B', 'minecraft:sea_lantern', -1, 'minecraft:sealantern', -1],
+            ['C', 'minecraft:double_stone_block_slab', -1, 'minecraft:double_stone_slab', -1],
+            ['C', 'minecraft:double_stone_block_slab2', -1, 'minecraft:double_stone_slab2', -1],
+            ['C', 'minecraft:double_stone_block_slab3', -1, 'minecraft:double_stone_slab3', -1],
+            ['C', 'minecraft:double_stone_block_slab4', -1, 'minecraft:double_stone_slab4', -1],
+            ['C', 'minecraft:stone_block_slab', -1, 'minecraft:stone_slab', -1],
+            ['C', 'minecraft:stone_block_slab2', -1, 'minecraft:stone_slab2', -1],
+            ['C', 'minecraft:stone_block_slab3', -1, 'minecraft:stone_slab3', -1],
+            ['C', 'minecraft:stone_block_slab4', -1, 'minecraft:stone_slab4', -1],
+            ['C', 'minecraft:sea_lantern', -1, 'minecraft:sealantern', -1]
         ],
         # C开头代表替换容器内的物品，B开头代表替换调色板中的方块
-        # 以 B;minecraft:double_stone_block_slab,-1,minecraft:double_stone_slab,-1 为例，这句话指的是把 minecraft:double_stone_block_slab 变为 minecraft:double_stone_slab ，且不匹配数据值是否相同，也不改变数据值
-        # 以 C;minecraft:x,1,minecraft:y,2 为例，这句话指的是把容器内数据值为 1 的 minecraft:x 物品改变为数据为 2 的 minecraft:y 物品
-        # 以 B;minecraft:x,1,minecraft:y,-1 为例，这句话指的是把调色板内数据值为 1 的 minecraft:x 方块改变为 minecraft:y 方块，但不改变数据值
-        # 以 B;minecraft:x,-1,minecraft:y,9 为例，这句话指的是把调色板内任意数据值的 minecraft:x 方块改变为数据值为 9 的 minecraft:y 方块
+        # 以 ['B', 'minecraft:double_stone_block_slab', -1, 'minecraft:double_stone_slab', -1] 为例，这句话指的是把 minecraft:double_stone_block_slab 变为 minecraft:double_stone_slab ，且不匹配数据值是否相同，也不改变数据值
+        # 以 ['C', 'minecraft:x', 1, 'minecraft:y', 2] 为例，这句话指的是把容器内数据值为 1 的 minecraft:x 物品改变为数据为 2 的 minecraft:y 物品
+        # 以 ['B', 'minecraft:x', 1, 'minecraft:y', -1] 为例，这句话指的是把调色板内数据值为 1 的 minecraft:x 方块改变为 minecraft:y 方块，但不改变数据值
+        # 以 ['B', 'minecraft:x', -1, 'minecraft:y', 9] 为例，这句话指的是把调色板内任意数据值的 minecraft:x 方块改变为数据值为 9 的 minecraft:y 方块
+        # 2022/11/26 更新 - 现在可以在数据值处填写方块状态(JSON格式)，但这个新方法仅支持修改替换调色板中的方块
         "是否跳过空气": True,
         # 如果建筑物需要海底导入，我们建议设置为 False
         # 设置为 False 后将会在导入时导入空气

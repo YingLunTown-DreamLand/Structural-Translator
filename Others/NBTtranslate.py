@@ -8,7 +8,7 @@ def Compound(input:nbtlib.tag.Compound)->dict:
     \n摘要
     本函数主要用于处理已解析好的 `nbtlib.tag.Compound`
     \n参数
-    `input:nbtlib.tag.Compound` 一个 `Compound` ，一般用一组花括号 `{}` 括起来。
+    `input:nbtlib.tag.Compound` 是一个 `Compound` ，一般用一组花括号 `{}` 括起来。
     \n返回值
     返回一个字典。
     """
@@ -75,7 +75,7 @@ def List(input)->list:
     \n摘要
     本函数主要用于处理已解析好的 `nbtlib.tag.list`
     \n参数
-    `input` 是一个 `nbtlib.tag.list` ，一般用一组花括号 `{}` 括起来。
+    `input` 是一个 `nbtlib.tag.list` ，一般用一组中括号 `[]` 括起来。
     \n返回值
     返回一个列表。
     """

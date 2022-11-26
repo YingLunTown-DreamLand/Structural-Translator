@@ -1,5 +1,6 @@
 mcs = []
 pool = []
+pool_old = []
 pointer = []
 ans = []
 name = []
@@ -10,9 +11,10 @@ showStates = 0
 # 全局共享变量
 
 def reset():
-    global mcs,pool,pointer,ans,name,experimental,errorList,ContainerReplaceBlockIDList,showStates
+    global mcs,pool,pool_old,pointer,ans,name,experimental,errorList,ContainerReplaceBlockIDList,showStates
     mcs = []
     pool = []
+    pool_old = []
     pointer = []
     ans = []
     name = []

@@ -54,49 +54,54 @@ class replaceBlockID:
 
 
 
-        for i in range(len(self.input)):    # example: i = 'B;minecraft:grass,2,minecraft:glass,0'
+        for i in range(len(self.input)):    # example: i = ['B', 'minecraft:grass', 2, 'minecraft:glass', 0]
             location = i
+            i = self.input[i]
             # 记录当前正在处理的项
 
-            i = self.input[i].split(';',maxsplit=1)    # ['B', 'minecraft:grass,2,minecraft:glass,0']
             try:
-                Type = i[0]    # 'B'
-                String = i[1]    # 'minecraft:grass,2,minecraft:glass,0'
+                Type = i[0] if i[0] == 'B' or i[0] == 'C' else 0/0    # 'B'
+                Info = [ i[1], i[2], i[3], i[4] ]    # ['minecraft:grass', 2, 'minecraft:glass', 0]
             except:
                 self.errorLog.append(location)    # 写入错误日志
                 continue
-            # 提取类型及替换字符串
-
-
-
-            String = String.split(',',maxsplit=3)    # ['minecraft:grass', '2', 'minecraft:glass', '0']
-            # 将替换字符串拆分为列表
+            # 提取类型及替换信息
 
 
 
             try:
-                FromName = String[0]    # 'minecraft:grass'
-                FromData = int(String[1])    # 2
-                ToName = String[2]    # 'minecraft:glass'
-                ToData = int(String[3])    # 0
+                FromName = Info[0]    # 'minecraft:grass'
+                FromData = Info[1]    # 2
+                ToName = Info[2]    # 'minecraft:glass'
+                ToData = Info[3]    # 0
+                if (type(FromData) != int and type(FromData) != dict) or (type(ToData) != int and type(ToData) != dict):
+                    0/0    # 检查数据类型
+                if type(FromName) != str and type(ToName) != str:
+                    0/0    # 检查数据类型
             except:
                 self.errorLog.append(location)    # 写入错误日志
                 continue
-            # 提取替换方块的名称、数据值和被替换方块的名称、数据值
+            # 提取替换方块的名称、数据值和被替换方块的名称、数据值(或方块状态)
 
 
 
-            del String
+            del Info
 
             if FromName.find('minecraft:') == -1 or ToName.find('minecraft:') == -1:
                 self.errorLog.append(location)    # 写入错误日志
                 continue
                 # 检查提供的名称是否存在“minecraft”命名空间
 
-            if (FromData != -1 and FromData < 0) or (ToData != -1 and ToData < 0):
-                self.errorLog.append(location)    # 写入错误日志
-                continue
-                # 检查提供的数据值是否是自然数或 -1
+            if type(FromData) == int:
+                if (FromData != -1 and FromData < 0):
+                    self.errorLog.append(location)    # 写入错误日志
+                    continue
+                 # 检查被替换方块的数据值是否是自然数或 -1
+            if type(ToData) == int:
+                if (ToData != -1 and ToData < 0):
+                    self.errorLog.append(location)    # 写入错误日志
+                    continue
+                # 检查最终方块的数据值是否是自然数或 -1
 
             # 删除无关内容并进行检查
 
@@ -123,6 +128,10 @@ class replaceBlockID:
 
 
             elif Type == 'C':
+                if type(FromData) != int or type(ToData) != int:
+                    self.errorLog.append(location)    # 写入错误日志
+                    continue
+
                 share.ContainerReplaceBlockIDList.append(
                     [
                         FromName,

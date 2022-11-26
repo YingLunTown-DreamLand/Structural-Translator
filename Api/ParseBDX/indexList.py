@@ -8,11 +8,11 @@ indexList = [
     'addX', # addZ
     'placeBlock', # placeBlock
     'Xaddadd', # Z++
-    '', # NOP
+    'Xaddadd', # NOP
     'jumpX', # jumpX
     'jumpX', # jumpY
     'jumpX', # jumpZ
-    '', # reserved
+    'PlaceBlockWithBlockStates', # PlaceBlockWithBlockStates
     'Xaddadd', # *X++
     'Xaddadd', # *X--
     'Xaddadd', # *Y++
@@ -55,11 +55,11 @@ indexListforMain = [
     'zMoveOld', # addZ
     'placeBlock', # placeBlock
     'zMoveOld', # Z++
-    '', # NOP
+    'NOP', # NOP
     'xMoveOld', # jumpX
     'yMoveOld', # jumpY
     'zMoveOld', # jumpZ
-    '', # reserved
+    'PlaceBlockWithBlockStates', # PlaceBlockWithBlockStates
     'xMove', # *X++
     'xMove', # *X--
     'yMove', # *Y++

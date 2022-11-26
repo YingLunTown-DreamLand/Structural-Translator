@@ -5,6 +5,7 @@ import blockNBT.main
 import blockNBT.CommandBlock
 import blockNBT.Container
 import brotli
+import json
 # 载入依赖项
 
 
@@ -166,6 +167,16 @@ class startFunction:
 
 
 
+        import pool_old
+        pool_old.main()
+        # 生成纯数据值的方块池
+
+
+
+
+
+
+
         areaPosStates = [1,1]
         areaPos = [1,1]
         states = 0
@@ -273,11 +284,11 @@ class startFunction:
                         if fgId != -1:
                             foreground = share.pool[fgId]
                         else:
-                            foreground = [None,0]
+                            foreground = [None,{}]
                         if bgId != -1:
                             background = share.pool[bgId]
                         else:
-                            background = [None,0]
+                            background = [None,{}]
                         # 得到待处理方块的背景层和前景层
 
 
@@ -306,9 +317,15 @@ class startFunction:
                         if background[0] != None:
                             if (len(background[0].split('water')) > 1) and (foreground[0] != None):
                                 bgIsWater = True
-                                outputCommand.append(bytearray(b'\x07') + 
-                                bgId.to_bytes(length=2,byteorder='big') + 
-                                background[1].to_bytes(length=2,byteorder='big'))
+                                outputCommand.append(
+                                    (
+                                        bytearray(b'\x07') + bgId.to_bytes(length=2,byteorder='big') + background[1].to_bytes(length=2,byteorder='big')
+                                    )
+                                    if type(background[1]) == int else
+                                    (
+                                        bytearray(b'\x0d') + bgId.to_bytes(length=2,byteorder='big') + json.dumps(background[1],ensure_ascii=False).encode(encoding='utf-8') + b'\x00'
+                                    )
+                                )
                         # 处理含水方块(若需要处理的话)
 
 
@@ -324,7 +341,7 @@ class startFunction:
 
                         if success_to_translate == False and upPointer == False:
                             try:
-                                changesValue = blockNBT.main.blockList[foreground[0]][str(foreground[1])]
+                                changesValue = blockNBT.main.blockList[foreground[0]][str(share.pool_old[fgId][1])]
                                 # 取得参数
                                 if 1083 <= changesValue[1] <= 1088:
                                     outputCommand.append(bytearray(b'\x26\x00\x00\x1b\xdf\x00'))
@@ -338,18 +355,24 @@ class startFunction:
                         # # 翻译容器内的物品
 
                         if success_to_translate == False and foreground[-1] != '摆烂' and foreground[0] != None and upPointer == False:
-                             outputCommand.append(bytearray(b'\x07') + 
-                             fgId.to_bytes(length=2,byteorder='big') + 
-                             foreground[1].to_bytes(length=2,byteorder='big'))
+                            outputCommand.append(
+                                    (
+                                        bytearray(b'\x07') + fgId.to_bytes(length=2,byteorder='big') + foreground[1].to_bytes(length=2,byteorder='big')
+                                    )
+                                    if type(foreground[1]) == int else
+                                    (
+                                        bytearray(b'\x0d') + fgId.to_bytes(length=2,byteorder='big') + json.dumps(foreground[1],ensure_ascii=False).encode(encoding='utf-8') + b'\x00'
+                                    )
+                                )
                         # # 处理普通情况
 
                         if hasBlockNBT == True:
                             if f"{pointer}:10" in share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_position_data:10"]:
-                                strNBT = function.outputStrNBT(share.mcs,pointer).encode(encoding='utf-8')
+                                entitynbt = function.outputStrNBT(share.mcs,pointer)
                                 outputCommand.append(
                                     bytearray(b'\x27') + 
-                                    len(strNBT).to_bytes(length=4,byteorder='big',signed=False) + 
-                                    strNBT
+                                    len(entitynbt).to_bytes(length=4,byteorder='big',signed=False) + 
+                                    entitynbt
                                 )
                         # # 写入方块实体数据
                         # 写入命令

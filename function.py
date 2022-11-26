@@ -1,8 +1,9 @@
-import share   # 载入共享库
-import blockData.blockList   # 载入已加入方块状态支持的方块列表
-import Api.JsonToNBT.JsonTranslate   # 载入 JSON 转 NBT 的模块
-import nbtlib # 载入外部 NBT 库
-import time, random, os, sys # 载入外部库
+import share
+import blockData.blockList
+import Api.JsonToNBT.JsonTranslate
+import nbtlib
+import time, random, os
+from nbtlib.tag import *
 # 载入依赖项
 
 
@@ -92,25 +93,34 @@ def moveCommand(input:int,Type:str):
 
 
 
-def outputStrNBT(input:dict,location:int)->str:
+def outputStrNBT(input:dict|bytes,location:int)->bytes:
     """
     \n摘要
-    访问对应方块下的 `方块实体` 数据，并返回 `Minecraft Java Edition` 下的 `NBT` 字符串形式
+    访问对应方块下的 `方块实体` 数据，并返回二进制下的 NBT 信息
     \n参数
-    `input:dict` 指的是装有 NBT 信息的字典
+    `input:dict|list` 指的是装有 NBT 信息的字典或无法被解析为 NBT 的二进制字节串
     `location:int` 指的是这个方块在密集矩阵下的角标
     \n返回值
-    返回一个 `字符串` ，是 `Minecraft Java Edition` 下的 `NBT` 字符串形式
+    返回一个 `Bytes` ，其记录着二进制下的 NBT 信息
     """
     # 函数声明
+
+
 
     NBTdata = input["Root:10"]["structure:10"]["palette:10"][
         "default:10"]["block_position_data:10"][f"{location}:10"]["block_entity_data:10"]
     # 获取方块实体数据
-    NBTdata = Api.JsonToNBT.JsonTranslate.JSONCompound(NBTdata)
-    # 转换为 NBT 库下的格式
-    return nbtlib.serialize_tag(NBTdata)
-    # 返回值
+
+    if type(NBTdata) == dict:
+        NBTdata = Api.JsonToNBT.JsonTranslate.JSONCompound(NBTdata)
+        # 转换为 NBT 库下的格式
+        return nbtlib.serialize_tag(NBTdata).encode(encoding='utf-8')
+        # 返回值
+    # 如果 NBTdata 是字典
+
+    if type(NBTdata) == bytes:
+        return NBTdata
+    # 如果 NBTdata 已经是 bytes
 
 
 
@@ -210,3 +220,116 @@ def showStates(
         time.sleep(random.randint(5,10) / 10)
 
     # 显示后方文本部分
+
+
+
+
+
+def outputJsonNBT_Compound(input:nbtlib.tag.Compound) -> dict:
+    """
+    \n摘要
+    本函数用于输出 `nbtlib.tag.Compound` 的纯 `JSON` 形式，且不会记录数据类型。
+    \n参数
+    `input:nbtlib.tag.Compound` 指的是需要被转换为纯 `JSON` 形式的 `复合标签`
+    \n返回值
+    返回 `input:nbtlib.tag.Compound` 对应的 `dict` 且不记录数据类型。
+    """
+    # 函数声明
+
+
+
+    ans = {}
+
+
+    for i in input:
+        if type(input[i]) == Byte:
+            if int(input[i]) != 0 and int(input[i]) != 1:
+                ans[i] = int(input[i])
+            else:
+                ans[i] = bool(input[i])
+            continue
+        # Byte
+
+        if type(input[i]) == Short or type(input[i]) == Int or type(input[i]) == Long:
+            ans[i] = int(input[i])
+            continue
+        # Short, Int, Long
+
+        if type(input[i]) == Float or type(input[i]) == Double:
+            ans[i] = float(input[i])
+            continue
+        # Float, Double
+
+        if type(input[i]) == ByteArray or type(input[i]) == IntArray or type(input[i]) == LongArray:
+            ans[i] = [int(i) for i in input[i]]
+            continue
+        # byte_array, int_array, long_array
+
+        if type(input[i]) == String:
+            ans[i] = str(input[i])
+            continue
+        # String
+
+        if type(input[i]) == Compound:
+            ans[i] = outputJsonNBT_Compound(input[i])
+            continue
+        # Compound
+
+        ans[i] = outputJsonNBT_List(input[i])
+        # List
+
+
+    return ans
+
+
+
+
+
+def outputJsonNBT_List(input:List[any]) -> list:
+    """
+    \n摘要
+    本函数用于输出 `nbtlib.tag.List[any]` 的纯 `list` 形式，且不会记录数据类型。
+    \n参数
+    `nbtlib.tag.List[any]` 指的是需要被转换为纯 `list` 形式的 `列表`
+    \n返回值
+    返回 `nbtlib.tag.List[any]` 对应的 `list` 且不记录数据类型。
+    """
+    # 函数声明
+
+
+    if len(input) == 0:
+        return []
+    # while input = []
+
+    if type(input[0]) == Byte:
+        ByteList = [int(i) for i in input]
+        maxValue = max(ByteList)
+        minValue = min(ByteList)
+        if (maxValue != 0 and maxValue != 1) or (minValue != 0 and minValue != 0):
+            return [int(i) for i in input]
+        else:
+            return [bool(i) for i in input]
+    # Byte
+
+    if type(input[0]) == Short or type(input[0]) == Int or type(input[0]) == Long:
+        return [int(i) for i in input]
+    # Short, Int, Long
+
+    if type(input[0]) == Float or type(input[0]) == Double:
+        return [float(i) for i in input]
+    # Float, Double
+
+    if type(input[0]) == ByteArray or type(input[0]) == IntArray or type(input[0]) == LongArray:
+        return [[int(i1) for i1 in i] for i in input]
+    # byte_array, int_array, long_array
+
+    if type(input[0]) == String:
+        return [str(i) for i in input]
+    # String
+
+    if type(input[0]) == Compound:
+        return [outputJsonNBT_Compound(i) for i in input]
+    # Compound
+
+    return [outputJsonNBT_List(i) for i in input]
+    # List

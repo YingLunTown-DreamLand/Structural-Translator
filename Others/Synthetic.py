@@ -6,6 +6,8 @@ import Others.NBTtranslate
 
 
 
+
+
 def main(input:dict)->list:
     """
     \n摘要
@@ -24,17 +26,36 @@ def main(input:dict)->list:
     # 函数声明
 
 
+
     if 'entitynbt' in input:
         try:
-            return {"block_entity_data:10":Others.NBTtranslate.getAns(input['entitynbt'])}
+            if type(input['entitynbt']) == str:
+                return {"block_entity_data:10": Others.NBTtranslate.getAns(input['entitynbt'])}
+                # WhiteWallJson 中记录的是 str 形式
+
+            if type(input['entitynbt']) == list:
+                entitynbt = b''.join(
+                    [i.to_bytes(length=1,byteorder='big') for i in input['entitynbt']]
+                )
+                # example: input['entitynbt'] = [2,3,4] -> entitynbt = b'\x02\x03\x04'
+                try:
+                    return {"block_entity_data:10": Others.NBTtranslate.getAns(entitynbt.decode())}
+                    # 当 entitynbt 是 SNBT 时
+                except:
+                    return {"block_entity_data:10": entitynbt}
+                    # 当 entitynbt 是一堆没有意义的二进制串时
+                # Api/ParseBDX 输出的 entitynbt 是 list 形式
+
         except:
             return None
     # 若携带有可解析的 NBT 数据
+
 
     if ('cmddata' in input) and ((input['name'] == 'minecraft:command_block') or (
         input['name'] == 'minecraft:chain_command_block') or (input['name'] == 'minecraft:repeating_command_block')):
         return {"block_entity_data:10":Others.CommandBlock.cbGet(input['cmddata'])}
     # 若为命令方块
+
 
     return None
     # 如果既不是命令方块也不是容器，则返回 None

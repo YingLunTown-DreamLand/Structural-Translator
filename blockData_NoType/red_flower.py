@@ -1,0 +1,33 @@
+import sys
+sys.path.append(".")
+import share
+# 载入依赖项
+
+
+
+def main():
+    type = share.ans["flower_type"]
+    #
+    if type == 'poppy':
+        return 0
+    if type == 'orchid':
+        return 1
+    if type == 'allium':
+        return 2
+    if type == 'houstonia':
+        return 3
+    if type == 'tulip_red':
+        return 4
+    if type == 'tulip_orange':
+        return 5
+    if type == 'tulip_white':
+        return 6
+    if type == 'tulip_pink':
+        return 7
+    if type == 'oxeye':
+        return 8
+    if type == 'cornflower':
+        return 9
+    if type == 'lily_of_the_valley':
+        return 10
+    #

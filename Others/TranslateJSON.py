@@ -1,6 +1,6 @@
-import json,sys # 载入第三方库
-sys.path.append(".") # 载入本地库
-import share,Others.Synthetic # 载入本地库
+import json, sys, nbtlib
+sys.path.append(".")
+import Others.Synthetic, Others.NBTtranslate, function
 # 载入依赖项
 
 
@@ -61,29 +61,63 @@ class TranslateJSON:
 
 
 
+        for i in range(len(self.WhiteWallJson)):
+            if "blocknbt" in self.WhiteWallJson[i]:
+                if type(self.WhiteWallJson[i]["blocknbt"]) == str:
+                    try:
+                        self.WhiteWallJson[i]["blocknbt"] = {
+                            "states": function.outputJsonNBT_Compound(
+                                nbtlib.parse_nbt(self.WhiteWallJson[i]["blocknbt"])
+                            )["states"]
+                        }
+                    except:
+                        None
+        # 如果记录了 blocknbt 且其是 SNBT ，则将 blocknbt 处理为 {"states": ...}
+
+
+
+
 
         blockPool = {}
         blockCount = -1
+
         for i in self.WhiteWallJson:
-            if not f'{i["name"]},{i["aux"]}' in blockPool:
+            if "blocknbt" in i:
+                try:
+                    if not f'{i["name"]},{i["blocknbt"]["states"]}' in blockPool:
+                        blockCount = blockCount + 1
+                        blockPool[f'{i["name"]},{i["blocknbt"]["states"]}'] = blockCount
+                except:
+                    if not f'{i["name"]},{i["aux"]}' in blockPool:
+                        blockCount = blockCount + 1
+                        blockPool[f'{i["name"]},{i["aux"]}'] = blockCount
+            elif not f'{i["name"]},{i["aux"]}' in blockPool:
                 blockCount = blockCount + 1
                 blockPool[f'{i["name"]},{i["aux"]}'] = blockCount
         # 取得方块池
-        # 形式诸如 {"blockId:str,data:int": paletteId}
+        # 形式诸如 {"blockId:str,data:int": paletteId} or {"blockId:str,states:dict": paletteId}
 
 
 
 
 
         for i in blockPool:
-            i = i.split(',')
-            self.pool.append(
-                [
-                    i[0],
-                    int(i[1])
-                ]
-            )
-            self.pool.append(['minecraft:air',0])
+            i = i.split(',',maxsplit=1)
+            try:
+                self.pool.append(
+                    [
+                        i[0],
+                        int(i[1])
+                    ]
+                )
+            except:
+                self.pool.append(
+                    [
+                        i[0],
+                        json.loads(i[1].replace("'",'"'))
+                    ]
+                )
+        self.pool.append(['minecraft:air',{}])
         # 设置 mcstructure 下的方块池
 
 
@@ -92,12 +126,23 @@ class TranslateJSON:
 
         blockPos = {}
         blockDataInJson = {}
+
+
         for i in range(len(self.WhiteWallJson)):
             String = str(self.WhiteWallJson[i]['x']) + ',' + str(self.WhiteWallJson[i]['y']) + ',' + str(self.WhiteWallJson[i]['z'])
-            blockPos[String] = blockPool[
-                self.WhiteWallJson[i]['name'] + ',' + str(self.WhiteWallJson[i]['aux'])
-            ]
+            
+            if "blocknbt" in self.WhiteWallJson[i]:
+                blockPos[String] = blockPool[
+                    self.WhiteWallJson[i]['name'] + ',' + str(self.WhiteWallJson[i]["blocknbt"]["states"])
+                ]
+            else:
+                blockPos[String] = blockPool[
+                    self.WhiteWallJson[i]['name'] + ',' + str(self.WhiteWallJson[i]['aux'])
+                ]
+            
             blockDataInJson[String] = i
+
+ 
         del blockPool
         # 将 json 文件中记录的方块坐标制成索引表，便于查找对应位置的方块是否存在(形式诸如 {"x:int,y:int,z:int": location_in_the_block_pool:int})
         # 同时记录目标方块在 json 文件中的位置(形式诸如 {"x:int,y:int,z:int": location_in_the_json:int})
@@ -161,7 +206,7 @@ class TranslateJSON:
                             blockEntityDataList[f'{repeatingCount}:10'] = blockEntityData
                         # 处理方块实体数据，如果有的话
                     else:
-                        blockList.append(len(share.pool) - 1)
+                        blockList.append(len(self.pool) - 1)
                     # 写入方块数据
 
                     if zRepeat > 0:

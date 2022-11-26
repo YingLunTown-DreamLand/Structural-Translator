@@ -1,7 +1,4 @@
-import brotli
-import struct
-import nbtlib
-import sys
+import brotli, struct, nbtlib, sys, json
 sys.path.append(".")
 import Api.ParseBDX.indexList
 # 载入依赖项
@@ -45,6 +42,15 @@ def placeBlock(input:bytearray,pointer:int)->list:
 def jumpX(input:bytearray,pointer:int)->list:
     return [struct.unpack('>I',input[pointer:pointer+4])[0],pointer+4]
     # return [addX:int, newPoiner:int]
+
+def PlaceBlockWithBlockStates(input:bytearray,pointer:int)->list:
+    location = input[pointer+2:].index(b'\x00') + pointer + 2
+    return [
+        struct.unpack('>H',input[pointer:pointer+2])[0],
+        json.loads(input[pointer+2:location].decode(encoding='utf-8')),
+        location + 1
+        ]
+    # return [blockID:short(int), blockStates:dict, newPointer:int]
 
 def addX_int16(input:bytearray,pointer:int):
     return [struct.unpack('>h',input[pointer:pointer+2])[0],pointer+2]
@@ -202,14 +208,12 @@ def placeBlockWithChestData(input:bytearray,pointer:int)->list:
 
 def recordBlockEntityData(input:bytearray,pointer:int)->list:
     newPointer = pointer + 4 + struct.unpack('>I',input[pointer:pointer+4])[0]
-    try:
-        return [
-            input[pointer+4:newPointer].decode(encoding='utf-8'),
+    buffer = []
+    for i in input[pointer+4:newPointer]:
+        buffer.append(i)
+    return [
+            buffer,
             newPointer
         ]
-    except:
-        return [
-            input[pointer+4:newPointer],
-            newPointer
-        ]
-    # return [blockNBT:str|bytearray, newPoiner:int]
+    # return [blockNBT:list, newPoiner:int]
+    # example: blockNBT = [2,3,4,1] -> b'\x02\x03\x04\x01'
