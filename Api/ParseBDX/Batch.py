@@ -45,8 +45,6 @@ for i in filePath:
     try:
         Parse.main()
     except:
-        import traceback
-        print(traceback.format_exc())
         logList[i] = {
             "inputPath": i,    # 文件输入路径
             "blockNBT_find_out": None,    # 找到的可以被解析为 str 的 operation 39
