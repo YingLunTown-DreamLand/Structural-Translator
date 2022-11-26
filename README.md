@@ -105,6 +105,9 @@ You can contact me through the following links
 ## Update Logs
 _For the update logs of previous versions, please go to link [Old Update Logs](https://github.com/Happy2018new/Structural-Translator/blob/main/Old%20Update%20Logs.md)_
 ***
+- `v80.0 - 2022/11/26 Afternoon`
+   - `Pre-release: The new Bdump protocol is officially supported` & Updated in [a257c11](https://github.com/Happy2018new/Structural-Translator/commit/a257c11872c80187674e3b97d7680af3da28c3ad)
+      - You could download this version [here](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v80.0)/Translator.exe)
 - `v71.1 - 2022/11/13 Night`
    - Fixed a bug that can not make dirs while use the custom settings & Fixed in [e1ec199](https://github.com/Happy2018new/Structural-Translator/commit/e1ec199b4e98815f8eacbe75c87f7d2863552ae6)
 - `v71.0 - 2022/11/13 Noon`
