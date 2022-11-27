@@ -105,6 +105,9 @@ You can contact me through the following links
 ## Update Logs
 _For the update logs of previous versions, please go to link [Old Update Logs](https://github.com/Happy2018new/Structural-Translator/blob/main/Old%20Update%20Logs.md)_
 ***
+- `Pre-Release(v81.0) - 2022/11/27 Night`
+   - Fixed an issue where command block data could not be parsed & Fixed in [2c174bf](https://github.com/Happy2018new/Structural-Translator/commit/2c174bf3373b9ce6bd9b16cae4282f2a62e9f5b2)
+      - You could download this version [here](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v81.0)/Translator.exe)
 - `Pre-Release(v80.3) - 2022/11/27 Afternoon`
    - Fixed an issue where the state of blocks recorded in `JSON` files could not be parsed & Fixed in [ba20c91](https://github.com/Happy2018new/Structural-Translator/commit/ba20c91827ed96950c385375acc0315d72064e04)
       - You could download this version [here](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v80.3)/Translator.exe)
