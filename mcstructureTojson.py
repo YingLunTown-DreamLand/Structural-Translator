@@ -101,9 +101,7 @@ class mcstructureTojson:
         if Type == None:
             Type = struct.unpack('<b',input[pointer:pointer+1])[0]
             name = input[pointer+3:pointer+3+struct.unpack('<h',input[pointer+1:pointer+3])[0]].decode(encoding='UTF-8')
-            name = name.replace('\\n','-----Mark of use 0x10-----')
-            name = name.replace('\n','\\n')
-            name = name.replace('"','\\"')
+            name = json.dumps(name)[1:-1]
             if name == '':
                 name = 'undefined'
             pointer = pointer + 3 + struct.unpack('<h',input[pointer+1:pointer+3])[0]
@@ -145,9 +143,7 @@ class mcstructureTojson:
 
         if Type == 8:
             string = input[pointer+2:pointer+2+struct.unpack('<h',input[pointer:pointer+2])[0]].decode(encoding='UTF-8')
-            string = string.replace('\\n','-----Mark of use 0x10-----')
-            string = string.replace('\n','\\n')
-            string = string.replace('"','\\"')
+            string = json.dumps(string)[1:-1]
             return [Type,name,string,
             pointer+2+struct.unpack('<h',input[pointer:pointer+2])[0]]
 

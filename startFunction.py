@@ -335,7 +335,7 @@ class startFunction:
                             foreground[0] == 'minecraft:repeating_command_block') or 
                             (foreground[0] == 'minecraft:chain_command_block')) and (
                             upPointer == False):
-                            outputCommand.append(blockNBT.CommandBlock.cbGet(foreground,pointer))
+                            outputCommand.append(blockNBT.CommandBlock.cbGet(share.pool_old[fgId],pointer))
                             success_to_translate = True
                         # # 翻译命令方块
 

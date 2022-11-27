@@ -26,22 +26,14 @@ def cbGet(foreground:list,pointer:int):
     try:
         command = share.mcs["Root:10"]["structure:10"]["palette:10"][
                     "default:10"]["block_position_data:10"][f"{pointer}:10"][
-                    "block_entity_data:10"]["Command:8"]
-        command = command.replace('\\n','\n')
-        command = command.replace('-----Mark of use 0x10-----','\\n')
-        command = command.replace('\\"','"')
-        command = command.encode(encoding="utf-8")
+                    "block_entity_data:10"]["Command:8"].encode(encoding="utf-8")
     except:
         command = bytearray(b'')
     # 命令方块内的指令
     try:
         name = share.mcs["Root:10"]["structure:10"]["palette:10"][
                 "default:10"]["block_position_data:10"][f"{pointer}:10"][
-                "block_entity_data:10"]["CustomName:8"]
-        name = name.replace('\\n','\n')
-        name = name.replace('-----Mark of use 0x10-----','\\n')
-        name = name.replace('\\"','"')
-        name = name.encode(encoding="utf-8")
+                "block_entity_data:10"]["CustomName:8"].encode(encoding="utf-8")
     except:
         name = bytearray(b'')
     # 悬浮字
