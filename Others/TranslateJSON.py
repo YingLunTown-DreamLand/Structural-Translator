@@ -114,7 +114,7 @@ class TranslateJSON:
                 self.pool.append(
                     [
                         i[0],
-                        json.loads(i[1].replace("'",'"'))
+                        eval(i[1])
                     ]
                 )
         self.pool.append(['minecraft:air',{}])
