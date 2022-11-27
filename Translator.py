@@ -116,7 +116,7 @@ for root,dirs,files in os.walk(file["全局设置"]["文件搜索路径"]):
         String = os.path.normpath(os.path.join(root,fileName)).replace('\\','/').split('/')
         String[-1] = String[-1].split('.')
         if len(String[-1]) > 0:
-            String[-1][-1].replace('M','m').replace('C','c').replace('S','s').replace('T','t').replace('R','r').replace(
+            String[-1][-1] = String[-1][-1].replace('M','m').replace('C','c').replace('S','s').replace('T','t').replace('R','r').replace(
                 'U','u').replace('E','e').replace('J','j').replace('S','s').replace('O','o').replace('N','n')
         String[-1] = ".".join(String[-1])
         if os.path.splitext(String[-1])[-1] == '.mcstructure' or os.path.splitext(String[-1])[-1] == '.json' and String[-1] != 'settings.json' and String[-1] != 'translateLog.json':

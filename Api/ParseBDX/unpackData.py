@@ -46,27 +46,22 @@ def jumpX(input:bytearray,pointer:int)->list:
 def PlaceBlockWithBlockStates(input:bytearray,pointer:int)->list:
     blockId = struct.unpack('>H',input[pointer:pointer+2])[0]
     # get blockId
-    pointer = pointer + 2
-    for i in input[pointer:]:
-        if i == 32:
-            pointer = pointer + 1
-        else:
-            break
-    StringEndLocation = input[pointer:].index(b'\x00') + pointer
-    blockStatesEndLocation = StringEndLocation - 1
-    # pointer = blockStates_start_location
-    # StringEndLocation = String_end_location
+    pointer = bs_start_location = input.index(b'[',pointer+2)
+    # pointer = bs_start_location = block_states_start_location
+    pointer = str_end_location = input.index(b'\x00',pointer)
+    # pointer = str_end_location = string_end_location
+    pointer = pointer - 1
     while True:
-        if input[blockStatesEndLocation] == 32:
-            blockStatesEndLocation = blockStatesEndLocation - 1
+        if input[pointer:pointer+1] == b' ':
+            pointer = pointer - 1
         else:
-            blockStatesEndLocation = blockStatesEndLocation + 1
+            pointer = pointer + 1
             break
-    # blockStatesEndLocation = blockStates_end_location
+    # pointer = block_states_end_location
     return [
         blockId,
-        json.loads('{' + input[pointer:blockStatesEndLocation].decode(encoding='utf-8')[1:-1] + '}'),
-        StringEndLocation + 1
+        json.loads('{' + input[bs_start_location:pointer].decode(encoding='utf-8')[1:-1] + '}'),
+        str_end_location + 1
         ]
     # return [blockID:short(int), blockStates:dict, newPointer:int]
 

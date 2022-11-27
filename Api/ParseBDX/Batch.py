@@ -28,7 +28,7 @@ for root,dirs,files in os.walk(searchPath):
         String = os.path.normpath(os.path.join(root,fileName)).replace('\\','/').split('/')
         String[-1] = String[-1].split('.')
         if len(String[-1]) > 0:
-            String[-1][-1].replace('B','b').replace('D','d').replace('X','x')
+            String[-1][-1] = String[-1][-1].replace('B','b').replace('D','d').replace('X','x')
         String[-1] = ".".join(String[-1])
         if os.path.splitext(String[-1])[-1] == '.bdx':
             filePath.append("/".join(String))

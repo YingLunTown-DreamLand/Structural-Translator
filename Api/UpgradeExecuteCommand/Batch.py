@@ -28,7 +28,7 @@ for root,dirs,files in os.walk(searchPath):
         String = os.path.normpath(os.path.join(root,fileName)).replace('\\','/').split('/')
         String[-1] = String[-1].split('.')
         if len(String[-1]) > 0:
-            String[-1][-1].replace('J','j').replace('S','s').replace('O','o').replace('N','n')
+            String[-1][-1] = String[-1][-1].replace('J','j').replace('S','s').replace('O','o').replace('N','n')
         String[-1] = ".".join(String[-1])
         if os.path.splitext(String[-1])[-1] == '.json' and String[-1] != 'UpgradeExecuteCommand_log.json':
             filePath.append("/".join(String))
