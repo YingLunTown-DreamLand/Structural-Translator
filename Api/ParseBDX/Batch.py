@@ -1,6 +1,6 @@
 import sys
 sys.path.append(".")
-from Api.ParseBDX.main import PaeseBDX
+from Api.ParseBDX.main import ParseBDX
 import os, json
 # 载入依赖项
 
@@ -41,7 +41,7 @@ print(f'A total of {len(filePath)} files were found.')
 
 logList = {}
 for i in filePath:
-    Parse = PaeseBDX(i)
+    Parse = ParseBDX(i)
     try:
         Parse.main()
     except:

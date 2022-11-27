@@ -14,7 +14,7 @@ import Api.ParseBDX.ContainerIndex
 
 
 
-class PaeseBDX:
+class ParseBDX:
     def __init__(self,inputPath:str) -> None:
         """
         \n摘要
@@ -37,7 +37,7 @@ class PaeseBDX:
     def main(self) -> None:
         """
         \n摘要
-        本函数是 `class: PaeseBDX` 的主函数
+        本函数是 `class: ParseBDX` 的主函数
         \n参数
         `self` 指的是已经被实例化的项目
         \n返回值
