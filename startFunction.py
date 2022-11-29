@@ -330,17 +330,27 @@ class startFunction:
 
 
                         success_to_translate = False
+                        # 初始化
+
+                        if hasBlockNBT == True:
+                            if type(share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_position_data:10"][f"{pointer}:10"]["block_entity_data:10"]) == dict:
+                                parseNBT = True
+                            else:
+                                parseNBT = False
+                        else:
+                            parseNBT = False
+                        # 确定方块实体数据是否是字典
 
                         if ((foreground[0] == 'minecraft:command_block') or (
                             foreground[0] == 'minecraft:repeating_command_block') or 
                             (foreground[0] == 'minecraft:chain_command_block')) and (
-                            upPointer == False):
+                            upPointer == False) and (parseNBT == True):
                             outputCommand.append(blockNBT.CommandBlock.cbGet(share.pool_old[fgId],pointer))
                             success_to_translate = True
                         # # 翻译命令方块
 
                         if success_to_translate == False and upPointer == False:
-                            try:
+                            if foreground[0] in blockNBT.main.blockList:
                                 changesValue = blockNBT.main.blockList[foreground[0]][str(share.pool_old[fgId][1])]
                                 # 取得参数
                                 if 1083 <= changesValue[1] <= 1088:
@@ -348,10 +358,9 @@ class startFunction:
                                 if 7135 <= changesValue[1] <= 7140:
                                     outputCommand.append(bytearray(b'\x26\x00\x00\x04;\x00'))
                                 # 如果是 箱子 或 陷阱箱 ，则无论是否是大型箱，都需要进行断开处理
-                                outputCommand.append(blockNBT.Container.main(changesValue[1],pointer,changesValue[0]))
-                                success_to_translate = True
-                            except:
-                                None
+                                if parseNBT == True:
+                                    outputCommand.append(blockNBT.Container.main(changesValue[1],pointer,changesValue[0]))
+                                    success_to_translate = True
                         # # 翻译容器内的物品
 
                         if success_to_translate == False and foreground[-1] != '摆烂' and foreground[0] != None and upPointer == False:

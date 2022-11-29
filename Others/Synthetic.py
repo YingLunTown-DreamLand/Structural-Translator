@@ -35,7 +35,7 @@ def main(input:dict)->list:
 
             if type(input['entitynbt']) == list:
                 entitynbt = b''.join(
-                    [i.to_bytes(length=1,byteorder='big') for i in input['entitynbt']]
+                    [i.to_bytes(length=1,byteorder='big',signed=False) for i in input['entitynbt']]
                 )
                 # example: input['entitynbt'] = [2,3,4] -> entitynbt = b'\x02\x03\x04'
                 try:
