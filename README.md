@@ -105,6 +105,9 @@ You can contact me through the following links
 ## Update Logs
 _For the update logs of previous versions, please go to link [Old Update Logs](https://github.com/Happy2018new/Structural-Translator/blob/main/Old%20Update%20Logs.md)_
 ***
+- `Pre-Release(v81.4) - 2022/11/30 Night`
+   - Fixed an issue involving container item parsing & Fixed in [a2f6675](https://github.com/Happy2018new/Structural-Translator/commit/a2f6675f60b4517ed74c44cfe15b87e372ca9cec)
+      - You could download this version [here](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v81.4)/Translator.exe)
 - `Pre-Release(v81.3) - 2022/11/29 Night`
    - Fixed an issue where NBT data could not be inserted in some cases & Fixed in [744d207](https://github.com/Happy2018new/Structural-Translator/commit/744d2070e784678696a712ff76e032272dc6709c)
       - You could download this version [here](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v81.3)/Translator.exe)
