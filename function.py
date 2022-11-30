@@ -93,7 +93,7 @@ def moveCommand(input:int,Type:str):
 
 
 
-def outputStrNBT(input:dict|bytes,location:int)->bytes:
+def outputNBT(input:dict|bytes,location:int)->bytes:
     """
     \n摘要
     访问对应方块下的 `方块实体` 数据，并返回二进制下的 NBT 信息

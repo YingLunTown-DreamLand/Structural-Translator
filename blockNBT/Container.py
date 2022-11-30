@@ -36,9 +36,6 @@ def main(runtimeId:int,pointer:int,Type:str):
     # 初始化
 
     if repeat == 0:
-        share.errorList.append(['Container','container.empty',pointer,share.mcs["Root:10"]["structure:10"]["palette:10"][
-        "default:10"]["block_position_data:10"][f"{pointer}:10"][
-        "block_entity_data:10"]])
         0/0
     # 当容器没有物品时
 

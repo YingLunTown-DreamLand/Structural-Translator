@@ -14,13 +14,19 @@ def cbGet(foreground:list,pointer:int):
     # 函数声明
     global share
     # 声明全局变量
-    facing = foreground[1].to_bytes(length=2,byteorder='big')
+    try:
+        facing = foreground[1].to_bytes(length=2,byteorder='big')
+    except:
+        facing = 0
     # 朝向
-    if foreground[0] == 'minecraft:command_block':
-        Type = bytearray(b'\x00\x00\x00\x00')
-    if foreground[0] == 'minecraft:repeating_command_block':
-        Type = bytearray(b'\x00\x00\x00\x01')
-    if foreground[0] == 'minecraft:chain_command_block':
+    try:
+        if foreground[0] == 'minecraft:command_block':
+            Type = bytearray(b'\x00\x00\x00\x00')
+        if foreground[0] == 'minecraft:repeating_command_block':
+            Type = bytearray(b'\x00\x00\x00\x01')
+        if foreground[0] == 'minecraft:chain_command_block':
+            Type = bytearray(b'\x00\x00\x00\x02')
+    except:
         Type = bytearray(b'\x00\x00\x00\x02')
     # 类型(脉冲, 循环, 链)
     try:

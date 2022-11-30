@@ -359,8 +359,11 @@ class startFunction:
                                     outputCommand.append(bytearray(b'\x26\x00\x00\x04;\x00'))
                                 # 如果是 箱子 或 陷阱箱 ，则无论是否是大型箱，都需要进行断开处理
                                 if parseNBT == True:
-                                    outputCommand.append(blockNBT.Container.main(changesValue[1],pointer,changesValue[0]))
-                                    success_to_translate = True
+                                    try:
+                                        outputCommand.append(blockNBT.Container.main(changesValue[1],pointer,changesValue[0]))
+                                        success_to_translate = True
+                                    except:
+                                        pass
                         # # 翻译容器内的物品
 
                         if success_to_translate == False and foreground[-1] != '摆烂' and foreground[0] != None and upPointer == False:
@@ -377,7 +380,7 @@ class startFunction:
 
                         if hasBlockNBT == True:
                             if f"{pointer}:10" in share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_position_data:10"]:
-                                entitynbt = function.outputStrNBT(share.mcs,pointer)
+                                entitynbt = function.outputNBT(share.mcs,pointer)
                                 outputCommand.append(
                                     bytearray(b'\x27') + 
                                     len(entitynbt).to_bytes(length=4,byteorder='big',signed=False) + 
