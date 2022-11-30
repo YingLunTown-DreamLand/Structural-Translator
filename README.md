@@ -18,7 +18,7 @@ A software that translates `.mcstructure` into `.bdx`
 Download and first use
 1. Execute this command in `Termux`
 ```shell
-apt update && apt upgrade && apt install python && apt install git && pip install brotli && MATHLIB=m pip install numpy && pip install nbtlib && cd /sdcard && git clone https://github.com/Happy2018new/Structural-Translator/ && cd Structural-Translator
+apt update && apt upgrade && apt install python && apt install git && pip install brotli && MATHLIB=m pip install numpy && pip install nbtlib && pip install colorama && cd /sdcard && git clone https://github.com/Happy2018new/Structural-Translator/ && cd Structural-Translator
 ```
 2. Then put `input.mcstructure` or `input.json` in the path `/storage/emulated/0/Structural-Translator`<br>
 3. Execute `python Translator.py` in `Termux`
@@ -35,7 +35,7 @@ cd /sdcard && rm -r Structural-Translator
 ***
 Update or Upgrade
 ```shell
-apt update && apt upgrade && apt install python && apt install git && pip install brotli && MATHLIB=m pip install numpy && pip install nbtlib && cd /sdcard && rm -r Structural-Translator && git clone https://github.com/Happy2018new/Structural-Translator/
+apt update && apt upgrade && apt install python && apt install git && pip install brotli && MATHLIB=m pip install numpy && pip install nbtlib && pip install colorama && cd /sdcard && rm -r Structural-Translator && git clone https://github.com/Happy2018new/Structural-Translator/
 ```
 
 
@@ -105,6 +105,9 @@ You can contact me through the following links
 ## Update Logs
 _For the update logs of previous versions, please go to link [Old Update Logs](https://github.com/Happy2018new/Structural-Translator/blob/main/Old%20Update%20Logs.md)_
 ***
+- `Pre-Release(v81.7) - 2022/11/30 Night`
+   - Fixed an issue where Windows would not display color and would not parse non-NBT blocks & Fixed in [b16ac16](https://github.com/Happy2018new/Structural-Translator/commit/b16ac160406fb2d4439580930a62111e7e8c724d)
+      - You could download this version [here](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v81.7)/Translator.exe)
 - `Pre-Release(v81.4) - 2022/11/30 Night`
    - Fixed an issue involving container item parsing & Fixed in [a2f6675](https://github.com/Happy2018new/Structural-Translator/commit/a2f6675f60b4517ed74c44cfe15b87e372ca9cec)
       - You could download this version [here](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v81.4)/Translator.exe)
