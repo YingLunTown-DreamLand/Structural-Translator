@@ -3,6 +3,10 @@ import function
 import os, json, time, random, traceback
 # 载入依赖项
 
+import colorama
+colorama.init(autoreset=True)
+# 显示彩色字
+
 
 
 
@@ -321,6 +325,15 @@ for i in filePath:
 
 
 # 翻译文件
+
+
+
+
+try:
+    os.remove('translator.tmp')
+except:
+    pass
+# 删除缓存用文件(如果存在的话)
 
 
 

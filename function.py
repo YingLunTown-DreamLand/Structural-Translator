@@ -6,6 +6,9 @@ import time, random, os
 from nbtlib.tag import *
 # 载入依赖项
 
+import colorama
+colorama.init(autoreset=True)
+# 显示彩色字
 
 
 

@@ -332,13 +332,11 @@ class startFunction:
                         success_to_translate = False
                         # 初始化
 
+                        parseNBT = False
                         if hasBlockNBT == True:
-                            if type(share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_position_data:10"][f"{pointer}:10"]["block_entity_data:10"]) == dict:
-                                parseNBT = True
-                            else:
-                                parseNBT = False
-                        else:
-                            parseNBT = False
+                            if f"{pointer}:10" in share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_position_data:10"]:
+                                if type(share.mcs["Root:10"]["structure:10"]["palette:10"]["default:10"]["block_position_data:10"][f"{pointer}:10"]["block_entity_data:10"]) == dict:
+                                    parseNBT = True
                         # 确定方块实体数据是否是字典
 
                         if ((foreground[0] == 'minecraft:command_block') or (
