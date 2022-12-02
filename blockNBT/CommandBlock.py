@@ -67,9 +67,14 @@ def cbGet(foreground:list,pointer:int):
     try:
         conditional = share.mcs["Root:10"]["structure:10"]["palette:10"][
                         "default:10"]["block_position_data:10"][f"{pointer}:10"][
-                            "block_entity_data:10"]["conditionalMode:1"].to_bytes(length=1,byteorder='big',signed=True)
+                        "block_entity_data:10"]["conditionalMode:1"].to_bytes(length=1,byteorder='big',signed=True)
     except:
-        conditional = bytearray(b'\x00')
+        try:
+            conditional = share.mcs["Root:10"]["structure:10"]["palette:10"][
+                            "default:10"]["block_position_data:10"][f"{pointer}:10"][
+                            "block_entity_data:10"]["conditionMet:1"].to_bytes(length=1,byteorder='big',signed=True)
+        except:
+            conditional = bytearray(b'\x00')
     # 是否有条件
     try:
         needRedstone = share.mcs["Root:10"]["structure:10"]["palette:10"][

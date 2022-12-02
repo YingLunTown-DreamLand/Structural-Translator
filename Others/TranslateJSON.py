@@ -124,28 +124,53 @@ class TranslateJSON:
 
 
 
-        blockPos = {}
-        blockDataInJson = {}
+        blockInfo = {}
 
 
         for i in range(len(self.WhiteWallJson)):
-            String = str(self.WhiteWallJson[i]['x']) + ',' + str(self.WhiteWallJson[i]['y']) + ',' + str(self.WhiteWallJson[i]['z'])
-            
-            if "blocknbt" in self.WhiteWallJson[i]:
-                blockPos[String] = blockPool[
-                    self.WhiteWallJson[i]['name'] + ',' + str(self.WhiteWallJson[i]["blocknbt"]["states"])
-                ]
-            else:
-                blockPos[String] = blockPool[
-                    self.WhiteWallJson[i]['name'] + ',' + str(self.WhiteWallJson[i]['aux'])
-                ]
-            
-            blockDataInJson[String] = i
+            String:str = str(self.WhiteWallJson[i]['x']) + ',' + str(self.WhiteWallJson[i]['y']) + ',' + str(self.WhiteWallJson[i]['z'])
+            blockName:str = self.WhiteWallJson[i]["name"]
 
- 
+            if not String in blockInfo:
+                blockInfo[String] = {"foreground":-1, "background":-1, "blockDataInJson":[-1, -1]}
+
+            if "blocknbt" in self.WhiteWallJson[i]:
+                if len(blockName.split('water')) > 1:
+                    blockInfo[String]["background"] = blockPool[
+                        blockName + ',' + str(self.WhiteWallJson[i]["blocknbt"]["states"])
+                    ]
+                    blockInfo[String]["blockDataInJson"][1] = i
+                # block states - 背景层
+                else:
+                    blockInfo[String]["foreground"] = blockPool[
+                        blockName + ',' + str(self.WhiteWallJson[i]["blocknbt"]["states"])
+                    ]
+                    blockInfo[String]["blockDataInJson"][0] = i
+                # block states - 前景层
+            else:
+                if len(blockName.split('water')) > 1:
+                    blockInfo[String]["background"] = blockPool[
+                        blockName + ',' + str(self.WhiteWallJson[i]['aux'])
+                    ]
+                    blockInfo[String]["blockDataInJson"][1] = i
+                # block data - 背景层
+                else:
+                    blockInfo[String]["foreground"] = blockPool[
+                        blockName + ',' + str(self.WhiteWallJson[i]['aux'])
+                    ]
+                    blockInfo[String]["blockDataInJson"][0] = i
+                # block data - 前景层
+
+
         del blockPool
-        # 将 json 文件中记录的方块坐标制成索引表，便于查找对应位置的方块是否存在(形式诸如 {"x:int,y:int,z:int": location_in_the_block_pool:int})
-        # 同时记录目标方块在 json 文件中的位置(形式诸如 {"x:int,y:int,z:int": location_in_the_json:int})
+        # 将 json 文件中记录的方块的前景层、背景层制成索引表，便于访问对应的方块
+        # 同时记录目标方块在 json 文件中的位置
+        # 格式如 {
+        #    "foreground": location_in_the_block_pool:int, 
+        #    "background": location_in_the_block_pool:int, 
+        #    "blockDataInJson": [foreground_block_location_in_the_json:int, background_block_location_in_the_json:int]
+        # }
+        # 注明：最终仅接受来自前景层方块的方块实体数据
 
 
 
@@ -169,7 +194,8 @@ class TranslateJSON:
 
 
         pos = [0,0,0]
-        blockList = []
+        block_foreground_list = []
+        block_background_list = []
         blockEntityDataList = {}
         repeatingCount = -1
         xRepeat = xSize
@@ -194,19 +220,24 @@ class TranslateJSON:
                     # 得到当前被处理方块在密集矩阵下的角标
 
                     String = str(pos[0]) + ',' + str(pos[1]) + ',' + str(pos[2])
-                    if String in blockPos:
-                        blockList.append(blockPos[String]) 
-                        # 向密集矩阵加入方块
+                    if String in blockInfo:
+                        fg_blockId_in_pool = blockInfo[String]["foreground"]
+                        bg_blockId_in_pool = blockInfo[String]["background"]
+                        # 获取前景层、背景层方块在方块池中的位置
+                        block_foreground_list.append(fg_blockId_in_pool if fg_blockId_in_pool != -1 else bg_blockId_in_pool)
+                        # 前景层
+                        block_background_list.append(bg_blockId_in_pool if fg_blockId_in_pool != -1 else -1)
+                        # 背景层
+                        blockDataInJson = blockInfo[String]["blockDataInJson"][0]
                         blockEntityData = Others.Synthetic.main(
-                            self.WhiteWallJson[
-                                blockDataInJson[String]
-                            ]
-                        )
+                            self.WhiteWallJson[blockDataInJson]
+                        ) if blockDataInJson != -1 else None
                         if blockEntityData != None:
                             blockEntityDataList[f'{repeatingCount}:10'] = blockEntityData
                         # 处理方块实体数据，如果有的话
                     else:
-                        blockList.append(len(self.pool) - 1)
+                        block_foreground_list.append(len(self.pool) - 1)
+                        block_background_list.append(-1)
                     # 写入方块数据
 
                     if zRepeat > 0:
@@ -242,8 +273,8 @@ class TranslateJSON:
                 {
                     "block_indices:9":
                     [
-                        [],
-                        []
+                        block_foreground_list,
+                        block_background_list
                     ],
                     "palette:10":
                     {
@@ -253,12 +284,6 @@ class TranslateJSON:
             }
         }
         # 初始化
-
-
-        for i in blockList:
-            self.json['Root:10']['structure:10']['block_indices:9'][0].append(i)
-            self.json['Root:10']['structure:10']['block_indices:9'][1].append(-1)
-        # 转换为支持的格式(半转换)
 
 
         if len(blockEntityDataList) > 0:

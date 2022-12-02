@@ -93,6 +93,17 @@ class ModelRotation:
         # 执行偏移设置
 
 
+        blockRecord_before = {}
+        for i in range(len(self.input)):
+            String = str(self.input[i]["x"]) + ',' + str(self.input[i]["y"]) + ',' + str(self.input[i]["z"])
+            if not String in blockRecord_before:
+                blockRecord_before[String] = [i]
+            else:
+                blockRecord_before[String].append(i)
+        # 获取方块索引表，用于判断旋转前同一个位置是否存在多个方块
+        # example: blockRecord_before = {"0,0,0": [0,1,2]}
+
+
         for i in range(len(self.input)):
             if self.xBot == 0.0 and self.yBot == 0.0:
                 break
@@ -103,29 +114,34 @@ class ModelRotation:
                 self.xBot,
                 self.yBot
             )
-            self.input[i]["x"] = int(ans[0])
-            self.input[i]["y"] = int(ans[1])
-            self.input[i]["z"] = int(ans[2])
+            self.input[i]["new_x"] = int(ans[0])
+            self.input[i]["new_y"] = int(ans[1])
+            self.input[i]["new_z"] = int(ans[2])
         # 更新坐标
 
 
         blockRecord = {}
         for i in range(len(self.input)):
-            String = str(self.input[i]["x"]) + ',' + str(self.input[i]["y"]) + ',' + str(self.input[i]["z"])
+            String = str(self.input[i]["new_x"]) + ',' + str(self.input[i]["new_y"]) + ',' + str(self.input[i]["new_z"])
             if not String in blockRecord:
                 blockRecord[String] = [i]
             else:
                 blockRecord[String].append(i)
-        # 获取方块索引表，用于判断同一个位置是否存在多个方块
+        # 获取方块索引表，用于判断旋转后同一个位置是否存在多个方块
         # example: blockRecord = {"0,0,0": [0,1,2]}
 
 
         for i in blockRecord:
-            self.result.append(
-                self.input[
-                    blockRecord[i][random.randint(0,len(blockRecord[i]) - 1)] if self.randomSelect == True else blockRecord[i][0]
-                ]
-            )
+            block_location_in_json = blockRecord[i][random.randint(0,len(blockRecord[i]) - 1)] if self.randomSelect == True else blockRecord[i][0]
+            String = str(self.input[block_location_in_json]["x"]) + ',' + str(self.input[block_location_in_json]["y"]) + ',' + str(self.input[block_location_in_json]["z"])
+            for i1 in blockRecord_before[String]:
+                self.result.append(self.input[i1])
+                self.result[-1]["x"] = self.result[-1]["new_x"]
+                self.result[-1]["y"] = self.result[-1]["new_y"]
+                self.result[-1]["z"] = self.result[-1]["new_z"]
+                del self.result[-1]["new_x"]
+                del self.result[-1]["new_y"]
+                del self.result[-1]["new_z"]
         # 筛除同一位置上重复的方块，只保留一个结果
 
 
