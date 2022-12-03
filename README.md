@@ -105,6 +105,9 @@ You can contact me through the following links
 ## Update Logs
 _For the update logs of previous versions, please go to link [Old Update Logs](https://github.com/Happy2018new/Structural-Translator/blob/main/Old%20Update%20Logs.md)_
 ***
+- `Pre-Release(v90.0) - 2022/12/03 Afternoon`
+   - Translation of `mcacblock` files is supported & Updated in [0ddf440](https://github.com/Happy2018new/Structural-Translator/commit/0ddf440b37dcc8988190515d6e9426600c08ad38)
+      - You could download this version [here](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v90.0)/Translator.exe)
 - `Pre-Release(v82.5) - 2022/12/02 Night`
    - Supports water-containing blocks recorded in `WhiteWallJson` files & Updated in [6515123](https://github.com/Happy2018new/Structural-Translator/commit/6515123703bd21c60f385c2764a1851f4b2b188b)
       - You could download this version [here](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v82.5)/Translator.exe)
