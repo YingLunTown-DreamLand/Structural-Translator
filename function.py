@@ -162,6 +162,9 @@ def showStates(
         "get json info / start": "\033[0;33;2018m正在解析 JSON 文件……\033[0m",    # 取得 JSON 信息
         "get json info / end": ["\033[0;33;2018m已成功解析文件.\033[0m"],    # 取得 JSON 信息
 
+        "get mcacblock info / start": "\033[0;33;2018m正在解析 mcacblock 文件……\033[0m",    # 取得 mcacblock 信息
+        "get mcacblock info / end": ["\033[0;33;2018m已成功解析文件.\033[0m"],    # 取得 mcacblock 信息
+
         "replaceBlockID / start": ["\033[0;33;2018m正在替换方块 ID ……\033[0m"],    # 组件 - 替换方块ID
         "replaceBlockID / end": ["\033[0;33;2018m已成功替换方块 ID .\033[0m"],    # 组件 - 替换方块ID
 

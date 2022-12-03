@@ -21,7 +21,7 @@ class TranslateJSON:
         \n摘要
         本函数用于去实例化某个项目
         \n参数
-        `inputPath:str` 指的是 `.mcstructure` 文件的路径
+        `inputPath:str` 指的是 `WhiteWallJson` 文件的路径
         """
         # 函数声明
 

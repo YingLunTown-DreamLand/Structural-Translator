@@ -29,7 +29,7 @@ class startFunction:
         inputPath:str,
         outputPath:str,
         replaceBlockID:list = [],
-        translateMode:bool = True,
+        translateMode:bool|str = True,
         jumpAir:bool = True,
         CreatorMode:list = [False, '']
     )->None:
@@ -44,8 +44,9 @@ class startFunction:
         `outputPath:str` 指的是文件输出路径
         `replaceBlockID:list` 指的是 `组件 - 替换方块ID` 的列表
            # 默认值为 `[]`
-        `translateMode:bool` 此选项为 `True` 时，将翻译 `.mcstructure` 文件，否则翻译 `WhiteWallJson` 文件
+        `translateMode:bool|str` 指定要翻译的文件类型
            # 默认值为 `True`
+           # 可选参数有 `True:bool(.mcstructure), False:bool(.json), mcacblock:str(.mcacblock)`
         `jumpAir:bool` 指的是生成的 `BDX` 文件是否需要跳过空气
            # 默认值为 `True` ，即要跳过空气
         `CreatorMode:list` 指的是开发者选项，列表中元素的格式为 `[是否要生成 JSON 文件:bool, 生成路径:str]` 。应当特别说明的是，此选项只会在 `translateMode = True` 时生效。
@@ -130,7 +131,7 @@ class startFunction:
             pool.main()
             function.showStates(progress = "get block pool / end",provide = [self.workPath,self.inputPath,self.outputPath,self.currentProgress,self.allProgress])
             # 提取方块池
-        else:
+        elif self.translateMode == False:
             from Others.TranslateJSON import TranslateJSON
             function.showStates(progress = "get json info / start",provide = [self.workPath,self.inputPath,self.outputPath,self.currentProgress,self.allProgress])
             ans = TranslateJSON(self.inputPath)
@@ -139,6 +140,16 @@ class startFunction:
             share.mcs = ans.json
             del ans
             function.showStates(progress = "get json info / end",provide = [self.workPath,self.inputPath,self.outputPath,self.currentProgress,self.allProgress])
+            # 取得 JSON 信息
+        elif self.translateMode == 'mcacblock':
+            from ACME.TranslateMCACBLOCK import TranslateMCACBLOCK
+            function.showStates(progress = "get mcacblock info / start",provide = [self.workPath,self.inputPath,self.outputPath,self.currentProgress,self.allProgress])
+            mcacblock = TranslateMCACBLOCK(self.inputPath)
+            TranslateMCACBLOCK.main(mcacblock)
+            share.pool = mcacblock.pool
+            share.mcs = mcacblock.json
+            del mcacblock
+            function.showStates(progress = "get mcacblock info / end",provide = [self.workPath,self.inputPath,self.outputPath,self.currentProgress,self.allProgress])
             # 取得 JSON 信息
         # 取得信息
 
