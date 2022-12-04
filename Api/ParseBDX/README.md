@@ -18,8 +18,10 @@
 ## 实现方法
 假设需要被解析的 `BDX` 文件放于 `C:\test.bdx` ，那么执行下述 `样例代码` 后，程序会在控制台分别打印 `解析结果` 和 `解析日志` 。
 ```python
+import sys
+sys.path.append('.')
 from Api.ParseBDX.main import ParseBDX
-demo = Parse('C:\\test.bdx')
+demo = ParseBDX('C:\\test.bdx')
 demo.main()
 # Parse BDX files
 
