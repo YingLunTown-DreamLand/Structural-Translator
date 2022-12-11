@@ -1,3 +1,5 @@
+import sys
+sys.path.append(".")
 import share
 # 载入依赖项
 
@@ -12,8 +14,6 @@ def cbGet(foreground:list,pointer:int):
     返回一个 `bytes` ，其为 `bytearray` 型
     """
     # 函数声明
-    global share
-    # 声明全局变量
     try:
         facing = foreground[1].to_bytes(length=2,byteorder='big')
     except:
