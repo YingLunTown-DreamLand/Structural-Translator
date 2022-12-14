@@ -345,14 +345,14 @@ def collectionRecordBlockEntityData():
     for i in Api.ParseBDX.shareFUNC.recordBlockEntityData:
         String = str(i["x"]) + ',' + str(i["y"]) + ',' + str(i["z"])
         if String in indexList:
-            Api.ParseBDX.shareFUNC.resultList[indexList[String]]["entitynbt"] = str(b''.join([m.to_bytes(length=1,byteorder='big',signed=False) for m in i["entitynbt"]]))
+            Api.ParseBDX.shareFUNC.resultList[indexList[String]]["entitynbt"] = i["entitynbt"]
         else:
             Api.ParseBDX.shareFUNC.recordBlockEntityDataErrorList.append(
                 {
                     "x": i["x"],
                     "y": i["y"],
                     "z": i["z"],
-                    "entitynbt": str(b''.join([m.to_bytes(length=1,byteorder='big',signed=False) for m in i["entitynbt"]])),
+                    "entitynbt": i["entitynbt"],
                     "errorType": "Block not found",
                     "errorLocation": i["location"]
                 }

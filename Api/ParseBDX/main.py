@@ -1,4 +1,4 @@
-import sys
+import sys, copy
 sys.path.append(".")
 import Api.ParseBDX.FUNC
 import Api.ParseBDX.shareFUNC
@@ -119,6 +119,8 @@ class ParseBDX:
 
         for i in Api.ParseBDX.shareFUNC.resultList:
             if 'entitynbt' in i:
+                i = copy.deepcopy(i)
+                i['entitynbt'] = str(b''.join([m.to_bytes(length=1,byteorder='big',signed=False) for m in i["entitynbt"]]))
                 self.logList['blockNBT_find_out'].append(i)
         # 写入方块实体日志
 
