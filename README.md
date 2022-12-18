@@ -7,7 +7,7 @@ A software that translates `.mcstructure` into `.bdx`
 
 ## How to use?
 1. Download the file named `Translator.exe` and put it with `input.mcstructure`
-   - [Download link](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v71.1)/Translator.exe)
+   - [Download link](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v91.0)/Translator.exe)
 2. Then run this program
 
 
@@ -105,6 +105,8 @@ You can contact me through the following links
 ## Update Logs
 _For the update logs of previous versions, please go to link [Old Update Logs](https://github.com/Happy2018new/Structural-Translator/blob/main/Old%20Update%20Logs.md)_
 ***
+- `v91.0 - 2022/12/18 Night`
+   - Upgrade the `Pre-Release` version to the `Official` version
 - `Pre-Release(v90.3) - 2022/12/11 Night`
    - Fixed an issue related to compilation & Fixed in [b8333c2](https://github.com/Happy2018new/Structural-Translator/commit/b8333c277888b8f7b2aef8afd03d9c89c75e2ddf)
       - You could download this version [here](https://github.com/Happy2018new/Structural-Translator/releases/download/Alpha(v90.3)/Translator.exe)
