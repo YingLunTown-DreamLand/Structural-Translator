@@ -310,7 +310,7 @@ func run(command string) string {
 			selector := getSelector(command, markable.Pointer)
 			pos := getPos(command, selector.Pointer)
 			if pos.Position == "" && pos.Pointer == -1 {
-				fmt.Printf("WARNING - Syntax error detected, occurring in \"%v\"[%v]\n", command, selector.Pointer)
+				// fmt.Printf("WARNING - Syntax error detected, occurring in \"%v\"[%v]\n", command, selector.Pointer)
 				return command
 			}
 			detect := detectBlock(command, pos.Pointer)
