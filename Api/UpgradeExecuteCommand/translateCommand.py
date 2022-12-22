@@ -11,7 +11,7 @@ def jumpSpace(command:str,pointer:int)->int:
 
 
 
-def highSearching(command:str,pointer:int,input:list)->int:
+def highSearching(command:str,pointer:int,input:list)->list:
     List = [[command.find(i,pointer),len(i)] for i in input]
     ans = []
     for i in List:
@@ -95,7 +95,7 @@ def getSelector(command:str,pointer:int)->list:
 
 
 
-def getPos(command:str,pointer:int)->list:
+def getPos(command:str,pointer:int)->bool|list:
     pointer = jumpSpace(command,pointer)
     ans = []
     for i in range(3):
