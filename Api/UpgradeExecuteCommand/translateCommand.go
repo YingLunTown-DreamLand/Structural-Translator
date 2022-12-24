@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -20,12 +21,6 @@ type getSelectorReturn struct {
 	Pointer  int
 }
 
-type getPosUsed struct {
-	Posx string
-	Posy string
-	Posz string
-}
-
 type getPosReturn struct {
 	Position string
 	Pointer  int
@@ -38,15 +33,16 @@ type detectBlockReturn struct {
 }
 
 func main() {
-	fmt.Println(runFUNC("execute@p~~~kill@s"))
+	fmt.Println(runFUNC("execute@s -1.000 -1.000 -0.0000detect~~0.200^-0.000 air 0 execute@s~~~say 1"))
+	fmt.Println(runFUNC("test"))
 }
 
 func runFUNC(command string) string {
-	defer func() {
-		if err := recover(); err != nil {
-			// fmt.Printf("WARNING - %v\n", err)
-		}
-	}()
+	//defer func() {
+	//	if err := recover(); err != nil {
+	//		// fmt.Printf("WARNING - %v\n", err)
+	//	}
+	//}()
 	// if some where work unexpected, err != nil
 	return run(command)
 }
@@ -123,23 +119,6 @@ func getRightBarrier(command string, pointer int) int {
 	}
 }
 
-func joinMapToString(input map[int]string, Len int) string {
-	output := ""
-	if Len <= 0 {
-		return output
-	} else {
-		pointer := -1
-		for {
-			pointer++ // pointer = pointer + 1
-			if pointer > Len {
-				break
-			}
-			output = output + input[pointer]
-		}
-		return output
-	}
-}
-
 // while this FUNC return {"", -1}, then it seems that somewhere may cause wrong!
 func searchForExecute(command string, pointer int) searchForExecuteReturn {
 	pointer = jumpSpace(command, pointer)
@@ -211,7 +190,7 @@ func getSelector(command string, pointer int) getSelectorReturn {
 // while this FUNC return {"", -1}, then it seems that somewhere may cause wrong!
 func getPos(command string, pointer int) getPosReturn {
 	pointer = jumpSpace(command, pointer)
-	ans := getPosUsed{}
+	ans := make([]string, 0) // ans[0], ans[1], ans[2] = Posx, Posy, Posz
 	repeatCount := 3
 	for {
 		repeatCount-- // repeatCount = repeatCount - 1
@@ -228,9 +207,10 @@ func getPos(command string, pointer int) getPosReturn {
 			29: "A", 30: "B", 31: "C", 32: "D", 33: "E", 34: "F", 35: "G", 36: "H", 37: "I", 38: "J", 39: "K",
 			40: "L", 41: "M", 42: "N", 43: "O", 44: "P", 45: "Q", 46: "R", 47: "S", 48: "T", 49: "U", 50: "V",
 			51: "W", 52: "X", 53: "Y", 54: "Z",
+			55: "?",
 		})
 		successStates := false
-		for _, value := range map[int]string{0: "~", 1: "^", 2: "0", 3: "1", 4: "2", 5: "3", 6: "4", 7: "5", 8: "6", 9: "7", 10: "8", 11: "9"} {
+		for _, value := range map[int]string{0: "~", 1: "^", 2: "-", 3: "0", 4: "1", 5: "2", 6: "3", 7: "4", 8: "5", 9: "6", 10: "7", 11: "8", 12: "9"} {
 			if command[pointer] == value[0] {
 				successStates = true
 			}
@@ -238,23 +218,44 @@ func getPos(command string, pointer int) getPosReturn {
 		if successStates == false {
 			return getPosReturn{Position: "", Pointer: -1}
 		}
-		if repeatCount == 2 {
-			ans.Posx = command[pointer:transit.First]
-			pointer = jumpSpace(command, transit.First)
-			continue
-		}
-		if repeatCount == 1 {
-			ans.Posy = command[pointer:transit.First]
-			pointer = jumpSpace(command, transit.First)
-			continue
-		}
-		if repeatCount == 0 {
-			ans.Posz = command[pointer:transit.First]
-			pointer = jumpSpace(command, transit.First)
+		ans = append(ans, command[pointer:transit.First])
+		pointer = jumpSpace(command, transit.First)
+	}
+	for i, value := range ans {
+		if value[0] == "^"[0] || value[0] == "~"[0] {
+			value = value[1:]
+			if value != "" {
+				j, _ := strconv.ParseFloat(value, 64)
+				value = fmt.Sprintf("%v", j)
+				if value == "0" || value == "-0" {
+					value = ""
+				}
+			}
+			if ans[i][0] == "^"[0] {
+				ans[i] = "^" + value
+			} else {
+				ans[i] = "~" + value
+			}
+		} else {
+			if strings.Index(value, ".") != -1 {
+				j, _ := strconv.ParseFloat(value, 64)
+				value = fmt.Sprintf("%v", j)
+				if value == "-0" {
+					value = "0"
+				}
+				ans[i] = value + ".0"
+			} else {
+				j, _ := strconv.ParseFloat(value, 64)
+				value = fmt.Sprintf("%v", j)
+				if value == "-0" {
+					value = "0"
+				}
+				ans[i] = value
+			}
 		}
 	}
 	return getPosReturn{
-		Position: ans.Posx + " " + ans.Posy + " " + ans.Posz,
+		Position: ans[0] + " " + ans[1] + " " + ans[2],
 		Pointer:  pointer,
 	}
 }
@@ -299,12 +300,10 @@ func detectBlock(command string, pointer int) detectBlockReturn {
 }
 
 func run(command string) string {
-	ans := map[int]string{}
+	ans := make([]string, 0)
 	pointer := -1
-	repeatCount := 0
 	for {
-		repeatCount++ // repeatCount = repeatCount + 1
-		pointer++     // pointer = pointer + 1
+		pointer++ // pointer = pointer + 1
 		markable := searchForExecute(command, pointer)
 		if markable.SuccessStates == true {
 			selector := getSelector(command, markable.Pointer)
@@ -323,26 +322,15 @@ func run(command string) string {
 			} else {
 				Detect = ""
 			}
-			if Position == "~ ~ ~" {
-				ans[repeatCount] = "as " + Selector + " at " + Selector + Detect + " "
+			if Position == "~ ~ ~" || Position == "^ ^ ^" {
+				ans = append(ans, fmt.Sprintf("execute as %v at @s%v run ", Selector, Detect))
 			} else {
-				ans[repeatCount] = "as " + Selector + " at " + Selector + " positioned " + Position + Detect + " "
+				ans = append(ans, fmt.Sprintf("execute as %v at @s positioned %v%v run ", Selector, Position, Detect))
 			}
 		} else {
-			ans[repeatCount] = command[markable.Pointer:]
+			ans = append(ans, command[markable.Pointer:])
 			break
 		}
 	}
-	maxRecord := 0
-	for key := range ans {
-		if maxRecord < key {
-			maxRecord = key
-		}
-	}
-	if maxRecord <= 1 {
-		return joinMapToString(ans, maxRecord)
-	} else {
-		ans[maxRecord] = "run " + ans[maxRecord]
-		return "execute " + joinMapToString(ans, maxRecord)
-	}
+	return strings.Join(ans, "")
 }

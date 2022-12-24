@@ -104,8 +104,8 @@ def getPos(command:str,pointer:int)->bool|list:
         'P','Q','R','S','T','U','V','W','X','Y','Z','?','/'])
 
         successStates = False
-        for i in ['^','~','0','1','2','3','4','5','6','7','8','9']:
-            if command[pointer][0] == i:
+        for i in ['^','~','-','0','1','2','3','4','5','6','7','8','9']:
+            if command[pointer] == i:
                 successStates = True
 
         if successStates == False:
@@ -117,6 +117,22 @@ def getPos(command:str,pointer:int)->bool|list:
                 transit[0]
             ])
         pointer = jumpSpace(command,transit[0])
+
+    for i in range(len(ans)):
+        if ans[i][0] == '^' or ans[i][0] == '~':
+            save = ans[i]
+            ans[i] = ans[i][1:]
+            if ans[i] != '':
+                ans[i] = str(float(ans[i]) if float(ans[i]) != int(float(ans[i])) else int(float(ans[i])))
+                if ans[i] == '0':
+                    ans[i] = ''
+            ans[i] = '^' + ans[i] if save[0] == '^' else '~' + ans[i]
+        else:
+            if ans[i].find('.') != -1:
+                ans[i] = str(float(float(ans[i]) if float(ans[i]) != int(float(ans[i])) else int(float(ans[i]))))
+            else:
+                ans[i] = str(float(ans[i]) if float(ans[i]) != int(float(ans[i])) else int(float(ans[i])))
+
     return [
         ans[0] + ' ' + ans[1] + ' ' + ans[2],
         pointer
@@ -169,16 +185,13 @@ def run(command:str)->str:
             detect = detect[1] if detect[0] == True else ''
 
             ans.append(
-                f'as {selector} at {selector}{detect} ' if (
-                    pos == '~ ~ ~') else f'as {selector} at {selector} positioned {pos}{detect} '
+                f'execute as {selector} at @s{detect} run ' if (
+                    pos == '~ ~ ~') or (pos == '^ ^ ^') 
+                    else f'execute as {selector} at @s positioned {pos}{detect} run '
             )
         else:
             ans.append(command[markable[0]:])
             break
 
 
-    if len(ans) <= 1:
-        return "".join(ans)
-    else:
-        ans[-1] = 'run ' + ans[-1]
-        return 'execute ' + "".join(ans)
+    return "".join(ans)
