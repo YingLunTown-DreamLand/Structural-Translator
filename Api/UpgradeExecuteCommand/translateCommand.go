@@ -38,11 +38,11 @@ func main() {
 }
 
 func runFUNC(command string) string {
-	//defer func() {
-	//	if err := recover(); err != nil {
-	//		// fmt.Printf("WARNING - %v\n", err)
-	//	}
-	//}()
+	defer func() {
+		if err := recover(); err != nil {
+			// fmt.Printf("WARNING - %v\n", err)
+		}
+	}()
 	// if some where work unexpected, err != nil
 	return run(command)
 }
