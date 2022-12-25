@@ -1,9 +1,12 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/pterm/pterm"
 )
 
 type highSearchingReturn struct {
@@ -33,18 +36,45 @@ type detectBlockReturn struct {
 }
 
 func main() {
-	fmt.Println(runFUNC("execute@s -1.000 -1.000 -0.0000detect~~0.200^-0.000 air 0 execute@s~~~say 1"))
-	fmt.Println(runFUNC("test"))
+	UpgradeExecuteCommand("execute@s -1.000 -1.000 -0.0000detect~~0.200^-0.000 air 0 execute@s~~~say 1")
+	UpgradeExecuteCommand("execute@s -1.000 -1.000 -0.0000detect~~0.200~-0.000 air 0 execute@s~~~say 1")
+	UpgradeExecuteCommand("execute positioned 0 0 0 run say 1")
+	UpgradeExecuteCommand("execute@")
+	UpgradeExecuteCommand("run")
+	UpgradeExecuteCommand("execute@s[r=1~~~say 1")
+	UpgradeExecuteCommand("test")
 }
 
-func runFUNC(command string) string {
+func UpgradeExecuteCommand(command string) string {
+	commandNew := transitFUNC(command)
+	if command != "" {
+		if commandNew == "" {
+			pterm.Error.Printf("Syntax error, occured in \"%v\"\n", command)
+			return command
+		}
+	}
+	if command != commandNew {
+		pterm.Success.Printf("Upgrade \"%v\" to \"%v\" successfully\n", command, commandNew)
+	}
+	return commandNew
+}
+
+func transitFUNC(command string) string {
 	defer func() {
 		if err := recover(); err != nil {
-			// fmt.Printf("WARNING - %v\n", err)
+			// pterm.Error.Printf("WARNING - %v\n", err)
 		}
 	}()
 	// if some where work unexpected, err != nil
 	return run(command)
+}
+
+func getPartOfString(input string, start int, end int) string {
+	if end > len(input)-1 {
+		return input[start:]
+	} else {
+		return input[start:end]
+	}
 }
 
 func jumpSpace(command string, pointer int) int {
@@ -100,53 +130,73 @@ func highSearching(command string, pointer int, input map[int]string) highSearch
 	}
 }
 
-// while this FUNC return -1, then it seems that somewhere may cause wrong!
-func getRightBarrier(command string, pointer int) int {
+func getRightBarrier(command string, pointer int) (int, error) {
 	for {
 		quotationMark := StringIndex(command, "\"", pointer)
 		barrier := StringIndex(command, "]", pointer)
 		if quotationMark == -1 {
-			return barrier
+			return barrier, nil
 		} else if quotationMark < barrier {
 			IndexAns := StringIndex(command, "\"", quotationMark+1)
 			if IndexAns == -1 {
-				return -1
+				return -1, errors.New(fmt.Sprintf("Syntax Error: Occur in >>>%v<<<", getPartOfString(command, pointer, pointer+5)))
 			}
 			pointer = StringIndex(command, "\"", quotationMark+1) + 1
 		} else {
-			return barrier
+			return barrier, nil
 		}
 	}
 }
 
-// while this FUNC return {"", -1}, then it seems that somewhere may cause wrong!
-func searchForExecute(command string, pointer int) searchForExecuteReturn {
+func searchForExecute(command string, pointer int) (searchForExecuteReturn, error) {
 	pointer = jumpSpace(command, pointer)
-	commandHeader := ""
-	if pointer+7 > len(command)-1 {
-		commandHeader = command[pointer:]
-	} else {
-		commandHeader = command[pointer : pointer+7]
-	}
-	commandHeader = strings.Replace(commandHeader, "E", "e", -1)
-	commandHeader = strings.Replace(commandHeader, "X", "x", -1)
-	commandHeader = strings.Replace(commandHeader, "C", "c", -1)
-	commandHeader = strings.Replace(commandHeader, "U", "u", -1)
-	commandHeader = strings.Replace(commandHeader, "T", "t", -1)
+	commandHeader := strings.ToLower(getPartOfString(command, pointer, pointer+7))
 	if commandHeader == "execute" {
 		return searchForExecuteReturn{
 			SuccessStates: true,
 			Pointer:       pointer + 7,
-		}
-	} else {
-		return searchForExecuteReturn{
-			SuccessStates: false,
-			Pointer:       pointer,
-		}
+		}, nil
 	}
+	if strings.ToLower(getPartOfString(command, pointer, pointer+5)) == "align" {
+		return searchForExecuteReturn{}, errors.New("Try using a new version of the execute command")
+	}
+	if strings.ToLower(getPartOfString(command, pointer, pointer+8)) == "anchored" {
+		return searchForExecuteReturn{}, errors.New("Try using a new version of the execute command")
+	}
+	if strings.ToLower(getPartOfString(command, pointer, pointer+2)) == "as" {
+		return searchForExecuteReturn{}, errors.New("Try using a new version of the execute command")
+	}
+	if strings.ToLower(getPartOfString(command, pointer, pointer+2)) == "at" {
+		return searchForExecuteReturn{}, errors.New("Try using a new version of the execute command")
+	}
+	if strings.ToLower(getPartOfString(command, pointer, pointer+6)) == "facing" {
+		return searchForExecuteReturn{}, errors.New("Try using a new version of the execute command")
+	}
+	if strings.ToLower(getPartOfString(command, pointer, pointer+2)) == "in" {
+		return searchForExecuteReturn{}, errors.New("Try using a new version of the execute command")
+	}
+	if strings.ToLower(getPartOfString(command, pointer, pointer+10)) == "positioned" {
+		return searchForExecuteReturn{}, errors.New("Try using a new version of the execute command")
+	}
+	if strings.ToLower(getPartOfString(command, pointer, pointer+7)) == "rotated" {
+		return searchForExecuteReturn{}, errors.New("Try using a new version of the execute command")
+	}
+	if strings.ToLower(getPartOfString(command, pointer, pointer+2)) == "if" {
+		return searchForExecuteReturn{}, errors.New("Try using a new version of the execute command")
+	}
+	if strings.ToLower(getPartOfString(command, pointer, pointer+6)) == "unless" {
+		return searchForExecuteReturn{}, errors.New("Try using a new version of the execute command")
+	}
+	if strings.ToLower(getPartOfString(command, pointer, pointer+3)) == "run" {
+		return searchForExecuteReturn{}, errors.New("Try using a new version of the execute command")
+	}
+	return searchForExecuteReturn{
+		SuccessStates: false,
+		Pointer:       pointer,
+	}, nil
 }
 
-func getSelector(command string, pointer int) getSelectorReturn {
+func getSelector(command string, pointer int) (getSelectorReturn, error) {
 	pointer = jumpSpace(command, pointer)
 	if command[pointer] == "@"[0] {
 		transit := highSearching(command, pointer, map[int]string{
@@ -162,33 +212,32 @@ func getSelector(command string, pointer int) getSelectorReturn {
 		selector := command[pointer : transit.First+transit.Second]
 		pointer = jumpSpace(command, transit.First+transit.Second)
 		if pointer >= len(command)-1 {
-			return getSelectorReturn{Selector: selector, Pointer: pointer}
+			return getSelectorReturn{Selector: selector, Pointer: pointer}, nil
 		} else if command[pointer] != '[' {
-			return getSelectorReturn{Selector: selector, Pointer: pointer}
+			return getSelectorReturn{Selector: selector, Pointer: pointer}, nil
 		} else {
-			transit := getRightBarrier(command, pointer)
+			transit, err := getRightBarrier(command, pointer)
 			if transit == -1 {
-				return getSelectorReturn{Selector: "", Pointer: -1}
+				return getSelectorReturn{Selector: "", Pointer: -1}, err
 			}
 			return getSelectorReturn{
 				Selector: selector + command[pointer:transit+1],
 				Pointer:  transit + 1,
-			}
+			}, nil
 		}
 	} else if command[pointer] == "\""[0] {
 		transit := StringIndex(command, "\"", pointer+1)
-		return getSelectorReturn{Selector: command[pointer : transit+1], Pointer: transit + 1}
+		return getSelectorReturn{Selector: command[pointer : transit+1], Pointer: transit + 1}, nil
 	} else {
 		transit := highSearching(command, pointer, map[int]string{0: " ", 1: "^", 2: "~"})
 		return getSelectorReturn{
 			Selector: command[pointer : transit.First+transit.Second-1],
 			Pointer:  transit.First + transit.Second - 1,
-		}
+		}, nil
 	}
 }
 
-// while this FUNC return {"", -1}, then it seems that somewhere may cause wrong!
-func getPos(command string, pointer int) getPosReturn {
+func getPos(command string, pointer int) (getPosReturn, error) {
 	pointer = jumpSpace(command, pointer)
 	ans := make([]string, 0) // ans[0], ans[1], ans[2] = Posx, Posy, Posz
 	repeatCount := 3
@@ -216,7 +265,7 @@ func getPos(command string, pointer int) getPosReturn {
 			}
 		}
 		if successStates == false {
-			return getPosReturn{Position: "", Pointer: -1}
+			return getPosReturn{}, errors.New(fmt.Sprintf("Incorrect position >>>%v<<<", getPartOfString(command, pointer, pointer+5)))
 		}
 		ans = append(ans, command[pointer:transit.First])
 		pointer = jumpSpace(command, transit.First)
@@ -254,14 +303,18 @@ func getPos(command string, pointer int) getPosReturn {
 			}
 		}
 	}
-	return getPosReturn{
-		Position: ans[0] + " " + ans[1] + " " + ans[2],
-		Pointer:  pointer,
+	if ans[0][0] == "^"[0] || ans[1][0] == "^"[0] || ans[2][0] == "^"[0] {
+		if ans[0][0] != "^"[0] || ans[1][0] != "^"[0] || ans[2][0] != "^"[0] {
+			return getPosReturn{}, errors.New(fmt.Sprintf("Incorrect position (%v,%v,%v)", ans[0], ans[1], ans[2]))
+		}
 	}
+	return getPosReturn{
+		Position: fmt.Sprintf("%v %v %v", ans[0], ans[1], ans[2]),
+		Pointer:  pointer,
+	}, nil
 }
 
-// while this FUNC return {false, "", -1}, then it seems that somewhere may cause wrong!
-func detectBlock(command string, pointer int) detectBlockReturn {
+func detectBlock(command string, pointer int) (detectBlockReturn, error) {
 	pointer = jumpSpace(command, pointer)
 	Header := ""
 	if pointer+6 > len(command)-1 {
@@ -274,28 +327,31 @@ func detectBlock(command string, pointer int) detectBlockReturn {
 	Header = strings.Replace(Header, "T", "t", -1)
 	Header = strings.Replace(Header, "C", "c", -1)
 	if Header == "detect" {
-		save := getPos(command, jumpSpace(command, pointer+6))
-		if save.Position == "" && save.Pointer == -1 {
-			return detectBlockReturn{
-				SuccessStates: false,
-				Pointer:       -1,
-			}
+		save, err := getPos(command, jumpSpace(command, pointer+6))
+		if err != nil {
+			return detectBlockReturn{}, err
 		}
 		pos := save.Position
 		startLocation := jumpSpace(command, save.Pointer)
 		pointer := startLocation
 		endLocation := StringIndex(command, " ", pointer)
+		if endLocation == -1 {
+			return detectBlockReturn{}, errors.New(fmt.Sprintf("Syntax Error: Occur in >>>%v<<<", getPartOfString(command, pointer, pointer+5)))
+		}
 		spaceLocation := StringIndex(command, " ", jumpSpace(command, endLocation+1))
+		if spaceLocation == -1 {
+			return detectBlockReturn{}, errors.New(fmt.Sprintf("Syntax Error: Occur in >>>%v<<<", getPartOfString(command, pointer, pointer+5)))
+		}
 		return detectBlockReturn{
 			SuccessStates: true,
 			DetectString:  " if block " + pos + " " + command[startLocation:endLocation] + " " + command[endLocation+1:spaceLocation],
 			Pointer:       spaceLocation,
-		}
+		}, nil
 	} else {
 		return detectBlockReturn{
 			SuccessStates: false,
 			Pointer:       pointer,
-		}
+		}, nil
 	}
 }
 
@@ -304,15 +360,27 @@ func run(command string) string {
 	pointer := -1
 	for {
 		pointer++ // pointer = pointer + 1
-		markable := searchForExecute(command, pointer)
+		markable, err1 := searchForExecute(command, pointer)
+		if err1 != nil {
+			pterm.Warning.Printf("%v, occured in \"%v\"\n", err1, command)
+			return command
+		}
 		if markable.SuccessStates == true {
-			selector := getSelector(command, markable.Pointer)
-			pos := getPos(command, selector.Pointer)
-			if pos.Position == "" && pos.Pointer == -1 {
-				// fmt.Printf("WARNING - Syntax error detected, occurring in \"%v\"[%v]\n", command, selector.Pointer)
+			selector, err2 := getSelector(command, markable.Pointer)
+			if err2 != nil {
+				pterm.Error.Printf("%v, occured in \"%v\"\n", err2, command)
 				return command
 			}
-			detect := detectBlock(command, pos.Pointer)
+			pos, err3 := getPos(command, selector.Pointer)
+			if err3 != nil {
+				pterm.Error.Printf("%v, occured in \"%v\"\n", err3, command)
+				return command
+			}
+			detect, err4 := detectBlock(command, pos.Pointer)
+			if err4 != nil {
+				pterm.Error.Printf("%v, occured in \"%v\"\n", err4, command)
+				return command
+			}
 			pointer = detect.Pointer - 1
 			Selector := selector.Selector
 			Position := pos.Position
@@ -323,14 +391,19 @@ func run(command string) string {
 				Detect = ""
 			}
 			if Position == "~ ~ ~" || Position == "^ ^ ^" {
-				ans = append(ans, fmt.Sprintf("execute as %v at @s%v run ", Selector, Detect))
+				ans = append(ans, fmt.Sprintf("as %v at @s%v ", Selector, Detect))
 			} else {
-				ans = append(ans, fmt.Sprintf("execute as %v at @s positioned %v%v run ", Selector, Position, Detect))
+				ans = append(ans, fmt.Sprintf("as %v at @s positioned %v%v ", Selector, Position, Detect))
 			}
 		} else {
 			ans = append(ans, command[markable.Pointer:])
 			break
 		}
 	}
-	return strings.Join(ans, "")
+	if len(ans) <= 1 {
+		return strings.Join(ans, "")
+	} else {
+		ans[len(ans)-1] = "run " + ans[len(ans)-1]
+		return "execute " + strings.Join(ans, "")
+	}
 }

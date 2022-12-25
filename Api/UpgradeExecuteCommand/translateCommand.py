@@ -1,3 +1,27 @@
+class UnknownCommand(Exception):
+    def __init__(self,value:str):
+        Exception.__init__(self, f'Unknown command {value}')
+
+class SyntaxError(Exception):
+    def __init__(self, value:list):
+        Exception.__init__(self, f'Incorrect position ({value[0]},{value[1]},{value[2]})')
+
+class ErrorSelector(Exception):
+    def __init__(self, command:str, pointer:int):
+        Exception.__init__(self, f'Incorrect selector >>>{command[pointer:pointer+5]}<<<')
+
+class BrokenPos(Exception):
+    def __init__(self, command:str, pointer:int):
+        Exception.__init__(self, f'Incorrect position >>>{command[pointer:pointer+5]}<<<')
+
+class ErrorDetect(Exception):
+    def __init__(self, command:str, pointer:int):
+        Exception.__init__(self, f'Incorrect detect value >>>{command[pointer:pointer+5]}<<<')
+
+
+
+
+
 def jumpSpace(command:str,pointer:int)->int:
     while True:
         if pointer >= len(command) - 1:
@@ -44,10 +68,36 @@ def getRightBarrier(command:str,pointer:int)->int:
 
 def searchForExecute(command:str,pointer:int)->list:
     pointer = jumpSpace(command,pointer)
-    if command[pointer:pointer+7].replace('E','e').replace('X','x').replace('C','c').replace('U','u',).replace('T','t') == 'execute':
+
+    if command[pointer:pointer+7].lower() == 'execute':
         return [pointer+7,True]
-    else:
-        return [pointer,False]
+
+    if command[pointer:pointer+5].lower() == 'align':
+        raise UnknownCommand('align')
+    if command[pointer:pointer+8].lower() == 'anchored':
+        raise UnknownCommand('anchored')
+    if command[pointer:pointer+2].lower() == 'as':
+        raise UnknownCommand('as')
+    if command[pointer:pointer+2].lower() == 'at':
+        raise UnknownCommand('at')
+    if command[pointer:pointer+6].lower() == 'facing':
+        raise UnknownCommand('facing')
+    if command[pointer:pointer+2].lower() == 'in':
+        raise UnknownCommand('in')
+    if command[pointer:pointer+10].lower() == 'positioned':
+        raise UnknownCommand('positioned')
+    if command[pointer:pointer+7].lower() == 'rotated':
+        raise UnknownCommand('rotated')
+    
+    if command[pointer:pointer+2].lower() == 'if':
+        raise UnknownCommand('if')
+    if command[pointer:pointer+6].lower() == 'unless':
+        raise UnknownCommand('unless')
+
+    if command[pointer:pointer+3].lower() == 'run':
+        raise UnknownCommand('run')
+
+    return [pointer,False]
 
 
 
@@ -95,7 +145,7 @@ def getSelector(command:str,pointer:int)->list:
 
 
 
-def getPos(command:str,pointer:int)->bool|list:
+def getPos(command:str,pointer:int)->list:
     pointer = jumpSpace(command,pointer)
     ans = []
     for i in range(3):
@@ -109,7 +159,7 @@ def getPos(command:str,pointer:int)->bool|list:
                 successStates = True
 
         if successStates == False:
-            return False
+            raise BrokenPos(command,pointer)
 
         ans.append(
             command[
@@ -133,6 +183,10 @@ def getPos(command:str,pointer:int)->bool|list:
             else:
                 ans[i] = str(float(ans[i]) if float(ans[i]) != int(float(ans[i])) else int(float(ans[i])))
 
+    if ans[0][0] == "^" or ans[1][0] == "^" or ans[2][0] == "^":
+        if ans[0][0] != "^" or ans[1][0] != "^" or ans[2][0] != "^":
+            raise SyntaxError(ans)
+
     return [
         ans[0] + ' ' + ans[1] + ' ' + ans[2],
         pointer
@@ -144,7 +198,7 @@ def getPos(command:str,pointer:int)->bool|list:
 
 def detectBlock(command:str,pointer:int)->list:
     pointer = jumpSpace(command,pointer)
-    if command[pointer:pointer+6].replace('D','d').replace('E','e').replace('T','t').replace('C','c') == 'detect':
+    if command[pointer:pointer+6].lower() == 'detect':
         pointer = getPos(command,jumpSpace(command,pointer+6))
         pos = pointer[0]
         startLocation = pointer = jumpSpace(command,pointer[-1])
@@ -170,14 +224,28 @@ def run(command:str)->str:
     pointer = -1
 
 
+
     while True:
         pointer = pointer + 1
         markable = searchForExecute(command,pointer)
 
+
         if markable[1] == True:
-            selector = getSelector(command,markable[0])
-            pos = getPos(command,selector[-1])
-            detect = detectBlock(command,pos[-1])
+            try:
+                selector = getSelector(command,markable[0])
+            except:
+                raise ErrorSelector(command,pointer)
+
+            try:
+                pos = getPos(command,selector[-1])
+            except:
+                raise BrokenPos(command,selector[-1])
+
+            try:
+                detect = detectBlock(command,pos[-1])
+            except:
+                raise ErrorDetect(command,pos[-1])
+
             pointer = detect[-1] - 1
 
             selector = selector[0]
@@ -185,13 +253,17 @@ def run(command:str)->str:
             detect = detect[1] if detect[0] == True else ''
 
             ans.append(
-                f'execute as {selector} at @s{detect} run ' if (
+                f'as {selector} at @s{detect} ' if (
                     pos == '~ ~ ~') or (pos == '^ ^ ^') 
-                    else f'execute as {selector} at @s positioned {pos}{detect} run '
+                    else f'as {selector} at @s positioned {pos}{detect} '
             )
         else:
             ans.append(command[markable[0]:])
             break
 
 
-    return "".join(ans)
+    if len(ans) <= 1:
+        return "".join(ans)
+    else:
+        ans[-1] = 'run ' + ans[-1]
+        return 'execute ' + "".join(ans)
