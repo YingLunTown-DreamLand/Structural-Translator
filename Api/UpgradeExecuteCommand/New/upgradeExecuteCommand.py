@@ -337,7 +337,7 @@ def getSelector(c:CommandReader) -> list:
     # init values
     c.jumpSpace(False)
     # jump space
-    startLocation = c.pointer
+    selectorStartLocation = c.pointer
     readAns = c.read(1)
     # read header
     if readAns == '@':
@@ -348,26 +348,28 @@ def getSelector(c:CommandReader) -> list:
         )
         if findAns[2] == False:
             return failedFunc()
-        if findAns[0] != startLocation+1:
+        if findAns[0] != selectorStartLocation+1:
             return failedFunc()
+        selectorEndLocation = c.pointer
         # try to find @...
         c.jumpSpace(False)
         # jump space
         string = c.read(1)
         # read ... in @...
         if string == '[':
-            rightBarrierSearchAns = c.getRightBarrier(0)
-            if rightBarrierSearchAns[1] == False:
+            parameterStartLocation = c.pointer - 1
+            parameterEndLocation = c.getRightBarrier(0)
+            if parameterEndLocation[1] == False:
                 return failedFunc()
             return [
-                c.context[startLocation: rightBarrierSearchAns[0]],
+                f'{c.context[selectorStartLocation:selectorEndLocation]}{c.context[parameterStartLocation: parameterEndLocation[0]]}',
                 True
             ]
             # @...[...]
         else:
             c.pointer = findAns[1]
             return [
-                c.context[startLocation: findAns[1]],
+                c.context[selectorStartLocation: findAns[1]],
                 True
             ]
             # @...
@@ -377,19 +379,19 @@ def getSelector(c:CommandReader) -> list:
         if findAns[1] == False:
             return failedFunc()
         return [
-            c.context[startLocation: findAns[0]],
+            c.context[selectorStartLocation: findAns[0]],
             True
         ]
         # "..."
     else:
-        if tmp == startLocation:
+        if tmp == selectorStartLocation:
             return failedFunc()
         findAns = c.highSearching([" ","~","^","+"])
         if findAns[2] == False:
             return failedFunc()
         c.pointer = c.pointer-1
         return [
-            c.context[startLocation: c.pointer],
+            c.context[selectorStartLocation: c.pointer],
             True
         ]
         # ...
@@ -601,6 +603,8 @@ print(main('trexecute    @s ~ ~2.3 +62.11111000000 say'))
 print(main('trexecute@s~1.2~2.8 +5 say'))
 print(main('trexecute@s 1 ~5~3 say'))
 print(main('trexecute@s ~3 2~3 say'))
+print(main('trexecute"H"~2 ~2 ~2 say'))
+print(main('trexecute HS~2 ~2 ~2 say'))
 print(main('trexecute@s~1.0~5~3 say'))
 print(main('trexecute@s 1.00 7~3.20 say'))
 print(main('trexecute@s 1.0 5 3.0000 say'))
