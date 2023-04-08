@@ -160,7 +160,7 @@ class SinglePos:
         概述
             此函数用于初始化一个坐标，其内部包含以下信息
                 header:str | 指代坐标的前缀，也就是 "^" 和 "~"
-                number:int|float | 指代坐标的绝对值，且类型只可能为 int 或 float
+                number:int|float | 指代坐标(可正可负)，且类型只可能为 int 或 float
                 string:str | 该坐标的字符串表达形式
                 self.includeHeader:bool | 用于标识该坐标是否包含坐标前缀，为真时代表包含，否则反之
         """
@@ -181,9 +181,9 @@ class SinglePos:
         else:
             numberString = str(float(self.number))
         # get correct string of the number
-        if self.header != '' and (numberString == '0' or numberString == '0.0'):
+        if self.includeHeader == True and (numberString == '0' or numberString == '0.0' or numberString == '-0.0'):
             numberString = ''
-        header = '' if self.header == '+' else self.header
+        header = '' if self.header == '+' or f'{self.header}{numberString}' == '-0.0' or f'{self.header}{numberString}' == '-0' else self.header
         # make it minimization
         self.string = f'{header}{numberString}'
         # write datas
@@ -610,6 +610,8 @@ print(main('trexecute@s 1.00 7~3.20 say'))
 print(main('trexecute@s 1.0 5 3.0000 say'))
 print(main('trexecute@s~~~execute@s~~~execute@s~~~'))
 print(main('trexecute    @s ~~~execute@s~~~say'))
+print(main('trexecute @s +0.0 -0.0 +0.0 say 1'))
+print(main('trexecute @s +0 -0 +0 say 1'))
 
 print()
 
