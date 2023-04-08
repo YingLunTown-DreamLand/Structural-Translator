@@ -307,9 +307,8 @@ def searchForHeader(c:CommandReader,header:str,jumpSlash:bool) -> bool:
         header:str | 指代要查找的命令前缀
         jumpSlash:bool | 是否要跳过斜杠 "/" ，为真时代表需要跳过，否则反正
     """
-    tmp = c.pointer
-    # init values
     c.jumpSpace(jumpSlash)
+    tmp = c.pointer
     headerGet = c.read(len(header)).lower()
     # jump space and read command header
     if headerGet == header:
@@ -617,3 +616,10 @@ print(main('trexecuteH~2 ~2 ~2 say'))
 print(main('trexecute@s-1 2 2say'))
 print(main('trexecute@s -1 2 ^2say'))
 print(main('trexecute@s[tag="]",name="]"]~~~detect~~~air0say'))
+
+print()
+
+#others
+print(main('trexecute @a[name="abc 123"] ~~ ~ execute @s ~9 346 ~-8 detect ^6 ^7 ^2 concrete 18 execute @p[r=3,scores={a=3}] 324 ~324 5 scoreboard players add @s[tag="999 888aasd asd "] QWE_AS 2'))
+print(main('trexecute@s[tag="[][]  你妈死了"]~ 1~576detect^6^^66concrete 1 execute @s         [scores={n=0}] ~ ~ ~0.09 execute@s~~~detect 0 0 0 bedrock -1 execute@a [name="999去他奶奶的 jjj"]~~ ~/execute@s[tag="℃♞"]~ 32 ~5423give @s command_block 1 1 {"name_tag":["a":"b操你妈逼"]}'))
+print(main('tr/execute @a~~~/w @s aaa'))
