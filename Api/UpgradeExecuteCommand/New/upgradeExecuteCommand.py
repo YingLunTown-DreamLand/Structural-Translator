@@ -159,15 +159,15 @@ class SinglePos:
         """
         概述
             此函数用于初始化一个坐标，其内部包含以下信息
-                header:str | 指代坐标的前缀，也就是 "^" 和 "~"
-                number:int|float | 指代坐标(可正可负)，且类型只可能为 int 或 float
+                header:str | 指代坐标的前缀，也就是 "^"、"~"、"+" 和 "-"
+                number:int|float | 指代坐标的实际值(可正可负)，且类型只可能为 int 或 float
                 string:str | 该坐标的字符串表达形式
-                self.includeHeader:bool | 用于标识该坐标是否包含坐标前缀，为真时代表包含，否则反之
+                self.isNotNumber:bool | 用于标识该坐标是否为纯数字，为真时为纯数字，否则反之
         """
         self.header:str = ""
         self.number:int|float = 0
         self.string:str = "0"
-        self.includeHeader:bool = False
+        self.isNotNumber:bool = False
     
     def format(self) -> None:
         """
@@ -181,9 +181,12 @@ class SinglePos:
         else:
             numberString = str(float(self.number))
         # get correct string of the number
-        if self.includeHeader == True and (numberString == '0' or numberString == '0.0' or numberString == '-0.0'):
+        if self.isNotNumber == True and (numberString == '0' or numberString == '0.0' or numberString == '-0.0'):
             numberString = ''
-        header = '' if self.header == '+' or f'{self.header}{numberString}' == '-0.0' or f'{self.header}{numberString}' == '-0' else self.header
+        if self.header == '+' or f'{self.header}{numberString}' == '-0.0' or f'{self.header}{numberString}' == '-0':
+            header = ''
+        else:
+            header = self.header
         # make it minimization
         self.string = f'{header}{numberString}'
         # write datas
@@ -210,13 +213,13 @@ class SinglePos:
         string = reader.read(1)
         # read header
         if string == '~' or string == '^':
-            self.includeHeader = True
+            self.isNotNumber = True
             self.header = string
         elif string == '+' or string == '-':
-            self.includeHeader = False
+            self.isNotNumber = False
             self.header = string
         else:
-            self.includeHeader = False
+            self.isNotNumber = False
             self.header = ''
         # set header
         if self.header == '':
@@ -460,7 +463,7 @@ def detectBlock(c:CommandReader) -> list:
         # pos
         save = c.pointer
         c.jumpSpace(False)
-        if c.pointer == save and position.posz.includeHeader == False:
+        if c.pointer == save and position.posz.isNotNumber == False:
             return failedFunc()
         # for example, "~~ +5air 0" is wrong
         blockNameAndblockData = []
@@ -523,13 +526,13 @@ def upgrade(command:str) -> list:
                 return failedFunc(f"无法解析位于 {newReader.pointer} 处的坐标，请更正格式")
             posString = pos.format()
             # pos
-            if tmp == save and pos.posx.includeHeader == False and selector[0][0] == "@" and selector[0][-1] != "]":
+            if tmp == save and pos.posx.isNotNumber == False and pos.posx.header != '-' and selector[0][0] == "@" and selector[0][-1] != "]":
                 newReader.pointer = tmp - 5
                 return failedFunc(f"位置 {newReader.pointer} 附近发生了语法错误，请更正格式")
             # for example, "@s1 ~5~3" is wrong
             tmp = newReader.pointer
             newReader.jumpSpace(False)
-            if tmp == newReader.pointer and pos.posz.includeHeader == False:
+            if tmp == newReader.pointer and pos.posz.isNotNumber == False:
                 newReader.pointer = newReader.pointer - 5
                 return failedFunc(f"位置 {newReader.pointer} 附近发生了语法错误，请更正格式")
             # for example, "~~ +5w @s" is wrong
@@ -612,6 +615,7 @@ print(main('trexecute@s~~~execute@s~~~execute@s~~~'))
 print(main('trexecute    @s ~~~execute@s~~~say'))
 print(main('trexecute @s +0.0 -0.0 +0.0 say 1'))
 print(main('trexecute @s +0 -0 +0 say 1'))
+print(main('trexecute@s-1 2 2 say'))
 
 print()
 
@@ -622,6 +626,7 @@ print(main('trexecuteH~2 ~2 ~2 say'))
 print(main('trexecute@s-1 2 2say'))
 print(main('trexecute@s -1 2 ^2say'))
 print(main('trexecute@s[tag="]",name="]"]~~~detect~~~air0say'))
+print(main('trexecute H-1 2 2 say'))
 
 print()
 
