@@ -526,7 +526,7 @@ def upgrade(command:str) -> list:
                 return failedFunc(f"无法解析位于 {newReader.pointer} 处的坐标，请更正格式")
             posString = pos.format()
             # pos
-            if tmp == save and pos.posx.isNotNumber == False and pos.posx.header != '-' and selector[0][0] == "@" and selector[0][-1] != "]":
+            if tmp == save and pos.posx.isNotNumber == False and pos.posx.header == '' and selector[0][0] == "@" and selector[0][-1] != "]":
                 newReader.pointer = tmp - 5
                 return failedFunc(f"位置 {newReader.pointer} 附近发生了语法错误，请更正格式")
             # for example, "@s1 ~5~3" is wrong
@@ -616,6 +616,8 @@ print(main('trexecute    @s ~~~execute@s~~~say'))
 print(main('trexecute @s +0.0 -0.0 +0.0 say 1'))
 print(main('trexecute @s +0 -0 +0 say 1'))
 print(main('trexecute@s-1 2 2 say'))
+print(main('trexecute@s+1 2 2 say'))
+print(main('trexecute H+1 2 2 say'))
 
 print()
 
