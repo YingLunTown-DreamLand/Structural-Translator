@@ -162,7 +162,7 @@ class SinglePos:
                 header:str | 指代坐标的前缀，也就是 "^"、"~"、"+" 和 "-"
                 number:int|float | 指代坐标的实际值(可正可负)，且类型只可能为 int 或 float
                 string:str | 该坐标的字符串表达形式
-                self.isNotNumber:bool | 用于标识该坐标是否为纯数字，为真时为纯数字，否则反之
+                self.isNotNumber:bool | 用于标识该坐标是否不为纯数字，为真时不为纯数字，否则反之
         """
         self.header:str = ""
         self.number:int|float = 0
